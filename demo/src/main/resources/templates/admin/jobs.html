@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head('채용공고 관리')}"></head>
+<body>
+<nav th:replace="~{admin/layout :: sidebar}"></nav>
+
+<div class="admin-content">
+    <div th:replace="~{admin/layout :: topbar('채용공고 관리')}"></div>
+    
+    <main class="admin-main">
+        <!-- 메시지 -->
+        <div class="alert alert-success alert-dismissible fade show" th:if="${successMessage}">
+            <i class="bi bi-check-circle me-2"></i>
+            <span th:text="${successMessage}">성공</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <!-- 채용공고 목록 -->
+        <div class="card admin-table">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0"><i class="bi bi-briefcase me-2 text-info"></i>채용공고 목록</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" th:if="${not #lists.isEmpty(jobPostings)}">
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>공고명</th>
+                                <th>기업명</th>
+                                <th>모집기간</th>
+                                <th>상태</th>
+                                <th>지원자</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="job : ${jobPostings}">
+                                <td th:text="${job.id}">1</td>
+                                <td>
+                                    <a th:href="@{/job/detail/{id}(id=${job.id})}" target="_blank" 
+                                       th:text="${job.title}" class="text-decoration-none">공고명</a>
+                                </td>
+                                <td th:text="${job.companyMember.company}">기업명</td>
+                                <td>
+                                    <small>
+                                        <span th:text="${#temporals.format(job.startDate, 'yyyy-MM-dd')}">시작</span> ~
+                                        <span th:text="${#temporals.format(job.endDate, 'yyyy-MM-dd')}">마감</span>
+                                    </small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success" th:if="${job.postingYn == '1'}">공고중</span>
+                                    <span class="badge bg-secondary" th:if="${job.postingYn == '2'}">임시저장</span>
+                                </td>
+                                <td>
+                                    <span th:text="${#lists.size(job.applications)}">0</span>명
+                                </td>
+                                <td>
+                                    <form th:action="@{/admin/jobs/{id}/delete(id=${job.id})}" 
+                                          method="post" class="d-inline"
+                                          onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="삭제">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center text-muted py-5" th:if="${#lists.isEmpty(jobPostings)}">
+                    <i class="bi bi-briefcase display-4 d-block mb-3"></i>
+                    등록된 채용공고가 없습니다.
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<th:block th:replace="~{admin/layout :: scripts}"></th:block>
+</body>
+</html>

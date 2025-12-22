@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/layout :: head('기업회원 관리')}"></head>
+<body>
+<nav th:replace="~{admin/layout :: sidebar}"></nav>
+
+<div class="admin-content">
+    <div th:replace="~{admin/layout :: topbar('기업회원 관리')}"></div>
+    
+    <main class="admin-main">
+        <!-- 메시지 -->
+        <div class="alert alert-success alert-dismissible fade show" th:if="${successMessage}">
+            <i class="bi bi-check-circle me-2"></i>
+            <span th:text="${successMessage}">성공</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <!-- 필터 -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex gap-2">
+                    <a th:href="@{/admin/members/company}" 
+                       th:classappend="${selectedStatus == null} ? 'active'" 
+                       class="btn btn-outline-success">전체</a>
+                    <a th:href="@{/admin/members/company(status='pending')}" 
+                       th:classappend="${selectedStatus == 'pending'} ? 'active'" 
+                       class="btn btn-outline-warning">승인 대기</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 회원 목록 -->
+        <div class="card admin-table">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0"><i class="bi bi-building me-2 text-success"></i>기업회원 목록</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" th:if="${not #lists.isEmpty(members)}">
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>아이디</th>
+                                <th>회사명</th>
+                                <th>사업자번호</th>
+                                <th>담당자</th>
+                                <th>이메일</th>
+                                <th>가입일</th>
+                                <th>상태</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="member : ${members}">
+                                <td th:text="${member.id}">1</td>
+                                <td th:text="${member.loginId}">아이디</td>
+                                <td th:text="${member.company}">회사명</td>
+                                <td th:text="${member.businessRegistNum}">사업자번호</td>
+                                <td th:text="${member.managerName}">담당자</td>
+                                <td th:text="${member.email}">이메일</td>
+                                <td th:text="${#temporals.format(member.insertDate, 'yyyy-MM-dd')}">가입일</td>
+                                <td>
+                                    <span class="badge bg-success" th:if="${member.approvalYn == 'Y'}">승인</span>
+                                    <span class="badge bg-warning" th:if="${member.approvalYn == 'N'}">대기</span>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <form th:action="@{/admin/members/company/{id}/approve(id=${member.id})}" 
+                                              method="post" class="d-inline" th:if="${member.approvalYn == 'N'}">
+                                            <button type="submit" class="btn btn-success" title="승인">
+                                                <i class="bi bi-check-lg"></i>
+                                            </button>
+                                        </form>
+                                        <form th:action="@{/admin/members/company/{id}/delete(id=${member.id})}" 
+                                              method="post" class="d-inline"
+                                              onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                            <button type="submit" class="btn btn-outline-danger" title="삭제">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center text-muted py-5" th:if="${#lists.isEmpty(members)}">
+                    <i class="bi bi-building display-4 d-block mb-3"></i>
+                    등록된 기업이 없습니다.
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<th:block th:replace="~{admin/layout :: scripts}"></th:block>
+</body>
+</html>

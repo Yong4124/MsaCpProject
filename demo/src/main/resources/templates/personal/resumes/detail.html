@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('USFK Jobs - 이력서 상세')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: header}"></nav>
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- 뒤로가기 -->
+                <div class="mb-4">
+                    <a th:href="@{/personal/resumes}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>이력서 목록
+                    </a>
+                </div>
+                
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <i class="bi bi-file-earmark-person me-2"></i>이력서
+                        </h4>
+                        <div>
+                            <span class="badge bg-light text-success" th:if="${resume.applyYn == '1'}">지원용</span>
+                            <span class="badge bg-light text-secondary" th:if="${resume.applyYn == '2'}">임시저장</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        
+                        <!-- 연락처 정보 -->
+                        <h5 class="mb-3 text-primary"><i class="bi bi-telephone me-2"></i>연락처 정보</h5>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <p class="text-muted mb-1">이메일</p>
+                                <p class="fw-bold" th:text="${resume.email ?: '-'}">이메일</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-muted mb-1">연락처</p>
+                                <p class="fw-bold" th:text="${resume.phone ?: '-'}">연락처</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-muted mb-1">주소</p>
+                                <p class="fw-bold" th:text="${resume.address ?: '-'}">주소</p>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- 학력 정보 -->
+                        <h5 class="mb-3 text-primary"><i class="bi bi-mortarboard me-2"></i>학력 정보</h5>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">학교명</p>
+                                <p class="fw-bold" th:text="${resume.school ?: '-'}">학교</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">전공</p>
+                                <p class="fw-bold" th:text="${resume.major ?: '-'}">전공</p>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <p class="text-muted mb-1">입학일</p>
+                                <p class="fw-bold" th:text="${resume.enrollDate ?: '-'}">입학일</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-muted mb-1">졸업일</p>
+                                <p class="fw-bold" th:text="${resume.graduateDate ?: '-'}">졸업일</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-muted mb-1">학점</p>
+                                <p class="fw-bold" th:text="${resume.gpa ?: '-'}">학점</p>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- 전문분야 -->
+                        <h5 class="mb-3 text-primary"><i class="bi bi-tools me-2"></i>전문분야 / 기술</h5>
+                        <div class="mb-4">
+                            <div class="p-3 bg-light rounded" th:if="${resume.skill}">
+                                <p class="mb-0" th:utext="${#strings.replace(resume.skill, T(System).lineSeparator(), '&lt;br&gt;')}">기술</p>
+                            </div>
+                            <p class="text-muted" th:unless="${resume.skill}">등록된 기술 정보가 없습니다.</p>
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- 자기소개 -->
+                        <h5 class="mb-3 text-primary"><i class="bi bi-chat-quote me-2"></i>자기소개</h5>
+                        <div class="mb-4">
+                            <div class="p-3 bg-light rounded" th:if="${resume.selfIntro}">
+                                <p class="mb-0" th:utext="${#strings.replace(resume.selfIntro, T(System).lineSeparator(), '&lt;br&gt;')}">자기소개</p>
+                            </div>
+                            <p class="text-muted" th:unless="${resume.selfIntro}">등록된 자기소개가 없습니다.</p>
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- 등록 정보 -->
+                        <div class="row text-muted small">
+                            <div class="col-md-6">
+                                <p class="mb-0">
+                                    <i class="bi bi-calendar me-1"></i>
+                                    등록일: <span th:text="${resume.insertDate != null ? #temporals.format(resume.insertDate, 'yyyy-MM-dd') : '-'}">등록일</span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-0">
+                                    <i class="bi bi-calendar-check me-1"></i>
+                                    수정일: <span th:text="${resume.updateDate != null ? #temporals.format(resume.updateDate, 'yyyy-MM-dd') : '-'}">수정일</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/personal/resumes/{id}/edit(id=${resume.id})}" class="btn btn-primary">
+                                <i class="bi bi-pencil me-2"></i>수정
+                            </a>
+                            <form th:action="@{/personal/resumes/{id}/delete(id=${resume.id})}" 
+                                  method="post" 
+                                  onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="bi bi-trash me-2"></i>삭제
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

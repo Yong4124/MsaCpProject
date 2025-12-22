@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('USFK Jobs - 채용공고 관리')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: header}"></nav>
+
+<main class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- 사이드바 -->
+            <div class="col-md-3">
+                <div class="list-group shadow-sm">
+                    <a th:href="@{/company/mypage}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-house me-2"></i>마이페이지
+                    </a>
+                    <a th:href="@{/company/edit}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-building-gear me-2"></i>회원정보 수정
+                    </a>
+                    <a th:href="@{/company/jobs}" class="list-group-item list-group-item-action active">
+                        <i class="bi bi-briefcase me-2"></i>채용공고 관리
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 메인 콘텐츠 -->
+            <div class="col-md-9">
+                <!-- 메시지 -->
+                <div class="alert alert-success alert-dismissible fade show" th:if="${successMessage}">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <span th:text="${successMessage}">성공</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold mb-0">
+                        <i class="bi bi-briefcase me-2 text-success"></i>채용공고 관리
+                    </h4>
+                    <a th:href="@{/company/jobs/new}" class="btn btn-success">
+                        <i class="bi bi-plus-circle me-2"></i>새 공고 등록
+                    </a>
+                </div>
+                
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive" th:if="${not #lists.isEmpty(jobPostings)}">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>공고명</th>
+                                        <th>모집기간</th>
+                                        <th>상태</th>
+                                        <th>지원자</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="job : ${jobPostings}">
+                                        <td>
+                                            <a th:href="@{/job/detail/{id}(id=${job.id})}" 
+                                               th:text="${job.title}" class="text-decoration-none fw-bold">공고제목</a>
+                                        </td>
+                                        <td>
+                                            <small>
+                                                <span th:text="${#temporals.format(job.startDate, 'yyyy-MM-dd')}">시작일</span>
+                                                ~
+                                                <span th:text="${#temporals.format(job.endDate, 'yyyy-MM-dd')}">마감일</span>
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success" th:if="${job.postingYn == '1'}">공고중</span>
+                                            <span class="badge bg-secondary" th:if="${job.postingYn == '2'}">임시저장</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/company/jobs/{id}/applicants(id=${job.id})}" 
+                                               class="text-decoration-none">
+                                                <span th:text="${#lists.size(job.applications)}">0</span>명
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <a th:href="@{/company/jobs/{id}/applicants(id=${job.id})}" 
+                                                   class="btn btn-outline-primary" title="지원자">
+                                                    <i class="bi bi-people"></i>
+                                                </a>
+                                                <a th:href="@{/company/jobs/{id}/edit(id=${job.id})}" 
+                                                   class="btn btn-outline-secondary" title="수정">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <form th:action="@{/company/jobs/{id}/delete(id=${job.id})}" 
+                                                      method="post" class="d-inline"
+                                                      onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                                    <button type="submit" class="btn btn-outline-danger" title="삭제">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center text-muted py-5" th:if="${#lists.isEmpty(jobPostings)}">
+                            <i class="bi bi-briefcase display-4 d-block mb-3"></i>
+                            <h5>등록된 채용공고가 없습니다.</h5>
+                            <p class="mb-3">새로운 채용공고를 등록해보세요!</p>
+                            <a th:href="@{/company/jobs/new}" class="btn btn-success">
+                                <i class="bi bi-plus-circle me-2"></i>채용공고 등록하기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

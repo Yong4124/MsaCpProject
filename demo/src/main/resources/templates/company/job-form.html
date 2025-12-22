@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('USFK Jobs - 채용공고 ' + (${job.id} != null ? '수정' : '등록'))}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: header}"></nav>
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-briefcase me-2"></i>
+                            <span th:text="${job.id} != null ? '채용공고 수정' : '채용공고 등록'">채용공고</span>
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form th:action="${job.id} != null ? @{/company/jobs/{id}/edit(id=${job.id})} : @{/company/jobs/new}" 
+                              method="post" th:object="${job}">
+                            
+                            <!-- 기본 정보 -->
+                            <h5 class="mb-3 text-success"><i class="bi bi-info-circle me-2"></i>기본 정보</h5>
+                            <div class="mb-3">
+                                <label class="form-label">공고명 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" th:field="*{title}" required 
+                                       placeholder="예: 2024년 상반기 신입사원 채용">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">모집 시작일 <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" th:field="*{startDate}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">모집 마감일 <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" th:field="*{endDate}" required>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <!-- 모집 조건 -->
+                            <h5 class="mb-3 text-success"><i class="bi bi-list-check me-2"></i>모집 조건</h5>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">직업유형</label>
+                                    <input type="text" class="form-control" th:field="*{jobForm}" 
+                                           placeholder="예: 사무직, 기술직">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">고용형태</label>
+                                    <select class="form-select" th:field="*{jobType}">
+                                        <option value="">선택</option>
+                                        <option value="정규직">정규직</option>
+                                        <option value="계약직">계약직</option>
+                                        <option value="인턴">인턴</option>
+                                        <option value="파트타임">파트타임</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">직종</label>
+                                    <input type="text" class="form-control" th:field="*{jobCategory}" 
+                                           placeholder="예: IT, 영업, 마케팅">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">업계</label>
+                                    <input type="text" class="form-control" th:field="*{industry}" 
+                                           placeholder="예: 제조업, IT, 금융">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">직급</label>
+                                    <input type="text" class="form-control" th:field="*{roleLevel}" 
+                                           placeholder="예: 사원, 대리, 과장">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">경력</label>
+                                    <input type="text" class="form-control" th:field="*{experience}" 
+                                           placeholder="예: 신입, 경력 3년 이상">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">근무시간</label>
+                                    <input type="text" class="form-control" th:field="*{workTime}" 
+                                           placeholder="예: 09:00~18:00">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">급여</label>
+                                    <input type="text" class="form-control" th:field="*{baseSalary}" 
+                                           placeholder="예: 회사 내규에 따름, 3000만원~">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">근무지</label>
+                                    <input type="text" class="form-control" th:field="*{jobLocation}" 
+                                           placeholder="예: 서울 강남구">
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <!-- 상세 내용 -->
+                            <h5 class="mb-3 text-success"><i class="bi bi-file-text me-2"></i>상세 내용</h5>
+                            <div class="mb-3">
+                                <label class="form-label">담당업무</label>
+                                <textarea class="form-control" th:field="*{positionSummary}" rows="4" 
+                                          placeholder="담당할 업무를 상세히 기술해주세요."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">자격요건</label>
+                                <textarea class="form-control" th:field="*{skillQualification}" rows="4" 
+                                          placeholder="필요한 자격요건, 기술 등을 기술해주세요."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">복지 및 보상</label>
+                                <textarea class="form-control" th:field="*{benefits}" rows="3" 
+                                          placeholder="제공되는 복지 및 보상을 기술해주세요."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">유의사항</label>
+                                <textarea class="form-control" th:field="*{notes}" rows="2" 
+                                          placeholder="지원 시 유의사항을 기술해주세요."></textarea>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <!-- 기업 정보 -->
+                            <h5 class="mb-3 text-success"><i class="bi bi-building me-2"></i>기업 정보 (선택)</h5>
+                            <div class="mb-3">
+                                <label class="form-label">회사소개</label>
+                                <textarea class="form-control" th:field="*{companyIntro}" rows="3" 
+                                          placeholder="회사에 대한 간단한 소개를 기술해주세요."></textarea>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">기업구분</label>
+                                    <select class="form-select" th:field="*{companyType}">
+                                        <option value="">선택</option>
+                                        <option value="대기업">대기업</option>
+                                        <option value="중견기업">중견기업</option>
+                                        <option value="중소기업">중소기업</option>
+                                        <option value="스타트업">스타트업</option>
+                                        <option value="외국계">외국계</option>
+                                        <option value="공기업">공기업</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">설립일</label>
+                                    <input type="text" class="form-control" th:field="*{establishedDate}" 
+                                           placeholder="예: 2010년">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">사원수</label>
+                                    <input type="text" class="form-control" th:field="*{employeeNum}" 
+                                           placeholder="예: 500명">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">자본금</label>
+                                    <input type="text" class="form-control" th:field="*{capital}" 
+                                           placeholder="예: 100억원">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">매출액</label>
+                                    <input type="text" class="form-control" th:field="*{revenue}" 
+                                           placeholder="예: 500억원">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">홈페이지</label>
+                                    <input type="text" class="form-control" th:field="*{homepage}" 
+                                           placeholder="https://www.example.com">
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <div class="d-grid gap-2">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="submit" name="action" value="publish" class="btn btn-success btn-lg w-100">
+                                            <i class="bi bi-check-circle me-2"></i>공고 등록
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="submit" name="action" value="temp" class="btn btn-outline-secondary btn-lg w-100">
+                                            <i class="bi bi-save me-2"></i>임시저장
+                                        </button>
+                                    </div>
+                                </div>
+                                <a th:href="@{/company/jobs}" class="btn btn-outline-secondary">취소</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

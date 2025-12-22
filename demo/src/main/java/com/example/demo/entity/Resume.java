@@ -58,6 +58,9 @@ public class Resume {
     @Column(name = "insert_date")
     private LocalDate insertDate;
 
+    @Column(name = "update_date")
+    private LocalDate updateDate;
+
     @Column(name = "apply_yn", nullable = false, length = 1)
     @Builder.Default
     private String applyYn = "2";  // 1: 지원완료, 2: 임시저장

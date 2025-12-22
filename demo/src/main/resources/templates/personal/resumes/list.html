@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('USFK Jobs - 이력서 관리')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: header}"></nav>
+
+<main class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- 사이드바 -->
+            <div class="col-md-3">
+                <div class="list-group shadow-sm">
+                    <a th:href="@{/personal/mypage}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-house me-2"></i>마이페이지
+                    </a>
+                    <a th:href="@{/personal/edit}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-person-gear me-2"></i>회원정보 수정
+                    </a>
+                    <a th:href="@{/personal/resumes}" class="list-group-item list-group-item-action active">
+                        <i class="bi bi-file-earmark-person me-2"></i>이력서 관리
+                    </a>
+                    <a th:href="@{/personal/applications}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-send me-2"></i>지원현황
+                    </a>
+                    <a th:href="@{/personal/favorites}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-heart me-2"></i>관심 채용공고
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 메인 콘텐츠 -->
+            <div class="col-md-9">
+                <!-- 메시지 -->
+                <div class="alert alert-success alert-dismissible fade show" th:if="${successMessage}">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <span th:text="${successMessage}">성공</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold mb-0">
+                        <i class="bi bi-file-earmark-person me-2 text-primary"></i>이력서 관리
+                    </h4>
+                    <a th:href="@{/personal/resumes/new}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>새 이력서 작성
+                    </a>
+                </div>
+                
+                <!-- 이력서 목록 -->
+                <div class="row g-4" th:if="${not #lists.isEmpty(resumes)}">
+                    <div class="col-md-6" th:each="resume, stat : ${resumes}">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">
+                                    <i class="bi bi-file-earmark-text me-2 text-primary"></i>
+                                    이력서 #<span th:text="${stat.index + 1}">1</span>
+                                </span>
+                                <span class="badge bg-success" th:if="${resume.applyYn == '1'}">지원용</span>
+                                <span class="badge bg-secondary" th:if="${resume.applyYn == '2'}">임시저장</span>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm table-borderless mb-3">
+                                    <tr>
+                                        <th class="text-muted" style="width: 80px;">학교</th>
+                                        <td th:text="${resume.school ?: '-'}">학교명</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-muted">전공</th>
+                                        <td th:text="${resume.major ?: '-'}">전공</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-muted">이메일</th>
+                                        <td th:text="${resume.email ?: '-'}">이메일</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-muted">등록일</th>
+                                        <td th:text="${resume.insertDate != null ? #temporals.format(resume.insertDate, 'yyyy-MM-dd') : '-'}">등록일</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="btn-group w-100">
+                                    <a th:href="@{/personal/resumes/{id}(id=${resume.id})}" 
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-eye me-1"></i>보기
+                                    </a>
+                                    <a th:href="@{/personal/resumes/{id}/edit(id=${resume.id})}" 
+                                       class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-pencil me-1"></i>수정
+                                    </a>
+                                    <form th:action="@{/personal/resumes/{id}/delete(id=${resume.id})}" 
+                                          method="post" class="d-inline"
+                                          onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-trash me-1"></i>삭제
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 이력서가 없을 때 -->
+                <div class="text-center text-muted py-5" th:if="${#lists.isEmpty(resumes)}">
+                    <i class="bi bi-file-earmark-x display-4 d-block mb-3"></i>
+                    <h5>등록된 이력서가 없습니다.</h5>
+                    <p class="mb-3">새 이력서를 작성해보세요!</p>
+                    <a th:href="@{/personal/resumes/new}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>새 이력서 작성
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
