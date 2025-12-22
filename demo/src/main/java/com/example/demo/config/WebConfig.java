@@ -1,23 +1,20 @@
 package com.example.demo.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        // 기본 경로를 메인 페이지로
-        registry.addViewController("/").setViewName("main/index");
-    }
+    @Value("${file.upload-dir:uploads}")
+    private String uploadDir;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 업로드 파일 접근 경로 설정
+        // 업로드된 파일에 대한 정적 리소스 핸들러
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:uploads/");
+                .addResourceLocations("file:" + uploadDir + "/");
     }
 }

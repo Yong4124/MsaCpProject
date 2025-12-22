@@ -27,20 +27,37 @@
                     </div>
                     <div class="card-body p-4">
                         
-                        <!-- 연락처 정보 -->
-                        <h5 class="mb-3 text-primary"><i class="bi bi-telephone me-2"></i>연락처 정보</h5>
+                        <!-- 사진 + 기본정보 -->
                         <div class="row mb-4">
-                            <div class="col-md-4">
-                                <p class="text-muted mb-1">이메일</p>
-                                <p class="fw-bold" th:text="${resume.email ?: '-'}">이메일</p>
+                            <div class="col-md-3 text-center">
+                                <!-- 사진 -->
+                                <div th:if="${photo != null}">
+                                    <img th:src="@{'/uploads/photos/' + ${photo.attachFileName}}" alt="증명사진" 
+                                         class="img-thumbnail" style="width: 150px; height: 200px; object-fit: cover;">
+                                </div>
+                                <div th:unless="${photo != null}">
+                                    <div class="border rounded d-flex align-items-center justify-content-center bg-light"
+                                         style="width: 150px; height: 200px; margin: 0 auto;">
+                                        <i class="bi bi-person-square text-muted" style="font-size: 4rem;"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <p class="text-muted mb-1">연락처</p>
-                                <p class="fw-bold" th:text="${resume.phone ?: '-'}">연락처</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p class="text-muted mb-1">주소</p>
-                                <p class="fw-bold" th:text="${resume.address ?: '-'}">주소</p>
+                            <div class="col-md-9">
+                                <h5 class="mb-3 text-primary"><i class="bi bi-telephone me-2"></i>연락처 정보</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="text-muted mb-1">이메일</p>
+                                        <p class="fw-bold" th:text="${resume.email ?: '-'}">이메일</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="text-muted mb-1">연락처</p>
+                                        <p class="fw-bold" th:text="${resume.phone ?: '-'}">연락처</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="text-muted mb-1">주소</p>
+                                        <p class="fw-bold" th:text="${resume.address ?: '-'}">주소</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         

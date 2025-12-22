@@ -7,223 +7,208 @@
 
 <main class="py-5">
     <div class="container">
-        <!-- 뒤로가기 -->
-        <div class="mb-4">
-            <a th:href="@{/job/list}" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>목록으로
-            </a>
-        </div>
-        
         <div class="row">
             <!-- 메인 콘텐츠 -->
             <div class="col-lg-8">
+                <!-- 뒤로가기 -->
+                <div class="mb-3">
+                    <a th:href="@{/job/list}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left me-1"></i>목록으로
+                    </a>
+                </div>
+
                 <!-- 공고 헤더 -->
                 <div class="card shadow-sm mb-4">
-                    <div class="card-body p-4">
+                    <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div>
-                                <span class="badge bg-primary me-2" th:if="${job.jobType}" th:text="${job.jobType}">정규직</span>
-                                <span class="badge bg-secondary" th:if="${job.jobCategory}" th:text="${job.jobCategory}">직종</span>
+                                <span class="badge bg-primary mb-2" th:text="${job.jobCategory}">직종</span>
+                                <h2 class="mb-1" th:text="${job.title}">공고 제목</h2>
+                                <h5 class="text-muted" th:text="${job.companyMember.company}">회사명</h5>
                             </div>
-                            <span class="badge bg-danger" th:classappend="${T(java.time.temporal.ChronoUnit).DAYS.between(T(java.time.LocalDate).now(), job.endDate) <= 7} ? '' : 'd-none'">
-                                마감임박
-                            </span>
+                            <div class="text-end">
+                                <span class="badge bg-danger fs-6" th:if="${dDay >= 0}">
+                                    D-<span th:text="${dDay}">0</span>
+                                </span>
+                                <span class="badge bg-secondary fs-6" th:if="${dDay < 0}">마감</span>
+                            </div>
                         </div>
-                        
-                        <h2 class="fw-bold mb-2" th:text="${job.title}">채용공고 제목</h2>
-                        <h4 class="text-primary mb-3" th:text="${job.companyMember.company}">회사명</h4>
-                        
-                        <div class="row text-muted">
-                            <div class="col-md-6 mb-2">
-                                <i class="bi bi-calendar me-2"></i>
-                                모집기간: <span th:text="${#temporals.format(job.startDate, 'yyyy-MM-dd')}">시작일</span> 
-                                ~ <span th:text="${#temporals.format(job.endDate, 'yyyy-MM-dd')}">마감일</span>
+                        <div class="row text-muted small">
+                            <div class="col-auto">
+                                <i class="bi bi-calendar me-1"></i>
+                                <span th:text="${#temporals.format(job.startDate, 'yyyy-MM-dd')}">시작</span> ~
+                                <span th:text="${#temporals.format(job.endDate, 'yyyy-MM-dd')}">마감</span>
                             </div>
-                            <div class="col-md-6 mb-2" th:if="${job.jobLocation}">
-                                <i class="bi bi-geo-alt me-2"></i>
-                                근무지: <span th:text="${job.jobLocation}">근무지</span>
+                            <div class="col-auto">
+                                <i class="bi bi-geo-alt me-1"></i>
+                                <span th:text="${job.jobLocation ?: '미정'}">위치</span>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-briefcase me-1"></i>
+                                <span th:text="${job.jobType ?: '미정'}">고용형태</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- 상세 정보 -->
+
+                <!-- 모집 조건 -->
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="bi bi-file-text me-2 text-primary"></i>모집 내용</h5>
+                        <h5 class="mb-0"><i class="bi bi-clipboard-check me-2 text-primary"></i>모집 조건</h5>
                     </div>
-                    <div class="card-body p-4">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr th:if="${job.jobForm}">
-                                    <th class="text-muted" style="width: 150px;">직업유형</th>
-                                    <td th:text="${job.jobForm}">직업유형</td>
-                                </tr>
-                                <tr th:if="${job.jobType}">
-                                    <th class="text-muted">고용형태</th>
-                                    <td th:text="${job.jobType}">고용형태</td>
-                                </tr>
-                                <tr th:if="${job.experience}">
-                                    <th class="text-muted">경력</th>
-                                    <td th:text="${job.experience}">경력</td>
-                                </tr>
-                                <tr th:if="${job.roleLevel}">
-                                    <th class="text-muted">직급</th>
-                                    <td th:text="${job.roleLevel}">직급</td>
-                                </tr>
-                                <tr th:if="${job.baseSalary}">
-                                    <th class="text-muted">급여</th>
-                                    <td th:text="${job.baseSalary}">급여</td>
-                                </tr>
-                                <tr th:if="${job.workTime}">
-                                    <th class="text-muted">근무시간</th>
-                                    <td th:text="${job.workTime}">근무시간</td>
-                                </tr>
-                                <tr th:if="${job.industry}">
-                                    <th class="text-muted">업계</th>
-                                    <td th:text="${job.industry}">업계</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <strong>경력</strong>
+                                <p class="text-muted mb-0" th:text="${job.experience ?: '무관'}">경력</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>직급</strong>
+                                <p class="text-muted mb-0" th:text="${job.roleLevel ?: '무관'}">직급</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>고용형태</strong>
+                                <p class="text-muted mb-0" th:text="${job.jobForm ?: '정규직'}">고용형태</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>근무시간</strong>
+                                <p class="text-muted mb-0" th:text="${job.workTime ?: '협의'}">근무시간</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>급여</strong>
+                                <p class="text-muted mb-0" th:text="${job.baseSalary ?: '협의'}">급여</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <strong>근무지역</strong>
+                                <p class="text-muted mb-0" th:text="${job.jobLocation ?: '협의'}">지역</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- 담당업무 -->
-                <div class="card shadow-sm mb-4" th:if="${job.positionSummary}">
+
+                <!-- 상세 내용 -->
+                <div class="card shadow-sm mb-4">
                     <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="bi bi-list-task me-2 text-primary"></i>담당업무</h5>
+                        <h5 class="mb-0"><i class="bi bi-file-text me-2 text-primary"></i>상세 내용</h5>
                     </div>
-                    <div class="card-body p-4">
-                        <div th:utext="${#strings.replace(job.positionSummary, T(System).lineSeparator(), '&lt;br&gt;')}">담당업무 내용</div>
-                    </div>
-                </div>
-                
-                <!-- 자격요건 -->
-                <div class="card shadow-sm mb-4" th:if="${job.skillQualification}">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="bi bi-check-circle me-2 text-primary"></i>자격요건</h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <div th:utext="${#strings.replace(job.skillQualification, T(System).lineSeparator(), '&lt;br&gt;')}">자격요건 내용</div>
-                    </div>
-                </div>
-                
-                <!-- 복지/보상 -->
-                <div class="card shadow-sm mb-4" th:if="${job.benefits}">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="bi bi-gift me-2 text-primary"></i>복지 및 보상</h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <div th:utext="${#strings.replace(job.benefits, T(System).lineSeparator(), '&lt;br&gt;')}">복지 내용</div>
-                    </div>
-                </div>
-                
-                <!-- 유의사항 -->
-                <div class="card shadow-sm mb-4" th:if="${job.notes}">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="bi bi-exclamation-circle me-2 text-warning"></i>유의사항</h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <div th:utext="${#strings.replace(job.notes, T(System).lineSeparator(), '&lt;br&gt;')}">유의사항 내용</div>
+                    <div class="card-body">
+                        <h6 class="fw-bold">담당업무</h6>
+                        <p class="mb-4 text-muted" style="white-space: pre-line;" th:text="${job.positionSummary ?: '-'}">담당업무</p>
+
+                        <h6 class="fw-bold">자격요건</h6>
+                        <p class="mb-4 text-muted" style="white-space: pre-line;" th:text="${job.skillQualification ?: '-'}">자격요건</p>
+
+                        <h6 class="fw-bold">복리후생</h6>
+                        <p class="mb-4 text-muted" style="white-space: pre-line;" th:text="${job.benefits ?: '-'}">복리후생</p>
+
+                        <div th:if="${job.notes}">
+                            <h6 class="fw-bold">기타사항</h6>
+                            <p class="text-muted" style="white-space: pre-line;" th:text="${job.notes}">기타사항</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- 사이드바 -->
             <div class="col-lg-4">
-                <!-- 지원 버튼 -->
-                <div class="card shadow-sm mb-4 sticky-top" style="top: 20px;">
-                    <div class="card-body p-4">
-                        <div class="d-grid gap-2">
-                            <!-- 비로그인 -->
-                            <div sec:authorize="!isAuthenticated()">
-                                <a th:href="@{/auth/login}" class="btn btn-primary btn-lg w-100">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i>로그인 후 지원
-                                </a>
-                                <p class="text-muted text-center small mt-2 mb-0">지원하려면 로그인이 필요합니다.</p>
-                            </div>
-                            
-                            <!-- 개인회원 로그인 -->
-                            <div sec:authorize="hasRole('PERSONAL')">
-                                <div th:if="${hasApplied}">
-                                    <button class="btn btn-secondary btn-lg w-100" disabled>
-                                        <i class="bi bi-check-circle me-2"></i>지원완료
-                                    </button>
-                                    <p class="text-success text-center small mt-2 mb-0">이미 지원한 공고입니다.</p>
-                                </div>
-                                <div th:unless="${hasApplied}">
-                                    <a th:href="@{/personal/apply/{jobId}(jobId=${job.id})}" class="btn btn-primary btn-lg w-100">
-                                        <i class="bi bi-send me-2"></i>지원하기
-                                    </a>
-                                </div>
-                                
-                                <!-- 관심 등록 -->
-                                <div class="mt-3">
-                                    <button th:if="${isFavorite}" class="btn btn-outline-danger w-100" 
-                                            onclick="toggleFavorite(false)">
-                                        <i class="bi bi-heart-fill me-2"></i>관심 해제
-                                    </button>
-                                    <button th:unless="${isFavorite}" class="btn btn-outline-primary w-100"
-                                            onclick="toggleFavorite(true)">
-                                        <i class="bi bi-heart me-2"></i>관심 등록
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <!-- 기업회원/관리자 -->
-                            <div sec:authorize="hasAnyRole('COMPANY', 'ADMIN')">
-                                <button class="btn btn-secondary btn-lg w-100" disabled>
-                                    <i class="bi bi-info-circle me-2"></i>기업회원은 지원할 수 없습니다
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- 기업 정보 -->
-                <div class="card shadow-sm">
+                <div class="card shadow-sm mb-4">
                     <div class="card-header bg-white">
                         <h5 class="mb-0"><i class="bi bi-building me-2 text-primary"></i>기업 정보</h5>
                     </div>
-                    <div class="card-body p-4">
-                        <h6 class="fw-bold" th:text="${job.companyMember.company}">회사명</h6>
-                        
-                        <table class="table table-sm table-borderless small mt-3">
-                            <tbody>
-                                <tr th:if="${job.companyType}">
-                                    <th class="text-muted">기업구분</th>
-                                    <td th:text="${job.companyType}">기업구분</td>
-                                </tr>
-                                <tr th:if="${job.establishedDate}">
-                                    <th class="text-muted">설립일</th>
-                                    <td th:text="${job.establishedDate}">설립일</td>
-                                </tr>
-                                <tr th:if="${job.employeeNum}">
-                                    <th class="text-muted">사원수</th>
-                                    <td th:text="${job.employeeNum}">사원수</td>
-                                </tr>
-                                <tr th:if="${job.capital}">
-                                    <th class="text-muted">자본금</th>
-                                    <td th:text="${job.capital}">자본금</td>
-                                </tr>
-                                <tr th:if="${job.revenue}">
-                                    <th class="text-muted">매출액</th>
-                                    <td th:text="${job.revenue}">매출액</td>
-                                </tr>
-                                <tr th:if="${job.homepage}">
-                                    <th class="text-muted">홈페이지</th>
-                                    <td>
-                                        <a th:href="${job.homepage}" target="_blank" class="text-primary">
-                                            바로가기 <i class="bi bi-box-arrow-up-right"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
+                    <div class="card-body">
+                        <h5 th:text="${job.companyMember.company}">회사명</h5>
+                        <table class="table table-sm table-borderless small">
+                            <tr th:if="${job.industry}">
+                                <th class="text-muted">업종</th>
+                                <td th:text="${job.industry}">업종</td>
+                            </tr>
+                            <tr th:if="${job.companyType}">
+                                <th class="text-muted">기업형태</th>
+                                <td th:text="${job.companyType}">기업형태</td>
+                            </tr>
+                            <tr th:if="${job.employeeNum}">
+                                <th class="text-muted">사원수</th>
+                                <td th:text="${job.employeeNum}">사원수</td>
+                            </tr>
+                            <tr th:if="${job.establishedDate}">
+                                <th class="text-muted">설립일</th>
+                                <td th:text="${job.establishedDate}">설립일</td>
+                            </tr>
+                            <tr th:if="${job.capital}">
+                                <th class="text-muted">자본금</th>
+                                <td th:text="${job.capital}">자본금</td>
+                            </tr>
+                            <tr th:if="${job.revenue}">
+                                <th class="text-muted">매출액</th>
+                                <td th:text="${job.revenue}">매출액</td>
+                            </tr>
+                            <tr th:if="${job.homepage}">
+                                <th class="text-muted">홈페이지</th>
+                                <td><a th:href="${job.homepage}" target="_blank" th:text="${job.homepage}">홈페이지</a></td>
+                            </tr>
                         </table>
-                        
-                        <div th:if="${job.companyIntro}" class="mt-3 pt-3 border-top">
-                            <h6 class="text-muted mb-2">회사소개</h6>
-                            <p class="small mb-0" th:utext="${#strings.replace(job.companyIntro, T(System).lineSeparator(), '&lt;br&gt;')}">회사소개 내용</p>
+                        <div th:if="${job.companyIntro}" class="mt-3">
+                            <h6 class="fw-bold">회사소개</h6>
+                            <p class="small text-muted" style="white-space: pre-line;" th:text="${job.companyIntro}">회사소개</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 지원 버튼 -->
+                <div class="card shadow-sm sticky-top" style="top: 80px;">
+                    <div class="card-body">
+                        <!-- 비로그인 -->
+                        <div sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/auth/login}" class="btn btn-primary btn-lg w-100 mb-2">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>로그인 후 지원
+                            </a>
+                            <p class="text-muted small text-center mb-0">회원가입 후 지원 가능합니다.</p>
+                        </div>
+
+                        <!-- 개인회원 -->
+                        <div sec:authorize="hasRole('PERSONAL')">
+                            <div th:if="${dDay >= 0}">
+                                <div th:if="${hasApplied}">
+                                    <button class="btn btn-secondary btn-lg w-100 mb-2" disabled>
+                                        <i class="bi bi-check-circle me-2"></i>지원완료
+                                    </button>
+                                </div>
+                                <div th:unless="${hasApplied}">
+                                    <a th:href="@{/personal/apply/{id}(id=${job.id})}" class="btn btn-primary btn-lg w-100 mb-2">
+                                        <i class="bi bi-send me-2"></i>지원하기
+                                    </a>
+                                </div>
+                            </div>
+                            <div th:if="${dDay < 0}">
+                                <button class="btn btn-secondary btn-lg w-100 mb-2" disabled>
+                                    <i class="bi bi-x-circle me-2"></i>마감된 공고
+                                </button>
+                            </div>
+
+                            <!-- 관심공고 -->
+                            <button th:if="${isFavorite}" class="btn btn-outline-danger w-100"
+                                    onclick="toggleFavorite(false)">
+                                <i class="bi bi-heart-fill me-2"></i>관심공고 해제
+                            </button>
+                            <button th:unless="${isFavorite}" class="btn btn-outline-primary w-100"
+                                    onclick="toggleFavorite(true)">
+                                <i class="bi bi-heart me-2"></i>관심공고 등록
+                            </button>
+                        </div>
+
+                        <!-- 기업회원 -->
+                        <div sec:authorize="hasRole('COMPANY')">
+                            <p class="text-muted text-center mb-0">
+                                <i class="bi bi-info-circle me-1"></i>기업회원은 지원이 불가합니다.
+                            </p>
+                        </div>
+
+                        <!-- 관리자 -->
+                        <div sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/admin/jobs}" class="btn btn-outline-secondary w-100">
+                                <i class="bi bi-gear me-2"></i>관리자 페이지
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -237,8 +222,7 @@
 
 <script th:inline="javascript">
     const jobId = [[${job.id}]];
-    const memberId = [[${memberId}]];
-    
+
     function toggleFavorite(add) {
         const url = add ? '/personal/favorite/add' : '/personal/favorite/remove';
         fetch(url, {
@@ -246,19 +230,20 @@
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `jobId=${jobId}`
+            body: 'jobId=' + jobId
         })
-        .then(response => {
-            if (response.ok) {
-                location.reload();
-            } else {
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.message || '처리 중 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 alert('처리 중 오류가 발생했습니다.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('처리 중 오류가 발생했습니다.');
-        });
+            });
     }
 </script>
 </body>

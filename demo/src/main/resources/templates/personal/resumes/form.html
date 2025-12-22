@@ -17,7 +17,42 @@
                     </div>
                     <div class="card-body p-4">
                         <form th:action="${resume.id} != null ? @{/personal/resumes/{id}/edit(id=${resume.id})} : @{/personal/resumes/new}" 
-                              method="post" th:object="${resume}">
+                              method="post" th:object="${resume}" enctype="multipart/form-data">
+                            
+                            <!-- 사진 업로드 -->
+                            <h5 class="mb-3 text-primary"><i class="bi bi-camera me-2"></i>증명사진</h5>
+                            <div class="row mb-4">
+                                <div class="col-md-3 text-center">
+                                    <div class="mb-3">
+                                        <!-- 기존 사진 표시 -->
+                                        <div th:if="${photo != null}" class="position-relative d-inline-block">
+                                            <img th:src="@{'/uploads/photos/' + ${photo.attachFileName}}" alt="증명사진" 
+                                                 class="img-thumbnail" style="width: 150px; height: 200px; object-fit: cover;">
+                                            <div class="form-check mt-2">
+                                                <input type="checkbox" class="form-check-input" name="deletePhoto" value="Y" id="deletePhoto">
+                                                <label class="form-check-label text-danger small" for="deletePhoto">삭제</label>
+                                            </div>
+                                        </div>
+                                        <!-- 기본 이미지 -->
+                                        <div th:unless="${photo != null}">
+                                            <div class="border rounded d-flex align-items-center justify-content-center bg-light"
+                                                 style="width: 150px; height: 200px; margin: 0 auto;">
+                                                <i class="bi bi-person-square text-muted" style="font-size: 4rem;"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <label class="form-label">사진 업로드</label>
+                                    <input type="file" class="form-control" name="photoFile" accept="image/*">
+                                    <div class="form-text">
+                                        <i class="bi bi-info-circle me-1"></i>
+                                        3x4 증명사진 권장 (JPG, PNG, 최대 5MB)
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
                             
                             <!-- 연락처 정보 -->
                             <h5 class="mb-3 text-primary"><i class="bi bi-telephone me-2"></i>연락처 정보</h5>
