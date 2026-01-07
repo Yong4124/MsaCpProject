@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주한미군 전역장병 채용 플랫폼</title>
+    <link rel="stylesheet" href="/css/job.css">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./css/main.css?v=1" />
+    <script src="/js/jobspublic.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container topbar">
+        <div class="brand-logos">
+            <!-- 실제 배포 경로에 맞게 수정 -->
+            <a href="/"><img src="/img/common/t_bndea.svg" alt="대한상공회의소"></a>
+            <a href="/"><img src="/img/common/t_bnhan.svg" alt="한미동맹재단"></a>
+        </div>
+
+        <div class="top-links" id="topLinks">
+            <a href="/login">로그인</a>
+            <a href="/register">회원가입</a>
+            <a href="/en">ENGLISH</a>
+        </div>
+    </div>
+
+    <div class="container mainbar">
+        <div class="site-title">
+            <h1>주한미군 전역장병 채용 플랫폼</h1>
+            <p>USFK Job Platform</p>
+        </div>
+
+        <nav class="main-nav" aria-label="메인 메뉴">
+            <a href="/intro">소개</a>
+            <a href="/jobs">채용공고</a>
+            <a href="/notices">공지사항</a>
+            <a href="/reviews">취업수기</a>
+            <a href="/resources">자료실</a>
+            <a href="/faq">FAQ</a>
+            <a href="/mypage" id="mypageLink">마이페이지</a>
+        </nav>
+    </div>
+</header>
+
+
+<div class="sub_container">
+    <div class="container">
+
+        <!-- 타이틀 / 필터 -->
+        <div class="sub_tit_wrap">
+            <div class="sub_tit">채용공고</div>
+            <div class="sub_search_area">
+                <div class="sort_box">
+                    <select id="groupSelect" class="select" onchange="goSearch()">>
+                        <option value="" >그룹사 선택</option>
+                        <option value="1"  >삼성</option>
+                        <option value="2"  >SK</option>
+                        <option value="3"  >현대</option>
+                        <option value="4"  >LG</option>
+                        <option value="5"  >롯데</option>
+                        <option value="6"  >한화</option>
+                        <option value="7"  >LS</option>
+                        <option value="8"  >DL</option>
+                        <option value="9"  >두산</option>
+                        <option value="10" >한국타이어</option>
+                        <option value="11" >효성</option>
+                        <option value="12" >금호타이어</option>
+                        <option value="13" >솔브레인</option>
+                        <option value="14" >SD</option>
+                        <option value="0"  >기타</option>
+                    </select>
+                </div>
+
+                <div class="sort_box">
+                    <select id="jobCategorySelect" class="select" onchange="goSearch()">
+                        <option value="ALL">전체</option>
+                        <option value="TITLE">공고명</option>
+                        <option value="COMPANY">회사명</option>
+                        <option value="JOB_LOCATION">근무처</option>
+                    </select>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" id="publicSearchWord" class="input" placeholder="검색어"
+                           onkeypress="if(event.keyCode==13){event.preventDefault(); goSearch();}">
+                    <a href="javascript:goSearch();" class="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="sort_box">
+                    <select id="sortOrder" class="select" onchange="goSearch()">
+                        <option value="START_DATE" selected>시작일순</option>
+                        <option value="END_DATE">마감일순</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 채용공고 리스트 -->
+        <input type="hidden" id="r_resumeId" value="3">
+        <ul class="job_list"></ul>
+
+        <!-- 페이징 -->
+        <div class="pagination" id="pagination">
+            <span class="active">1</span>
+            <span>2</span>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

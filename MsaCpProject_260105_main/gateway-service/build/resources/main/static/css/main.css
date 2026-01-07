@@ -1,0 +1,464 @@
+:root{
+    --txt:#111827;
+    --muted:#6b7280;
+    --line:#e5e7eb;
+    --bg:#ffffff;
+    --blue:#255EB8;
+    --blue2:#3FAEEF;
+    --r:30px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
+    color:var(--txt);
+    background:var(--bg);
+}
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+button{ font:inherit; cursor:pointer; }
+
+.wrapper{ width:100%; }
+.container{ max-width:1320px; margin:0 auto; padding:0 24px; }
+
+/* Header */
+.site-header{ border-bottom:1px solid var(--line); }
+.topbar{
+    height:56px;
+    display:flex; align-items:center; justify-content:space-between;
+}
+.brand-logos{ display:flex; align-items:center; gap:24px; }
+.brand-logos img{ height:22px; }
+.top-links{ display:flex; align-items:center; gap:24px; font-size:14px; }
+.top-links a:hover{ text-decoration:underline; }
+
+.mainbar{
+    padding:18px 0 16px;
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:24px;
+}
+.site-title h1{ margin:0; font-size:36px; font-weight:800; letter-spacing:-.02em; }
+.site-title p{ margin:6px 0 0; font-size:14px; color:#666; }
+
+.main-nav{
+    display:flex; align-items:center; gap:38px;
+    font-size:16px; font-weight:700;
+}
+.main-nav a{ padding:8px 0; }
+.main-nav a:hover{ color:var(--blue); }
+
+.main_container{ padding:24px 0 80px; }
+
+/* KV */
+.main_kv{ height:410px; position:relative; margin-bottom:60px; }
+.main_kv .swiper{ width:100%; height:100%; border-radius:var(--r); overflow:hidden; }
+
+/* ✅ FIX: 슬라이드 flex 제거(이미지 2장이 옆으로 붙는 현상 방지) */
+.main_kv .swiper-slide{ display:block; background:#444; }
+
+/* ✅ FIX: PC 기본은 PC이미지만 */
+.kv_pc{ display:block; }
+.kv_mobile{ display:none; }
+
+.main_kv .swiper-slide img{ width:100%; height:100%; object-fit:cover; }
+
+/* ✅ FIX: 혹시 다른 CSS가 덮어써도 이기도록(배너 전용 강제 세트) */
+.main_kv .swiper-slide .kv_pc{ display:block !important; }
+.main_kv .swiper-slide .kv_mobile{ display:none !important; }
+
+.kt_text{
+    font-size:42px;
+    color:#fff;
+    font-weight:800;
+    position:absolute;
+    left:50px;
+    top:60px;
+    z-index:12;
+    word-break:keep-all;
+    text-shadow:0 2px 18px rgba(0,0,0,.35);
+}
+
+.custom-progress{
+    position:absolute; bottom:36px; left:0; right:0;
+    padding:0 60px; z-index:10; color:#fff; font-weight:700;
+}
+.custom-progress .current_wrap{ display:flex; align-items:center; margin-bottom:15px; }
+.custom-progress .current, .custom-progress .total{ font-size:24px; font-weight:600; min-width:30px; }
+.custom-progress .numbar{ width:1px; height:20px; background:#fff; margin:0 20px; }
+.custom-progress .bar{ width:100%; max-width:800px; height:3px; background:rgba(255,255,255,.3); overflow:hidden; }
+.custom-progress .bar .fill{ width:0%; height:100%; background:#fff; }
+
+.kv_btn_wrap{
+    position:absolute; right:0; bottom:0; z-index:11;
+    padding:20px 0 0 20px;
+    background:#fff;
+    border-radius:30px 0 0 0;
+}
+.kv_btn_wrap:before,
+.kv_btn_wrap:after{
+    background: radial-gradient(circle at 0 0, #0000 71%, #fff 0);
+    content:"";
+    height:40px; width:40px;
+    position:absolute;
+}
+.kv_btn_wrap:before{ bottom:0; left:-40px; }
+.kv_btn_wrap:after{ right:-2px; top:-40px; }
+
+.kv_btn button{
+    width:230px; height:80px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:#3f3f3f; color:#fff;
+    font-size:24px; font-weight:800;
+    border:none; border-radius:30px;
+}
+
+.kv_btn_mobile{ display:none; margin-bottom:40px; }
+.kv_btn_mobile a{
+    display:flex; align-items:center; justify-content:center;
+    height:50px; background:#414141; border-radius:30px;
+    font-size:18px; color:#fff; font-weight:800;
+}
+
+/* Search */
+.search_area{
+    margin-bottom:60px;
+    display:flex; align-items:center; justify-content:center; gap:24px;
+}
+.search_area .item{ max-width:518px; width:100%; }
+
+.search-box{
+    width:100%;
+    position:relative;
+    display:flex; align-items:center;
+    height:72px;
+    padding:5px;
+    border-radius:35px;
+    background:linear-gradient(90deg,var(--blue),var(--blue2));
+}
+.search-box input{
+    border:none; outline:none;
+    width:100%; height:100%;
+    border-radius:30px;
+    padding:0 80px 0 45px;
+    font-size:24px;
+    font-weight:600;
+}
+.search-box input::placeholder{
+    font-size:24px; color:#888; font-weight:600;
+}
+.search-btn{
+    border:none; background:transparent;
+    position:absolute; right:30px; top:50%;
+    transform:translateY(-50%);
+    width:34px; height:34px;
+}
+.search-btn:before{
+    content:"";
+    display:block;
+    width:33px; height:34px;
+    background-image:url('/img/main/ico_search.svg'); /* 경로 맞게 수정 */
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:66px auto;
+}
+.search-btn:hover:before{ background-position:-33px 0; }
+.search-btn span{ position:absolute; left:-9999px; }
+
+/* Titles / Grid */
+.m_tit{
+    font-size:24px;
+    font-weight:800;
+    margin:0 0 20px 0;
+    position:relative;
+    color:#000;
+}
+.m_tit .more{
+    position:absolute; right:0; bottom:0;
+    font-size:18px; font-weight:400;
+    padding-right:18px;
+}
+.m_tit .more:after{
+    content:"";
+    position:absolute; right:0; top:5px;
+    width:6px; height:14px;
+    background-image:url('/img/main/go_link.svg'); /* 경로 맞게 수정 */
+    background-repeat:no-repeat;
+    background-size:6px auto;
+}
+.m_tit .more:hover{ text-decoration:underline; color:var(--blue); }
+
+.row{ margin-left:-10px; margin-right:-10px; }
+.row::after{ content:""; display:block; clear:both; }
+.col-3{ float:left; width:25%; padding:0 10px; min-height:1px; }
+
+/* Divider */
+.main_line{ padding-bottom:40px; margin-bottom:60px; border-bottom:1px solid #ccc; }
+
+/* Map */
+.partner-company{ margin-bottom:60px; }
+.jido_wrap{
+    border:1px solid #ccc;
+    border-radius:30px;
+    padding:80px 35px 0 35px;
+    position:relative;
+    height:800px;
+}
+.jido_wrap .txt{
+    position:absolute; left:30px; top:30px;
+    font-size:16px; color:#909090;
+}
+
+.jido_box{
+    width:838px;
+    height:529px;
+    margin-left:70px;
+    margin-top:10px;
+    position:relative;
+
+    background-image:url('/img/main/main_njido.png'); /* ✅ 지도 이미지 */
+    background-size:100% auto;
+    background-repeat:no-repeat;
+    background-position:0 0;
+}
+.jido_link{ position:absolute; z-index:1; display:block; }
+.jido_link img{ display:block; margin:0 auto; }
+
+/* ✅ 샘플 위치(원본처럼 클래스별 좌표는 계속 추가 가능) */
+.jido_link1{ left:29px; bottom:-156px; }
+.jido_link1:before{
+    content:"";
+    position:absolute; left:-7px; top:-249px;
+    width:107px; height:253px;
+    background:url('/img/main/jido_logo/line_1.png') no-repeat 0 0;
+}
+.jido_link1_2 img{ height:28px; }
+
+.jido_link3{ left:305px; bottom:-110px; }
+.jido_link3:before{
+    content:"";
+    position:absolute; left:-7px; top:-130px;
+    width:104px; height:118px;
+    background:url('/img/main/jido_logo/line_3.png') no-repeat 0 0;
+}
+.jido_link3_1 img{ height:28px; }
+
+/* Popup */
+.company_pop_wrap_box{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    z-index:9;
+}
+.company_pop_wrap_box:before{
+    content:"";
+    position:absolute; inset:0;
+    background:rgba(0,0,0,.6);
+    border-radius:30px;
+}
+.company_new_pop{
+    width:950px; height:500px;
+    background:#fff;
+    border-radius:20px;
+    position:relative;
+    z-index:10;
+    padding:30px;
+}
+.company_agent{
+    height:440px;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+}
+.cpb_close_btn{
+    position:absolute;
+    right:30px; top:30px;
+    z-index:11;
+}
+
+/* Job cards */
+.job-list{ margin-bottom:40px; }
+
+.job_link{ display:block; position:relative; margin-bottom:20px; }
+.job-list .box{
+    border:1px solid #ccc;
+    height:390px;
+    border-radius:35px;
+    background:#fff;
+    transition:.35s ease;
+    overflow:hidden;
+}
+.job-list .box .top_img{ height:120px; }
+.job-list .box .top_img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:30px 30px 0 0;
+}
+.job-list .box .box_in{ padding:22px 35px 32px; }
+.job-list .box .logo{
+    height:74px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px;
+}
+.job-list .box .logo img{ max-width:100%; max-height:100%; }
+.job-list .box .nm{
+    font-size:22px; font-weight:800;
+    margin-bottom:15px;
+}
+.job-list .box .txt{
+    font-size:18px; color:#222;
+    line-height:1.5;
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+}
+
+.job_link .arrow_wrap{
+    position:absolute; right:0; bottom:0;
+    padding:10px 0 0 10px;
+    background:#fff;
+    border-left:1px solid #ccc;
+    border-top:1px solid #ccc;
+    border-radius:25px 0 0 0;
+}
+.job_link .arrow_wrap .arrow{
+    width:34px; height:34px;
+    background-image:url('/img/main/bn_arrow.svg'); /* 경로 맞게 수정 */
+    background-position:-34px 0;
+    background-size:68px auto;
+    background-repeat:no-repeat;
+}
+
+/* Hover big card */
+.job_hover_box{
+    display:none;
+    border-radius:30px;
+    position:absolute; left:0; top:0;
+    width:100%;
+    height:600px;
+    z-index:10;
+}
+.job_link.active .job_hover_box{ display:block; }
+
+.job_hover_box .job_info{
+    position:relative;
+    width:100%; height:100%;
+    border:6px solid var(--blue);
+    border-radius:30px;
+    box-shadow:-8px -6px 13px rgba(0,0,0,.16);
+    overflow:hidden;
+}
+.job_hover_box .back_img{ position:absolute; inset:0; }
+.job_hover_box .back_img img{ width:100%; height:100%; object-fit:cover; }
+
+.jhb_info_box{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:30px;
+    z-index:2;
+}
+.jhb_logo{
+    width:196px; height:196px;
+    border-radius:50%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+    margin-bottom:60px;
+}
+.jhb_logo img{ max-width:100%; max-height:100%; }
+.jhb_ibox{
+    background:rgba(0,0,0,.6);
+    border-radius:20px;
+    padding:25px 20px;
+    text-align:center;
+}
+.jhb_itit{ font-size:32px; color:#fff; font-weight:800; margin-bottom:18px; }
+.jhb_itxt{ font-size:20px; color:#fff; font-weight:500; }
+
+/* Notices */
+.notice-list{ margin-bottom:40px; }
+.notice_link{ display:block; margin-bottom:20px; }
+.notice-list .box{
+    border:1px solid #ccc;
+    height:160px;
+    border-radius:30px;
+    padding:30px;
+    transition:.25s ease;
+}
+.notice-list .box .txt{
+    font-size:18px; font-weight:700;
+    line-height:1.5;
+    height:54px;
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    margin-bottom:30px;
+}
+.notice-list .box .date{ font-size:14px; color:#222; }
+.notice_link:hover .box{ border-width:5px; border-color:var(--blue); }
+
+/* Contact */
+.tel_wrap{
+    border:1px solid #3FACED;
+    border-radius:30px;
+    height:193px;
+    padding-left:460px;
+    position:relative;
+}
+.tel_wrap:before{
+    content:"";
+    position:absolute;
+    left:120px; top:25px;
+    width:193px; height:153px;
+    background:url('/img/main/ico_tel.png') no-repeat 0 0; /* 경로 맞게 수정 */
+}
+.tel_box{ height:100%; display:flex; align-items:center; }
+.tel_box .item{ width:50%; }
+.tel_box .item.bar{ margin-right:90px; position:relative; }
+.tel_box .item.bar:after{
+    content:"";
+    position:absolute; right:0; top:0;
+    height:130px;
+    border-right:1px dotted #ccc;
+}
+.tel_th,.tel_email,.tel_nm{ font-size:18px; font-weight:700; color:#222; }
+.tel_num{ font-size:38px; color:var(--blue); font-weight:700; letter-spacing:-2px; margin:4px 0 6px; }
+
+/* Responsive */
+@media (max-width: 980px){
+    .mainbar{ flex-direction:column; align-items:flex-start; }
+    .main-nav{ flex-wrap:wrap; gap:18px; }
+    .site-title h1{ font-size:28px; }
+}
+
+@media (max-width: 991px){
+    .kt_text{ font-size:32px; max-width:260px; left:25px; top:30px; }
+    .custom-progress{ padding:0 25px; }
+    .kv_btn_wrap{ display:none; }
+    .main_kv{ margin-bottom:20px; }
+    .kv_btn_mobile{ display:block; }
+
+    .row .col-3{ width:50%; }
+    .tel_wrap{ padding-left:190px; height:150px; }
+    .tel_wrap:before{ left:50px; width:96px; height:77px; background-size:96px auto; }
+    .tel_num{ font-size:26px; }
+    .tel_th,.tel_email,.tel_nm{ font-size:16px; }
+}
+
+@media (max-width: 767px){
+    /* ✅ 모바일: 모바일 이미지로 스위칭(강제) */
+    .main_kv .swiper-slide .kv_pc{ display:none !important; }
+    .main_kv .swiper-slide .kv_mobile{ display:block !important; }
+
+    .tel_wrap{ padding-left:0; height:auto; padding:20px 15px; }
+    .tel_wrap:before{ display:none; }
+    .tel_box{ gap:20px; justify-content:center; }
+    .tel_box .item{ width:auto; }
+    .tel_box .item.bar:after{ display:none; }
+    .partner-company{ display:none; } /* 모바일에서 지도 숨김(원본 스타일) */
+}
+.kt_text::before,
+.kt_text{ display:none !important; }

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인회원 로그인 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+</head>
+
+<body class="sub">
+
+<div class="wrapper">
+
+    <!-- Menu -->
+    <!-- TODO: 여기에 메뉴 include -->
+
+    <form name="rpForm" method="post">
+
+        <div class="sub_container">
+            <div class="container">
+                <div class="login_view">
+                    <div class="sub_tit mb20">로그인</div>
+                    <div class="sub_tab">
+                        <a href="#" class="on">개인회원</a>
+                        <a href="/company/login">기업회원</a>
+                    </div>
+                    <div class="login_box">
+                        <div class="mar1">
+                            <input type="text" class="input" name="ID" id="ID" maxlength="100" placeholder="아이디">
+                        </div>
+                        <div class="mar2">
+                            <input type="password" class="input" name="PW" id="PW" maxlength="100" placeholder="비밀번호" onkeypress="return handleEnter(this, event)">
+                        </div>
+                        <div class="btn_area center">
+                            <a href="javascript:goLoginAct();" class="btn-submit">로그인</a>
+                        </div>
+                    </div>
+                    <div class="join_info">
+                        <a href="/search-id">아이디 찾기</a>
+                        <span class="bar"></span>
+                        <a href="/search-pw">비밀번호 찾기</a>
+                        <span class="bar"></span>
+                        <a href="/register.html">회원가입</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <!-- TODO: 여기에 푸터 include -->
+
+    </form>
+
+</div>
+
+<!-- JavaScript 파일 -->
+<script src="/js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주한미군 전역장병 채용 플랫폼</title>
+    <link rel="stylesheet" href="/css/job.css">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./css/main.css?v=1" />
+    <script src="/js/jobs.js" defer></script>
+</head>
+<body>
+
+
+<div class="sub_container">
+    <div class="container">
+
+        <!-- 타이틀 / 검색 -->
+        <div class="sub_tit_wrap between">
+            <div class="sub_tit">지원현황</div>
+
+            <!-- ✅ form 태그 추가 -->
+            <form name="rpForm" class="sub_search_area diff" onsubmit="goSearch(event); return false;">
+                <div class="sort_box">
+                    <select class="select" name="searchfield">
+                        <option value="ALL">전체</option>
+                        <option value="TITLE">공고명</option>
+                        <option value="JOB_LOCATION">근무처</option>
+                    </select>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" class="input" name="searchword" placeholder="검색어"
+                           onkeypress="if(event.keyCode==13){event.preventDefault(); goSearch(event);}">
+                    <a href="javascript:goSearch();" class="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333"
+                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="sort_box">
+                    <select class="select" name="searchtype" onchange="javascript:goSearch();">
+                        <option value="ALL">전체</option>
+                        <option value="1">공고중</option>
+                        <option value="2">임시저장</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- 채용공고 목록 -->
+        <ul class="job_list"></ul>
+
+        <!-- 등록 버튼 -->
+        <div class="btn-flex-right">
+            <a href="/company/jobs/write" class="btn-common btn-blue">등록하기</a>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="applicantModal" class="modal">
+    <div class="modal_box">
+        <button class="modal_close" onclick="closeApplicantModal()">&times;</button>
+
+        <h2 class="comp_name" id="modalJobTitle" style="margin-bottom:20px;">Production Team Member</h2>
+
+        <div class="sub_tit_wrap between" style="margin-bottom:30px;">
+            <div class="search_left">
+                총지원자 수 : <b id="applicantCount">0</b>
+            </div>
+
+            <div class="sub_search_area">
+                <div class="sort_box">
+                    <select id="searchType" class="select">
+                        <option value="ALL">전체</option>
+                        <option value="NAME">이름</option>
+                    </select>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" id="applicantSearchWord" class="input" placeholder="검색어"
+                           onkeypress="if(event.keyCode==13){ event.preventDefault(); loadApplicants(event); return false; }">
+
+                    <a href="javascript:void(0);" onclick="loadApplicants(event);" class="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333"
+                             stroke-width="2.5">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="sort_box">
+                    <select id="filterStatus" class="select" onchange="loadApplicants(event)">
+                        <option value="">심사상태 선택</option>
+                        <option value="0">미심사</option>
+                        <option value="1">1차합격</option>
+                        <option value="2">합격</option>
+                        <option value="3">불합격</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal_content_area">
+            <ul id="applicantList" class="jiwon_list">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="resumeModal" class="modal" style="display:none;">
+    <div class="modal_box mw1020 resume_wrap">
+        <button class="modal_close" onclick="closeResumeModal()">&times;</button>
+
+        <div class="sub_tit_wrap" style="border-bottom:none; margin-bottom:10px;">
+            <h2 class="comp_name">Data Analysis Specialist</h2>
+        </div>
+
+        <section class="resume_section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 class="section_title" style="margin: 0;">인적사항</h3>
+                <div class="sub_search_area">
+                    <select class="select">
+                        <option value="합격">합격</option>
+                        <option value="불합격">불합격</option>
+                        <option value="대기">대기</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid_layout info_grid"
+                 style="white-space: normal; display: grid; grid-template-columns: 160px 80px 1fr 80px 1fr; gap: 12px 15px; align-items: center;">
+
+                <div class="card_photo" style="grid-row: span 5; align-self: start;">
+                    <img id="r_photo" src="/KR/img/common/img_nophoto.png" alt="프로필"
+                         style="width: 100%; height: auto; border-radius: 4px;">
+                </div>
+
+                <label class="label">이름</label>
+                <div class="value_box">
+                    <span id="r_name" style="white-space: nowrap;"></span>
+                </div>
+                <label class="label">성별</label>
+                <div class="value_box">
+                    <span id="r_gender"></span>
+                </div>
+
+                <label class="label">생년월일</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_birth"></span>
+                </div>
+
+                <label class="label">이메일</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_email"></span>
+                </div>
+
+                <label class="label">전화번호</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_phone"></span>
+                </div>
+
+                <label class="label" style="grid-column: 2;">주소</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_address"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 최종학력 ================= -->
+        <section class="resume_section">
+            <h3 class="section_title">최종학력</h3>
+
+            <div class="grid_layout info_grid">
+
+                <label class="label">학교</label>
+                <div class="value_box">
+                    <span id="r_school"></span>
+                </div>
+
+                <label class="label">전공명</label>
+                <div class="value_box">
+                    <span id="r_major"></span>
+                </div>
+
+                <label class="label">입학년월</label>
+                <div class="value_box">
+                    <span id="r_entrance"></span>
+                </div>
+
+                <label class="label">졸업년월</label>
+                <div class="value_box">
+                    <span id="r_grad"></span>
+                </div>
+
+                <label class="label">학점</label>
+                <div class="value_box">
+                    <span id="r_score"></span>
+                </div>
+
+                <label class="label">졸업상태</label>
+                <div class="value_box">
+                    <span id="r_status_edu"></span></div>
+
+            </div>
+        </section>
+
+        <!-- ================= 전문분야 ================= -->
+        <section class="resume_section">
+            <h3 class="section_title">전문분야</h3>
+
+            <div class="text_box" style="padding: 15px 20px !important; line-height: 1 !important;">
+                <span id="r_field" style="display: inline-block; line-height: 1.7; vertical-align: top;"></span>
+            </div>
+        </section>
+
+        <!-- ================= 경력 ================= -->
+        <section class="resume_section">
+            <h3 class="section_title">경력</h3>
+
+            <div class="grid_layout info_grid">
+
+                <label class="label">회사명</label>
+                <div class="value_box">
+                    <span id="r_company"></span>
+                </div>
+
+                <label class="label">부서명</label>
+                <div class="value_box">
+                    <span id="r_dept"></span>
+                </div>
+
+                <label class="label">입사년월</label>
+                <div class="value_box">
+                    <span id="r_join"></span>
+                </div>
+
+                <label class="label">퇴사년월</label>
+                <div class="value_box">
+                    <span id="r_leave"></span>
+                </div>
+
+                <label class="label">직급/직책</label>
+                <div class="value_box">
+                    <span id="r_position"></span>
+                </div>
+
+                <label class="label">연봉</label>
+                <div class="value_box">
+                    <span id="r_salary"></span>
+                </div>
+
+                <label class="label">담당업무</label>
+                <div class="full_row">
+                    <div class="text_box" style="text-align: left !important; display: block !important;">
+                        <span id="r_task" style="display: block; text-align: left !important;"></span>
+                    </div>
+                </div>
+
+
+                <label class="label">경력기술서</label>
+                <div class="full_row">
+                    <div class="text_box" style="text-align: left !important; display: block !important;">
+                        <span id="r_career_desc" style="display: block; text-align: left !important;"></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= 자격증 / 기술 ================= -->
+        <section class="resume_section">
+            <h3 class="section_title">자격증 기술</h3>
+
+            <div id="r_cert_list">
+                <div class="grid_layout info_grid" style="margin-bottom: 20px;">
+                    <label class="label">자격/기술명</label>
+                    <div class="value_box">
+                        <span class="cert_name">정보처리기사</span>
+                    </div>
+
+                    <label class="label">취득년월</label>
+                    <div class="value_box">
+                        <span class="cert_date">2023.05</span>
+                    </div>
+
+                    <label class="label">발급기관</label>
+                    <div class="value_box">
+                        <span class="cert_org">한국산업인력공단</span>
+                    </div>
+
+                    <label class="label">자격증 번호</label>
+                    <div class="value_box">
+                        <span class="cert_num">12-3456-78</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= 자기소개서 ================= -->
+        <section class="resume_section">
+            <h3 class="section_title">자기소개서</h3>
+
+            <div class="text_box" style="text-align: left !important; display: block !important;">
+                <span id="r_intro" style="display: block; text-align: left !important;"></span>
+            </div>
+        </section>
+        <!-- ================= 첨부파일 ================= -->
+        <section class="resume_section">
+            <h3>첨부파일</h3>
+            <ul id="r_files"></ul>
+        </section>
+
+        <div class="btn-flex-center">
+            <button class="btn-common btn-blue" onclick="window.print()">인쇄하기</button>
+            <button class="btn-common btn-blue" onclick="downloadExcel()">액셀 다운로드</button>
+            <button class="btn-common btn-gray" onclick="document.getElementById('resumeModal').style.display='none'">
+                목록가기
+            </button>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

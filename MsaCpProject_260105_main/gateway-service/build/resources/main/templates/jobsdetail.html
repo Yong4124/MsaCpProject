@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>채용공고 상세정보</title>
+    <link rel="stylesheet" href="/css/job.css">
+    <script src="/js/jobs.js" defer></script>
+</head>
+<body>
+
+<div class="detail_container">
+    <div class="comp_name" id="compName"></div>
+
+    <div class="info_grid grid_layout">
+        <span class="label required">공고명</span>
+        <div class="value_box full_row" id="jobTitle"></div>
+
+        <span class="label required">접수기간</span>
+        <div class="full_row">
+            <div class="value_box" id="startDate"></div>
+            <span>-</span>
+            <div class="value_box" id="endDate"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <span class="label">직업유형</span>
+        <div class="value_box" id="jobForm"></div>
+        <span class="label">고용형태</span>
+        <div class="value_box" id="jobType"></div>
+        <span class="label">직종</span>
+        <div class="value_box" id="jobCategory"></div>
+        <span class="label">업계</span>
+        <div class="value_box" id="industry"></div>
+        <span class="label">직급</span>
+        <div class="value_box" id="roleLevel"></div>
+        <span class="label">경력</span>
+        <div class="value_box" id="experience"></div>
+        <span class="label">기본급</span>
+        <div class="value_box" id="baseSalary"></div>
+        <span class="label">근무시간</span>
+        <div class="value_box" id="workTime"></div>
+        <span class="label">근무처</span>
+        <div class="value_box full_row" id="workLocation"></div>
+    </div>
+
+
+    <div class="content_section">
+        <div class="section_title">회사소개</div>
+        <div class="text_box" id="companyIntro"></div>
+
+        <div class="section_title">담당업무</div>
+        <div class="text_box" id="positionSummary"></div>
+        <div class="section_title">기술 및 자격요건</div>
+        <div class="text_box" id="skillQualification"></div>
+        <div class="section_title">복지 및 보상</div>
+        <div class="text_box" id="benefits"></div>
+
+        <div class="section_title">유의사항</div>
+        <div class="text_box" id="notes"></div>
+    </div>
+
+    <div class="content_section">
+        <div class="section_title">회사정보</div>
+
+        <div class="info_grid grid_layout">
+            <span class="label">기업구분</span>
+            <div class="value_box" id="companyType"></div>
+
+            <span class="label">설립일</span>
+            <div class="value_box" id="establishedDate"></div>
+
+            <span class="label">대표자</span>
+            <div class="value_box" id="ceoName"></div>
+
+            <span class="label">사원수</span>
+            <div class="value_box" id="employeeNum"></div>
+
+            <span class="label">자본금</span>
+            <div class="value_box" id="capital"></div>
+
+            <span class="label">매출액</span>
+            <div class="value_box" id="revenue"></div>
+
+            <span class="label">회사주소(본사)</span>
+            <div class="value_box full_row" id="companyAddress"></div>
+
+            <span class="label">홈페이지</span>
+            <div class="value_box full_row" id="homepage"></div>
+        </div>
+    </div>
+
+    <div class="btn-flex-center">
+        <button class="btn-common btn-gray" onclick="closeJob()">공고마감</button>
+        <button class="btn-common btn-gray" onclick="history.back()">목록가기</button>
+    </div>
+</div>
+
+</body>
+</html>

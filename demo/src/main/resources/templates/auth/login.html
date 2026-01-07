@@ -1,102 +1,83 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head('로그인 - 주한미군 전역장병 채용 플랫폼')}"></head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .tab-buttons button { margin-right: 10px; padding: 10px; cursor: pointer; }
+        .tab-buttons button.active { background-color: #007BFF; color: white; }
+        .tab-content { margin-top: 20px; }
+        .form-group { margin-bottom: 10px; }
+        label { display: block; font-weight: bold; }
+        input { width: 250px; padding: 8px; }
+        .error { color: red; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
 
-<body class="sub">
-<div class="wrapper">
+<h2>로그인</h2>
 
-    <!-- Header -->
-    <th:block th:replace="~{fragments/header :: header}"></th:block>
-
-    <div class="sub_container">
-        <div class="container">
-            <div class="login_view">
-                <div class="sub_tit mb20">로그인</div>
-                
-                <!-- 탭 -->
-                <div class="sub_tab">
-                    <a href="#" class="on" id="tabPersonal" onclick="switchTab('personal'); return false;">개인회원</a>
-                    <a href="#" id="tabCompany" onclick="switchTab('company'); return false;">기업회원</a>
-                </div>
-
-                <!-- 에러 메시지 -->
-                <div th:if="${param.error}" class="alert alert-danger" style="background:#ffe0e0; padding:15px; border-radius:10px; margin-bottom:20px; text-align:center;">
-                    <span style="color:#c00;">아이디 또는 비밀번호가 올바르지 않습니다.</span>
-                </div>
-                
-                <div th:if="${param.logout}" class="alert alert-success" style="background:#e0ffe0; padding:15px; border-radius:10px; margin-bottom:20px; text-align:center;">
-                    <span style="color:#060;">로그아웃 되었습니다.</span>
-                </div>
-
-                <!-- 개인회원 로그인 -->
-                <form id="personalForm" th:action="@{/auth/login}" method="post">
-                    <input type="hidden" name="memberType" value="personal"/>
-                    <div class="login_box">
-                        <div class="mar1">
-                            <input type="text" class="input" name="username" placeholder="아이디" required>
-                        </div>
-                        <div class="mar2">
-                            <input type="password" class="input" name="password" placeholder="비밀번호" required>
-                        </div>
-                        <div class="btn_area center">
-                            <button type="submit" class="btn-submit">로그인</button>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- 기업회원 로그인 (숨김) -->
-                <form id="companyForm" th:action="@{/auth/login}" method="post" style="display:none;">
-                    <input type="hidden" name="memberType" value="company"/>
-                    <div class="login_box">
-                        <div class="mar1">
-                            <input type="text" class="input" name="username" placeholder="아이디" required>
-                        </div>
-                        <div class="mar2">
-                            <input type="password" class="input" name="password" placeholder="비밀번호" required>
-                        </div>
-                        <div class="btn_area center">
-                            <button type="submit" class="btn-submit">로그인</button>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="join_info">
-                    <a th:href="@{/auth/find-id}">아이디 찾기</a>
-                    <span class="bar"></span>
-                    <a th:href="@{/auth/find-pw}">비밀번호 찾기</a>
-                    <span class="bar"></span>
-                    <a th:href="@{/auth/register}">회원가입</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
-
+<!-- 로그인 실패 시 에러 메시지 -->
+<div th:if="${param.error}" class="error">
+    아이디 또는 비밀번호가 올바르지 않습니다.
 </div>
 
-<!-- Scripts -->
-<th:block th:replace="~{fragments/footer :: scripts}"></th:block>
+<div class="tab-buttons">
+    <button type="button" id="personalTab" class="active" onclick="showTab('personal')">개인회원</button>
+    <button type="button" id="companyTab" onclick="showTab('company')">기업회원</button>
+</div>
+
+<!-- 개인회원 로그인 -->
+<div id="personal" class="tab-content">
+    <!-- ✅ action을 /auth/login-process 로 변경 -->
+    <form th:action="@{/auth/login-process}" method="post">
+        <input type="hidden" name="memberType" value="PERSONAL"/>
+
+        <div class="form-group">
+            <label for="personalLoginId">아이디</label>
+            <!-- ✅ name을 loginId 로 변경 (SecurityConfig.usernameParameter("loginId")와 일치) -->
+            <input type="text" id="personalLoginId" name="loginId" required />
+        </div>
+
+        <div class="form-group">
+            <label for="personalPassword">비밀번호</label>
+            <input type="password" id="personalPassword" name="password" required />
+        </div>
+
+        <button type="submit">로그인</button>
+    </form>
+</div>
+
+<!-- 기업회원 로그인 -->
+<div id="company" class="tab-content" style="display:none;">
+    <!-- ✅ action을 /auth/login-process 로 변경 -->
+    <form th:action="@{/auth/login-process}" method="post">
+        <input type="hidden" name="memberType" value="COMPANY"/>
+
+        <div class="form-group">
+            <label for="companyLoginId">아이디</label>
+            <!-- ✅ name을 loginId 로 변경 -->
+            <input type="text" id="companyLoginId" name="loginId" required />
+        </div>
+
+        <div class="form-group">
+            <label for="companyPassword">비밀번호</label>
+            <input type="password" id="companyPassword" name="password" required />
+        </div>
+
+        <button type="submit">로그인</button>
+    </form>
+</div>
+
 <script>
-function switchTab(type) {
-    const tabPersonal = document.getElementById('tabPersonal');
-    const tabCompany = document.getElementById('tabCompany');
-    const formPersonal = document.getElementById('personalForm');
-    const formCompany = document.getElementById('companyForm');
-    
-    if (type === 'personal') {
-        tabPersonal.classList.add('on');
-        tabCompany.classList.remove('on');
-        formPersonal.style.display = 'block';
-        formCompany.style.display = 'none';
-    } else {
-        tabPersonal.classList.remove('on');
-        tabCompany.classList.add('on');
-        formPersonal.style.display = 'none';
-        formCompany.style.display = 'block';
+    function showTab(tabName) {
+        document.getElementById('personal').style.display = (tabName === 'personal') ? 'block' : 'none';
+        document.getElementById('company').style.display = (tabName === 'company') ? 'block' : 'none';
+
+        document.getElementById('personalTab').classList.toggle('active', tabName === 'personal');
+        document.getElementById('companyTab').classList.toggle('active', tabName === 'company');
     }
-}
 </script>
 
 </body>

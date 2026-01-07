@@ -4,13 +4,12 @@ import com.example.demo.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -22,40 +21,60 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                // 정적 리소스 허용
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/images/**", "/favicon.ico").permitAll()
-                // 메인, 소개, 채용공고 목록/상세 - 모두 접근 가능
-                .requestMatchers("/", "/main", "/about", "/job/**").permitAll()
-                // 회원가입, 로그인 관련 - 모두 접근 가능
-                .requestMatchers("/auth/**", "/register/**").permitAll()
-                // 개인회원 마이페이지 - 개인회원만
-                .requestMatchers("/personal/**").hasRole("PERSONAL")
-                // 기업회원 마이페이지 - 기업회원만
-                .requestMatchers("/company/**").hasRole("COMPANY")
-                // 관리자 페이지 - 관리자만
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                // 나머지는 인증 필요
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login-process")
-                .usernameParameter("loginId")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/auth/login?error=true")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-            )
-            .userDetailsService(customUserDetailsService)
-            .csrf(csrf -> csrf.disable());
+                // 개발 편의상 CSRF 비활성화 (운영에서는 활성화 권장)
+                .csrf(csrf -> csrf.disable())
+
+                .authorizeHttpRequests(auth -> auth
+                        // 공개 페이지
+                        .requestMatchers("/", "/home", "/auth/**", "/css/**", "/js/**", "/images/**", "/job/**").permitAll()
+
+                        // 권한별 접근
+                        .requestMatchers("/personal/**").hasRole("PERSONAL")
+                        .requestMatchers("/company/**").hasRole("COMPANY")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        // 그 외는 로그인 필요
+                        .anyRequest().authenticated()
+                )
+
+                .formLogin(form -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login-process")
+                        .usernameParameter("loginId")
+                        .passwordParameter("password")
+
+                        // ✅ 로그인 성공 시 권한별로 이동
+                        .successHandler((request, response, authentication) -> {
+                            var authorities = authentication.getAuthorities();
+                            String targetUrl = "/";
+
+                            boolean isAdmin = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+                            boolean isCompany = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_COMPANY"));
+                            boolean isPersonal = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_PERSONAL"));
+
+                            if (isAdmin) {
+                                targetUrl = "/admin/dashboard";
+                            } else if (isCompany) {
+                                targetUrl = "/company/dashboard";
+                            } else if (isPersonal) {
+                                targetUrl = "/personal/dashboard";
+                            }
+
+                            response.sendRedirect(request.getContextPath() + targetUrl);
+                        })
+
+                        .failureUrl("/auth/login?error=true")
+                        .permitAll()
+                )
+
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                )
+
+                .userDetailsService(customUserDetailsService);
 
         return http.build();
     }
@@ -63,10 +82,5 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
     }
 }

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./css/main.css?v=1" />
+</head>
+
+<body>
+<div class="wrapper">
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container topbar">
+            <div class="brand-logos">
+                <!-- 실제 배포 경로에 맞게 수정 -->
+                <a href="/"><img src="/img/common/t_bndea.svg" alt="대한상공회의소"></a>
+                <a href="/"><img src="/img/common/t_bnhan.svg" alt="한미동맹재단"></a>
+            </div>
+
+            <div class="top-links">
+                <a href="/login">로그인</a>
+                <a href="/register">회원가입</a>
+                <a href="/en">ENGLISH</a>
+            </div>
+        </div>
+
+        <div class="container mainbar">
+            <div class="site-title">
+                <h1>주한미군 전역장병 채용 플랫폼</h1>
+                <p>USFK Job Platform</p>
+            </div>
+
+            <nav class="main-nav" aria-label="메인 메뉴">
+                <a href="/intro">소개</a>
+                <a href="/jobs">채용공고</a>
+                <a href="/notices">공지사항</a>
+                <a href="/reviews">취업수기</a>
+                <a href="/resources">자료실</a>
+                <a href="/faq">FAQ</a>
+                <a href="javascript:goToMyPage();">마이페이지</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main_container">
+        <div class="container">
+
+            <!-- KV -->
+            <section class="main_kv" aria-label="메인 배너">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <!-- 실제 이미지 경로로 변경 -->
+                        <div class="swiper-slide">
+                            <img src="/img/main/main_kv1.png" class="kv_pc" alt="">
+                            <img src="/img/main/main_kv1_m.png" class="kv_mobile" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/main/main_kv4.png" class="kv_pc" alt="">
+                            <img src="/img/main/main_kv4_m.png" class="kv_mobile" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/main/main_kv5.png" class="kv_pc" alt="">
+                            <img src="/img/main/main_kv5_m.png" class="kv_mobile" alt="">
+                        </div>
+                    </div>
+
+                    <div class="custom-progress" aria-hidden="true">
+                        <div class="current_wrap">
+                            <span class="current">01</span><span class="numbar"></span><span class="total">03</span>
+                        </div>
+                        <div class="bar"><div class="fill"></div></div>
+                    </div>
+                </div>
+
+                <div class="kv_btn_wrap">
+                    <div class="kv_btn">
+                        <button type="button" onclick="window.location.href='/jobs'">채용공고</button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="kv_btn_mobile">
+                <a href="/jobs">채용공고</a>
+            </div>
+
+            <!-- Search -->
+            <section class="search_area" aria-label="채용공고 검색">
+                <div class="item">
+                    <div class="search-box">
+                        <input
+                                type="text"
+                                class="input"
+                                id="searchword"
+                                placeholder="채용공고 검색"
+                                autocomplete="off"
+                        />
+                        <button class="search-btn" type="button" onclick="goSearch()">
+                            <span>검색</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- USA Map / Companies -->
+            <section class="partner-company main_line" aria-label="미국진출 한국기업">
+                <h2 class="m_tit">미국진출 한국기업</h2>
+
+                <div class="jido_wrap">
+                    <p class="txt">로고를 클릭하시면 기업정보를 확인할 수 있습니다.</p>
+
+                    <!-- 배경 지도는 CSS background-image로 처리 -->
+                    <div class="jido_box" id="jidoBox">
+                        <!-- ✅ 샘플 2개만 넣어둠 (나머지는 동일 패턴으로 추가) -->
+                        <a href="#" class="jido_link jido_link1 jido_link1_2" onclick="jidoView(event,'1_2')">
+                            <img src="/img/main/jido_logo/logo_samsung.png" alt="SAMSUNG">
+                        </a>
+
+                        <a href="#" class="jido_link jido_link3 jido_link3_1" onclick="jidoView(event,'3_1')">
+                            <img src="/img/main/jido_logo/logo_sk.png" alt="SK">
+                        </a>
+                    </div>
+
+                    <!-- Popup -->
+                    <div class="cpb_box_group" id="jidoPopup" style="display:none;">
+                        <div class="company_pop_wrap_box">
+                            <a href="#" class="cpb_close_btn" onclick="jidoClose(event)">
+                                <img src="/img/main/jido_close.svg" alt="닫기" />
+                            </a>
+                            <div class="company_new_pop">
+                                <div class="company_agent" id="companyAgent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Jobs -->
+            <section class="job-list" aria-label="채용공고">
+                <h2 class="m_tit">
+                    채용공고
+                    <a class="more" href="/jobs">더보기</a>
+                </h2>
+
+                <div class="row" id="jobCards">
+                    <!-- JS가 카드 렌더 -->
+                </div>
+            </section>
+
+            <!-- Notices -->
+            <section class="notice-list" aria-label="공지사항">
+                <h2 class="m_tit">
+                    공지사항
+                    <a class="more" href="/notices">더보기</a>
+                </h2>
+
+                <div class="row" id="noticeCards">
+                    <!-- JS가 카드 렌더 -->
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="tel_wrap" aria-label="문의처">
+                <div class="tel_box">
+                    <div class="item bar">
+                        <div class="tel_th">기업회원 문의처</div>
+                        <div class="tel_num">02-6050-3566</div>
+                        <div class="tel_email">contact@korcham.net</div>
+                        <div class="tel_nm">대한상공회의소</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="tel_th">개인회원 문의처</div>
+                        <div class="tel_num">070-7755-0075</div>
+                        <div class="tel_email">kusaf2020@gmail.com</div>
+                        <div class="tel_nm">한미동맹재단</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./js/main.js?v=1"></script>
+</body>
+</html>

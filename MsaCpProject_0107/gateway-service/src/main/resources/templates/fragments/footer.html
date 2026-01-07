@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Footer fragment에서는 head를 사용하지 않음 -->
+</head>
+<body>
+<!-- ========================================
+     공통 푸터 Fragment
+     common.css 구조에 맞춤
+     ======================================== -->
+<footer th:fragment="footer" class="footer">
+    <div class="container">
+        <!-- Family Site -->
+        <div class="foot_family mb30">
+            <div class="family">
+                <select onchange="if(this.value) window.open(this.value)">
+                    <option value="">Family Site</option>
+                    <option value="https://www.korcham.net">대한상공회의소</option>
+                    <option value="https://www.kusaf.or.kr">한미동맹재단</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="foot_item mb30">
+            <div class="logo">
+                <img src="/img/common/t_bndea.svg" alt="대한상공회의소">
+            </div>
+            <div class="foot_txt">
+                <p>
+                    기업회원 문의처 <span>|</span>
+                    대한상공회의소 <span>|</span>
+                    TEL : 02-6050-3566 <span>|</span>
+                    E-mail : contact@korcham.net
+                </p>
+            </div>
+        </div>
+
+        <div class="foot_item">
+            <div class="logo">
+                <img src="/img/common/t_bnhan.svg" alt="한미동맹재단">
+            </div>
+            <div class="foot_txt">
+                <p>
+                    개인회원 문의처 <span>|</span>
+                    한미동맹재단 <span>|</span>
+                    TEL : 070-7755-0075 <span>|</span>
+                    E-mail : kusaf2020@gmail.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="privacy_txt">
+            <p>&copy; 2024 주한미군 전역장병 채용 플랫폼. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

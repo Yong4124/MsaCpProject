@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 찾기 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+
+    <style>
+        .login_box .email-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .login_box .email-group .input {
+            flex: 1;
+        }
+        .login_box .email-group .fbtn {
+            flex-shrink: 0;
+            width: 120px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #255EB8;
+            color: #fff;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+        .login_box .email-group .fbtn:hover {
+            background-color: #4773b7;
+        }
+    </style>
+</head>
+
+<body class="sub">
+<div class="wrapper">
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <form name="rpForm" method="post">
+        <input type="hidden" name="SendCertiNumber" value="N">
+
+        <div class="sub_container">
+            <div class="container">
+                <div class="login_view">
+
+                    <!-- 페이지 제목 -->
+                    <div class="sub_tit mb20">비밀번호 찾기</div>
+
+                    <!-- 탭 메뉴 -->
+                    <div class="sub_tab">
+                        <a href="#" class="on">개인회원</a>
+                        <a href="/company/search-pw">기업회원</a>
+                    </div>
+
+                    <!-- 입력 폼 -->
+                    <div class="login_box">
+                        <!-- 아이디 입력 -->
+                        <div class="mar1">
+                            <input type="text"
+                                   class="input"
+                                   name="ID"
+                                   id="ID"
+                                   maxlength="100"
+                                   placeholder="아이디"
+                                   autocomplete="username">
+                        </div>
+
+                        <!-- 이름 입력 -->
+                        <div class="mar1">
+                            <input type="text"
+                                   class="input"
+                                   name="NAME"
+                                   id="NAME"
+                                   maxlength="100"
+                                   placeholder="이름"
+                                   autocomplete="name">
+                        </div>
+
+                        <!-- 이메일 입력 및 인증번호 발송 -->
+                        <div class="mar1">
+                            <div class="email-group">
+                                <input type="text"
+                                       class="input"
+                                       name="EMAIL"
+                                       id="EMAIL"
+                                       placeholder="이메일"
+                                       maxlength="100"
+                                       autocomplete="email">
+                                <a href="javascript:sendMail();" class="fbtn">인증번호 발송</a>
+                            </div>
+                        </div>
+
+                        <!-- 인증번호 입력 -->
+                        <div class="mar2">
+                            <input type="text"
+                                   class="input"
+                                   name="CERTI_NUM"
+                                   id="CERTI_NUM"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                   maxlength="6"
+                                   placeholder="인증번호를 입력해주세요"
+                                   autocomplete="off">
+                        </div>
+
+                        <!-- 비밀번호 재설정 버튼 -->
+                        <div class="btn_area center">
+                            <a href="javascript:goVerifyAndNext();" class="btn-submit">비밀번호 재설정</a>
+                        </div>
+                    </div>
+
+                    <!-- 하단 링크 -->
+                    <div class="join_info">
+                        <a href="/login">로그인</a>
+                        <span class="bar"></span>
+                        <a href="/search-id">아이디 찾기</a>
+                        <span class="bar"></span>
+                        <a href="/register">회원가입</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </form>
+
+</div>
+
+<script src="/js/common.js?v=1"></script>
+<script src="/js/search-pw.js"></script>
+
+</body>
+
+</html>

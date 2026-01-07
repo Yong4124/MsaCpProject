@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>관리자 - 기업회원 관리</title>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-left">주한미군 전역장병 채용 플랫폼 관리자</div>
+    <div class="topbar-right">
+        <span id="welcomeText">관리자님 환영합니다.</span>
+        <button id="logoutBtn" class="btn-dark">로그아웃</button>
+    </div>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <a class="menu" href="/admin/user_list">개인회원 관리</a>
+        <a class="menu active" href="/admin/company_list">기업회원 관리</a>
+        <a class="menu" href="/admin/stats">통계</a>
+        <a class="menu" href="/admin/admin_list">관리자관리</a>
+    </aside>
+
+    <main class="content">
+        <div class="content-inner">
+        <h1 class="page-title">기업회원 관리</h1>
+        <div class="divider"></div>
+            <section class="search">
+                <div class="search-row">
+                    <!-- (1) 승인 필터: all/Y/N -->
+                    <select class="select" id="fieldSelect">
+                        <option value="all">전체</option>
+                        <option value="company">회사명</option>
+                        <option value="manager">담당자명</option>
+                        <option value="id">아이디</option>
+                    </select>
+
+
+                    <!-- (2) 검색어 -->
+                    <input class="input" id="keywordInput" type="text" placeholder="회사명 / 담당자명 / 아이디" />
+
+                    <!-- (3) 검색 버튼 -->
+                    <button class="btn-dark" id="searchBtn" type="button">검색</button>
+
+
+                    <select class="select" id="approvalSelect">
+                        <option value="all">회원 승인 여부</option>
+                        <option value="N">미승인</option>
+                        <option value="Y">승인</option>
+                    </select>
+                </div>
+            </section>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width:70px;">번호</th>
+                <th>회사명</th>
+                <th>담당자명</th>
+                <th>아이디</th>
+                <th style="width:130px;">등록일</th>
+                <th style="width:120px;">회원승인 여부</th>
+            </tr>
+            </thead>
+            <tbody id="companyTbody">
+            </tbody>
+        </table>
+
+        <div class="pager">
+            <button class="pager-btn active">1</button>
+        </div>
+
+        <div class="actions">
+            <button class="btn-dark wide">엑셀 다운로드</button>
+        </div>
+        </div>
+    </main>
+</div>
+
+<script defer src="/js/admin_company_list.js"></script>
+</body>
+</html>

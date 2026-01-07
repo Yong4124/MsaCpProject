@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>채용공고 등록</title>
+    <link rel="stylesheet" href="/css/job.css">
+    <script src="/js/jobs.js" defer></script>
+</head>
+<body>
+<form name="applForm">
+    <div class="detail_container">
+
+        <div class="info_grid grid_layout">
+            <span class="label required">공고명</span>
+            <input type="text" name="jobTitle" class="value_box full_row">
+
+            <span class="label required">접수기간</span>
+            <div class="full_row">
+                <input type="date" name="startDate" class="value_box">
+                <span>-</span>
+                <input type="date" name="endDate" class="value_box">
+            </div>
+
+            <div class="divider"></div>
+
+            <span class="label">직업유형</span>
+            <input type="text" name="jobType" class="value_box">
+            <span class="label">고용형태</span>
+            <input type="text" name="employType" class="value_box">
+            <span class="label">직종</span>
+            <input type="text" name="jobCategory" class="value_box">
+            <span class="label">업계</span>
+            <input type="text" name="industry" class="value_box">
+            <span class="label">직급</span>
+            <input type="text" name="jobLevel" class="value_box">
+            <span class="label">경력</span>
+            <input type="text" name="career" class="value_box">
+            <span class="label">기본급</span>
+            <input type="text" name="salary" class="value_box">
+            <span class="label">근무시간</span>
+            <input type="text" name="workTime" class="value_box">
+            <span class="label">근무처</span>
+            <input type="text" name="workLocation" class="value_box full_row">
+        </div>
+
+
+        <div class="content_section">
+            <div class="section_title">회사소개</div>
+            <textarea name="companyIntro" class="text_box"></textarea>
+
+            <div class="section_title">담당업무</div>
+            <textarea name="jobDescription" class="text_box"></textarea>
+
+            <div class="section_title">기술 및 자격요건</div>
+            <textarea name="requirements" class="text_box"></textarea>
+
+            <div class="section_title">복지 및 보상</div>
+            <textarea name="benefits" class="text_box"></textarea>
+
+            <div class="section_title">유의사항</div>
+            <textarea name="notes" class="text_box"></textarea>
+        </div>
+
+
+        <div class="content_section">
+            <div class="section_title">회사정보</div>
+
+            <div class="info_grid grid_layout">
+                <span class="label">기업구분</span>
+                <input type="text" name="compType" class="value_box">
+
+                <span class="label">설립일</span>
+                <input type="text" name="foundingDate" class="value_box">
+
+                <span class="label">대표자</span>
+                <input type="text" name="ceoName" class="value_box">
+
+                <span class="label">사원수</span>
+                <input type="text" name="employeeCount" class="value_box">
+
+                <span class="label">자본금</span>
+                <input type="text" name="capital" class="value_box">
+
+                <span class="label">매출액</span>
+                <input type="text" name="sales" class="value_box">
+
+                <span class="label">회사주소(본사)</span>
+                <input type="text" name="companyAddress" class="value_box full_row">
+
+                <span class="label">홈페이지</span>
+                <input type="text" name="homepage" class="value_box full_row">
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-flex-center">
+        <button type="button" class="btn-common btn-blue" onclick="saveTemp()">임시저장</button>
+        <button type="button" class="btn-common btn_orange" onclick="submitJob()">공고등록</button>
+        <button type="button" class="btn-common btn-gray" onclick="goList()">목록가기</button>
+    </div>
+</form>
+</body>
+</html>

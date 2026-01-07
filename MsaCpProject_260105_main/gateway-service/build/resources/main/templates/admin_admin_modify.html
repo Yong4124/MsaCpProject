@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>관리자 - 관리자권한 상세</title>
+
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/admin_admin_list.css" />
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-left">주한미군 전역장병 채용 플랫폼 관리자</div>
+    <div class="topbar-right">
+        <span id="welcomeText">관리자님 환영합니다.</span>
+        <button id="logoutBtn" class="btn-dark">로그아웃</button>
+    </div>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <a class="menu" href="/admin/user_list">개인회원 관리</a>
+        <a class="menu" href="/admin/company_list">기업회원 관리</a>
+        <a class="menu" href="/admin/stats">통계</a>
+        <a class="menu active" href="/admin/admin_list">관리자관리</a>
+    </aside>
+
+    <main class="content">
+        <h1 class="page-title">관리자관리</h1>
+        <div class="divider"></div>
+
+        <div class="content-inner" style="max-width: 980px; margin-left:40px;">
+            <form id="adminModifyForm">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th style="width:180px; text-align:left;">아이디</th>
+                        <td style="text-align:left;">
+                            <span id="viewId" style="font-weight:600;"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th style="text-align:left;">* 비밀번호</th>
+                        <td style="text-align:left;">
+                            <input class="input" id="pw" type="password" style="width:220px;" placeholder="변경 시에만 입력">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:left;">* 비밀번호 재입력</th>
+                        <td style="text-align:left;">
+                            <input class="input" id="pw2" type="password" style="width:220px;" placeholder="변경 시에만 입력">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th style="text-align:left;">* 성명</th>
+                        <td style="text-align:left;">
+                            <input class="input" id="name" type="text" style="width:260px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:left;">* 이메일</th>
+                        <td style="text-align:left;">
+                            <input class="input" id="email" type="email" style="width:360px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:left;">부서</th>
+                        <td style="text-align:left;">
+                            <input class="input" id="dept" type="text" style="width:260px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:left;">전화번호</th>
+                        <td style="text-align:left;">
+                            <input class="input" id="phone" type="text" style="width:260px;">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th style="text-align:left;">* 관리자권한</th>
+                        <td style="text-align:left;">
+                            <label><input type="radio" name="role" value="SUPER"> 슈퍼관리자</label>
+                            <label style="margin-left:14px;"><input type="radio" name="role" value="COMPANY"> 대상공공기관</label>
+                            <label style="margin-left:14px;"><input type="radio" name="role" value="PERSONAL"> 한미동맹재단</label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="actions" style="justify-content:center; gap:12px; margin-top:18px;">
+                    <button type="button" class="btn-dark btn-small" id="btnList">목록</button>
+                    <button type="button" class="btn-dark btn-small" id="btnUpdate">수정</button>
+                    <button type="button" class="btn-dark btn-small btn-cancel" id="btnDelete">삭제</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script defer src="/js/admin_admin_modify.js"></script>
+</body>
+</html>

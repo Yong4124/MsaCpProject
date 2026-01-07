@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채용공고관리 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/sub.css">
+
+    <style>
+        .mypage-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 탭 메뉴 */
+        .tab-menu {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 40px;
+        }
+        .tab-menu a {
+            padding: 15px 25px;
+            font-size: 16px;
+            color: #666;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+        .tab-menu a.active {
+            color: #333;
+            font-weight: bold;
+            border-bottom: 2px solid #333;
+        }
+
+        /* 지원현황 헤더 */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* 검색 영역 - 오른쪽 정렬 */
+        .search-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-area select {
+            height: 36px;
+            padding: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            font-size: 14px;
+            background: #fff;
+        }
+        .search-area .search-input {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+        }
+        .search-area .search-input input {
+            width: 150px;
+            height: 34px;
+            padding: 0 10px;
+            border: none;
+            font-size: 14px;
+        }
+        .search-area .search-input button {
+            width: 36px;
+            height: 34px;
+            background: #fff;
+            border: none;
+            border-left: 1px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 공고 목록 */
+        .job-list {
+            border-top: 2px solid #333;
+        }
+        .job-item {
+            display: flex;
+            padding: 30px 20px;
+            border-bottom: 1px solid #eee;
+            align-items: flex-start;
+        }
+        .job-logo {
+            width: 100px;
+            height: 70px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 30px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .job-logo img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        .job-content {
+            flex: 1;
+        }
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* 공고 정보 테이블 형식 */
+        .job-info-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 40px;
+        }
+        .job-info-row {
+            display: flex;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .job-info-row .label {
+            color: #333;
+            font-weight: 500;
+            min-width: 65px;
+            margin-right: 15px;
+        }
+        .job-info-row .value {
+            color: #666;
+        }
+
+        /* 액션 버튼 영역 */
+        .job-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 130px;
+            margin-left: 20px;
+        }
+        .btn-applicants {
+            width: 120px;
+            padding: 12px 0;
+            background: #255EB8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+        .btn-applicants:hover {
+            background: #1a4a8f;
+        }
+        .job-deadline {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .job-deadline span {
+            margin-left: 10px;
+        }
+        .btn-close {
+            width: 120px;
+            padding: 10px 0;
+            background: #F5A623;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn-close:hover {
+            background: #e09000;
+        }
+        .btn-close.closed {
+            background: #888;
+            cursor: default;
+        }
+
+        /* 페이지네이션 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .pagination a, .pagination span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            padding: 0 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            color: #333;
+            text-decoration: none;
+        }
+        .pagination span.active {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        /* 등록 버튼 */
+        .btn-register-wrap {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .btn-register {
+            padding: 15px 50px;
+            background: #255EB8;
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .btn-register:hover {
+            background: #1a4a8f;
+        }
+
+        /* 데이터 없음 */
+        .no-data {
+            text-align: center;
+            padding: 80px 0;
+            color: #888;
+            font-size: 16px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container topbar">
+            <div class="brand-logos">
+                <a href="/"><img src="/img/common/t_bndea.svg" alt="대한상공회의소"></a>
+                <a href="/"><img src="/img/common/t_bnhan.svg" alt="한미동맹재단"></a>
+            </div>
+            <div class="top-links">
+                <a href="javascript:logout();">로그아웃</a>
+                <a href="/en">ENGLISH</a>
+            </div>
+        </div>
+        <div class="container mainbar">
+            <div class="site-title">
+                <h1>주한미군 전역장병 채용 플랫폼</h1>
+                <p>USFK Job Platform</p>
+            </div>
+            <nav class="main-nav">
+                <a href="/intro">소개</a>
+                <a href="/jobs">채용공고</a>
+                <a href="/notices">공지사항</a>
+                <a href="/reviews">취업수기</a>
+                <a href="/resources">자료실</a>
+                <a href="/faq">FAQ</a>
+                <a href="/company/mypage">마이페이지</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mypage-container">
+        <!-- 탭 메뉴 -->
+        <div class="tab-menu">
+            <a href="/company/mypage">회원정보관리</a>
+            <a href="/company/jobs" class="active">채용공고관리</a>
+        </div>
+
+        <!-- 지원현황 헤더 + 검색 -->
+        <div class="section-header">
+            <div class="section-title">지원현황</div>
+            <div class="search-area">
+                <select id="searchType">
+                    <option value="">전체</option>
+                    <option value="title">공고제목</option>
+                    <option value="position">직종</option>
+                </select>
+                <div class="search-input">
+                    <input type="text" id="searchKeyword" placeholder="검색어">
+                    <button onclick="searchJobs()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+                <select id="statusFilter" onchange="filterByStatus()">
+                    <option value="">전체</option>
+                    <option value="active">진행중</option>
+                    <option value="closed">마감</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 공고 목록 -->
+        <div class="job-list" id="jobList">
+            <div class="no-data">등록된 채용공고가 없습니다.</div>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="pagination" id="pagination">
+            <span class="active">1</span>
+        </div>
+
+        <!-- 등록 버튼 -->
+        <div class="btn-register-wrap">
+            <a href="/company/jobs/register" class="btn-register">등록하기</a>
+        </div>
+    </main>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        checkSession();
+        loadJobList();
+    });
+
+    async function checkSession() {
+        try {
+            const response = await fetch('/api/company/check-session');
+            const data = await response.json();
+            if (!data.loggedIn) {
+                window.location.href = '/company/login';
+            }
+        } catch (error) {
+            console.error('세션 확인 실패:', error);
+        }
+    }
+
+    async function loadJobList() {
+        // TODO: 실제 API 연동 시 아래 주석 해제
+        /*
+        try {
+            const response = await fetch('/api/company/jobs');
+            const data = await response.json();
+
+            if (data.success && data.jobs && data.jobs.length > 0) {
+                renderJobList(data.jobs);
+            } else {
+                document.getElementById('jobList').innerHTML = '<div class="no-data">등록된 채용공고가 없습니다.</div>';
+            }
+        } catch (error) {
+            console.error('공고 목록 로드 실패:', error);
+            document.getElementById('jobList').innerHTML = '<div class="no-data">등록된 채용공고가 없습니다.</div>';
+        }
+        */
+    }
+
+    function renderJobList(jobs) {
+        const container = document.getElementById('jobList');
+
+        if (!jobs || jobs.length === 0) {
+            container.innerHTML = '<div class="no-data">등록된 채용공고가 없습니다.</div>';
+            return;
+        }
+
+        let html = '';
+        jobs.forEach(job => {
+            html += `
+                <div class="job-item">
+                    <div class="job-logo">
+                        <img src="${job.logoUrl || '/img/common/default_logo.png'}" alt="${job.companyName}">
+                    </div>
+                    <div class="job-content">
+                        <div class="job-title">${job.title}</div>
+                        <div class="job-info-table">
+                            <div class="job-info-row">
+                                <span class="label">직업유형</span>
+                                <span class="value">${job.jobType || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">고용형태</span>
+                                <span class="value">${job.employmentType || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">직종</span>
+                                <span class="value">${job.position || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">업계</span>
+                                <span class="value">${job.industry || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">직급</span>
+                                <span class="value">${job.level || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">경력</span>
+                                <span class="value">${job.experience || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">기본급</span>
+                                <span class="value">${job.salary || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">근무시간</span>
+                                <span class="value">${job.workHours || '-'}</span>
+                            </div>
+                            <div class="job-info-row">
+                                <span class="label">근무처</span>
+                                <span class="value">${job.location || '-'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <a href="/company/jobs/${job.id}/applicants" class="btn-applicants">지원자 보기</a>
+                        <div class="job-deadline">마감일<span>${job.deadline || '-'}</span></div>
+                        <button class="btn-close ${job.status === 'closed' ? 'closed' : ''}"
+                                onclick="${job.status === 'closed' ? '' : `closeJob(${job.id})`}"
+                                ${job.status === 'closed' ? 'disabled' : ''}>
+                            ${job.status === 'closed' ? '마감완료' : '공고마감'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function searchJobs() {
+        const keyword = document.getElementById('searchKeyword').value;
+        const type = document.getElementById('searchType').value;
+        console.log('검색:', type, keyword);
+        // TODO: 검색 API 호출
+    }
+
+    function filterByStatus() {
+        const status = document.getElementById('statusFilter').value;
+        console.log('필터:', status);
+        // TODO: 필터링 API 호출
+    }
+
+    async function closeJob(jobId) {
+        if (!confirm('이 공고를 마감하시겠습니까?')) return;
+
+        // TODO: 공고 마감 API 호출
+        /*
+        try {
+            const response = await fetch(`/api/company/jobs/${jobId}/close`, {
+                method: 'PUT'
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert('공고가 마감되었습니다.');
+                loadJobList();
+            }
+        } catch (error) {
+            alert('공고 마감 중 오류가 발생했습니다.');
+        }
+        */
+    }
+
+    async function logout() {
+        try {
+            await fetch('/api/company/logout', { method: 'POST' });
+            window.location.href = '/';
+        } catch (error) {
+            window.location.href = '/';
+        }
+    }
+</script>
+
+</body>
+</html>

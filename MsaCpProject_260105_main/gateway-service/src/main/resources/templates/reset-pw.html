@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 재설정 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+</head>
+
+<body class="sub">
+<div class="wrapper">
+
+    <!-- Menu -->
+    <!-- TODO: 여기에 메뉴 include -->
+
+    <form name="rpForm" method="post">
+        <input type="hidden" name="TOKEN" id="TOKEN" value="">
+        <input type="hidden" name="LOGIN_ID" id="LOGIN_ID" value="">
+
+        <div class="sub_container">
+            <div class="container">
+                <div class="login_view">
+
+                    <!-- 페이지 제목 -->
+                    <div class="sub_tit mb20">새 비밀번호 설정</div>
+
+                    <!-- 입력 폼 -->
+                    <div class="login_box">
+
+                        <!-- 안내 문구 -->
+                        <div class="mar1" style="text-align: center; color: #666; font-size: 14px;">
+                            새로운 비밀번호를 설정해주세요.<br>
+                            8~16자의 영문, 숫자, 특수기호를 포함해야 합니다.
+                        </div>
+
+                        <!-- 새 비밀번호 입력 -->
+                        <div class="mar1">
+                            <input type="password"
+                                   class="input"
+                                   name="NEW_PW"
+                                   id="NEW_PW"
+                                   maxlength="16"
+                                   placeholder="새 비밀번호"
+                                   onkeyup="noSpaceForm(this);"
+                                   onchange="noSpaceForm(this);">
+                        </div>
+
+                        <!-- 새 비밀번호 확인 -->
+                        <div class="mar2">
+                            <input type="password"
+                                   class="input"
+                                   name="NEW_PW_CONFIRM"
+                                   id="NEW_PW_CONFIRM"
+                                   maxlength="16"
+                                   placeholder="새 비밀번호 확인"
+                                   onkeyup="noSpaceForm(this);"
+                                   onchange="noSpaceForm(this);"
+                                   onkeypress="return handleEnter(this, event)">
+                        </div>
+
+                        <!-- 비밀번호 변경 버튼 -->
+                        <div class="btn_area center">
+                            <a href="javascript:goResetPassword();" class="btn-submit">비밀번호 재설정</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <!-- TODO: 여기에 푸터 include -->
+
+    </form>
+
+</div>
+
+<script src="/js/reset-pw.js"></script>
+
+</body>
+
+</html>

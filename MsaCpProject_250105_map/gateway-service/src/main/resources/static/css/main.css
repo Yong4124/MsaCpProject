@@ -224,8 +224,11 @@ button{ font:inherit; cursor:pointer; }
 }
 .jido_link{ position:absolute; z-index:1; display:block; }
 .jido_link img{ display:block; margin:0 auto; }
+.jido_slink{ display:block; margin-bottom:4px; }
+.jido_slink img{ height:18px; max-width:100px; display:block; }
+.jido_slink.on img, .jido_slink:hover img{ transform:scale(1.15); }
 
-/* ✅ 샘플 위치(원본처럼 클래스별 좌표는 계속 추가 가능) */
+/* 1. California */
 .jido_link1{ left:29px; bottom:-156px; }
 .jido_link1:before{
     content:"";
@@ -233,8 +236,15 @@ button{ font:inherit; cursor:pointer; }
     width:107px; height:253px;
     background:url('/img/main/jido_logo/line_1.png') no-repeat 0 0;
 }
-.jido_link1_2 img{ height:28px; }
-
+/* 2. Arizona */
+.jido_link2{ left:130px; bottom:-90px; }
+.jido_link2:before{
+    content:"";
+    position:absolute; left:15px; top:-115px;
+    width:80px; height:120px;
+    background:url('/img/main/jido_logo/line_2.png') no-repeat 0 0;
+}
+/* 3. Texas */
 .jido_link3{ left:305px; bottom:-110px; }
 .jido_link3:before{
     content:"";
@@ -242,7 +252,150 @@ button{ font:inherit; cursor:pointer; }
     width:104px; height:118px;
     background:url('/img/main/jido_logo/line_3.png') no-repeat 0 0;
 }
-.jido_link3_1 img{ height:28px; }
+/* 4. Florida */
+.jido_link4{ left:455px; bottom:-145px; }
+.jido_link4:before{
+    content:"";
+    position:absolute; left:10px; top:-160px;
+    width:80px; height:165px;
+    background:url('/img/main/jido_logo/line_4.png') no-repeat 0 0;
+}
+/* 5. Louisiana */
+.jido_link5{ left:385px; bottom:-90px; }
+.jido_link5:before{
+    content:"";
+    position:absolute; left:30px; top:-100px;
+    width:60px; height:105px;
+    background:url('/img/main/jido_logo/line_5.png') no-repeat 0 0;
+}
+/* 6. North Dakota */
+.jido_link6{ left:272px; top:-65px; }
+.jido_link6:before{
+    content:"";
+    position:absolute; left:20px; bottom:-70px;
+    width:50px; height:75px;
+    background:url('/img/main/jido_logo/line_6.png') no-repeat 0 0;
+}
+/* 7. Minnesota */
+.jido_link7{ left:350px; top:-65px; }
+.jido_link7:before{
+    content:"";
+    position:absolute; left:20px; bottom:-90px;
+    width:50px; height:95px;
+    background:url('/img/main/jido_logo/line_7.png') no-repeat 0 0;
+}
+/* 8. Michigan */
+.jido_link8{ left:440px; top:-65px; }
+.jido_link8:before{
+    content:"";
+    position:absolute; left:30px; bottom:-120px;
+    width:60px; height:125px;
+    background:url('/img/main/jido_logo/line_8.png') no-repeat 0 0;
+}
+/* 9. Indiana */
+.jido_link9{ left:520px; top:-65px; }
+.jido_link9:before{
+    content:"";
+    position:absolute; left:25px; bottom:-145px;
+    width:55px; height:150px;
+    background:url('/img/main/jido_logo/line_9.png') no-repeat 0 0;
+}
+/* 10. Ohio */
+.jido_link10{ left:600px; top:-65px; }
+.jido_link10:before{
+    content:"";
+    position:absolute; left:25px; bottom:-130px;
+    width:55px; height:135px;
+    background:url('/img/main/jido_logo/line_10.png') no-repeat 0 0;
+}
+/* 11. New York */
+.jido_link11{ right:-50px; top:-5px; }
+.jido_link11:before{
+    content:"";
+    position:absolute; left:-60px; bottom:5px;
+    width:65px; height:40px;
+    background:url('/img/main/jido_logo/line_11.png') no-repeat 0 0;
+}
+/* 12. Pennsylvania */
+.jido_link12{ right:-50px; top:55px; }
+.jido_link12:before{
+    content:"";
+    position:absolute; left:-80px; top:10px;
+    width:85px; height:35px;
+    background:url('/img/main/jido_logo/line_12.png') no-repeat 0 0;
+}
+/* 13. New Jersey */
+.jido_link13{ right:-50px; top:115px; }
+.jido_link13:before{
+    content:"";
+    position:absolute; left:-100px; top:15px;
+    width:105px; height:50px;
+    background:url('/img/main/jido_logo/line_13.png') no-repeat 0 0;
+}
+/* 14. Virginia */
+.jido_link14{ right:-50px; top:200px; }
+.jido_link14:before{
+    content:"";
+    position:absolute; left:-110px; top:5px;
+    width:115px; height:30px;
+    background:url('/img/main/jido_logo/line_14.png') no-repeat 0 0;
+}
+/* 15. North Carolina */
+.jido_link15{ right:-50px; top:250px; }
+.jido_link15:before{
+    content:"";
+    position:absolute; left:-100px; top:10px;
+    width:105px; height:35px;
+    background:url('/img/main/jido_logo/line_15.png') no-repeat 0 0;
+}
+/* 16. Tennessee */
+.jido_link16{ right:-50px; top:305px; }
+.jido_link16:before{
+    content:"";
+    position:absolute; left:-130px; top:5px;
+    width:135px; height:30px;
+    background:url('/img/main/jido_logo/line_16.png') no-repeat 0 0;
+}
+/* 17. South Carolina */
+.jido_link17{ right:-50px; top:350px; }
+.jido_link17:before{
+    content:"";
+    position:absolute; left:-95px; top:10px;
+    width:100px; height:35px;
+    background:url('/img/main/jido_logo/line_17.png') no-repeat 0 0;
+}
+/* 18. Georgia (SK On) */
+.jido_link18{ right:-50px; top:400px; }
+.jido_link18:before{
+    content:"";
+    position:absolute; left:-90px; top:5px;
+    width:95px; height:30px;
+    background:url('/img/main/jido_logo/line_18.png') no-repeat 0 0;
+}
+/* 19. Georgia (Samsung) */
+.jido_link19{ right:-50px; top:445px; }
+.jido_link19:before{
+    content:"";
+    position:absolute; left:-85px; top:5px;
+    width:90px; height:30px;
+    background:url('/img/main/jido_logo/line_19.png') no-repeat 0 0;
+}
+/* 20. Tennessee Right */
+.jido_link20{ right:-125px; top:310px; }
+.jido_link20:before{
+    content:"";
+    position:absolute; left:-60px; top:40px;
+    width:65px; height:50px;
+    background:url('/img/main/jido_logo/line_20.png') no-repeat 0 0;
+}
+/* 21. Georgia Right */
+.jido_link21{ right:-125px; top:475px; }
+.jido_link21:before{
+    content:"";
+    position:absolute; left:-50px; top:-30px;
+    width:55px; height:50px;
+    background:url('/img/main/jido_logo/line_21.png') no-repeat 0 0;
+}
 
 /* Popup */
 .company_pop_wrap_box{
