@@ -3,7 +3,6 @@ package com.example.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class WebController {
@@ -18,109 +17,111 @@ public class WebController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("message", "로그인");
-        return "login";
+        return "personal/login";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("message", "회원 가입");
-        return "register";
+        return "personal/register";
     }
 
     @GetMapping("/search-id")
     public String searchId(Model model) {
         model.addAttribute("message", "아이디 찾기");
-        return "search-id";
+        return "personal/search-id";
     }
 
     @GetMapping("/search-pw")
     public String searchPw(Model model) {
         model.addAttribute("message", "비밀번호 찾기");
-        return "search-pw";
+        return "personal/search-pw";
     }
 
     @GetMapping("/reset-pw")
     public String resetPw(Model model) {
         model.addAttribute("message", "비밀번호 재설정");
-        return "reset-pw";
+        return "personal/reset-pw";
     }
 
     @GetMapping("/mypage")
     public String mypage(Model model) {
         model.addAttribute("message", "마이페이지");
-        return "mypage";
+        return "personal/mypage";
     }
 
     // admin-service
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("message", "관리자 페이지");
-        return "admin";
+        return "admin/admin";
     }
 
     @GetMapping("/admin/user_list")
     public String adminUserList() {
-        return "admin_user_list"; // templates/admin_user_list.html
+        return "admin/admin_user_list"; // templates/admin_user_list.html
     }
 
     @GetMapping("/admin/admin_list")
     public String adminAdminList() {
-        return "admin_admin_list"; // templates/admin_admin_list.html
+        return "admin/admin_admin_list"; // templates/admin_admin_list.html
     }
 
     @GetMapping("/admin/admin_write")
     public String adminWritePage() {
-        return "admin_admin_write"; // templates/admin_admin_write.html
+        return "admin/admin_admin_write"; // templates/admin_admin_write.html
     }
 
     @GetMapping("/admin/company_list")
     public String adminCompanyList() {
-        return "admin_company_list";
+        return "admin/admin_company_list";
     }
 
     @GetMapping("/admin/company_detail")
     public String adminCompanyDetail() {
-        return "admin_company_detail"; // templates/admin_company_detail.html
+        return "admin/admin_company_detail"; // templates/admin_company_detail.html
     }
 
     @GetMapping("/admin/stats")
     public String adminStats() {
-        return "admin_stats";
+        return "admin/admin_stats";
     }
 
     @GetMapping("/admin/admin_modify")
     public String adminModifyPage() {
-        return "admin_admin_modify"; // templates/admin_admin_modify.html
+        return "admin/admin_admin_modify"; // templates/admin_admin_modify.html
     }
 
+
+    // company-service
     @GetMapping("/company/login")
     public String companyLogin() {
-        return "company_login";
+        return "company/company_login";
     }
 
     @GetMapping("/company/register")
     public String companyRegister() {
-        return "company_register";
+        return "company/company_register";
     }
 
     @GetMapping("/company/mypage")
     public String companyMypage() {
-        return "company_mypage";
+        return "company/company_mypage";
     }
 
     @GetMapping("/company/search-id")
     public String companySearchId() {
-        return "company_search_id";
+        return "company/company_search_id";
     }
 
     @GetMapping("/company/search-pw")
     public String companySearchPw() {
-        return "company_search_pw";
+        return "company/company_search_pw";
     }
 
     @GetMapping("/company/jobs")
     public String companyJobs() {
-        return "company_jobs";
+        return "company/company_jobs";
     }
 
 

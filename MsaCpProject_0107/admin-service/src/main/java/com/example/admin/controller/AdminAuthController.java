@@ -103,6 +103,9 @@ public class AdminAuthController {
             if (req.email() == null || req.email().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body(new ErrorResponse("이메일은 필수입니다."));
             }
+            if (req.department() == null || req.department().isBlank()) {
+                throw new IllegalArgumentException("부서는 필수입니다.");
+            }
             if (req.role() == null || req.role().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body(new ErrorResponse("권한은 필수입니다."));
             }
@@ -185,7 +188,12 @@ public class AdminAuthController {
 
             if (req.name() != null) user.setNm(req.name());
             if (req.email() != null) user.setEmail(req.email());
-            if (req.department() != null) user.setDepartment(req.department());
+            if (req.department() != null) {
+                if (req.department().isBlank()) {
+                    throw new IllegalArgumentException("부서는 필수입니다.");
+                }
+                user.setDepartment(req.department());
+            }
             if (req.phone() != null) user.setPhone(req.phone());
             if (req.role() != null && !req.role().isBlank()) user.setRole(mapRole(req.role()));
 

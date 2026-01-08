@@ -28,7 +28,7 @@ public class AdminUser {
     @Column(name = "EMAIL", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "DEPARTMENT", length = 500)
+    @Column(name = "DEPARTMENT", length = 500, nullable = false)
     private String department;
 
     @Column(name = "PHONE", length = 100, nullable = false)
