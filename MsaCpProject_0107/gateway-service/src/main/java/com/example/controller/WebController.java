@@ -124,5 +124,10 @@ public class WebController {
         return "company/company_jobs";
     }
 
+    @GetMapping("/admin/user_detail")
+    public String adminUserDetail() {
+        return "admin/admin_user_detail"; // templates/admin_user_detail.html
+    }
+
 
 }

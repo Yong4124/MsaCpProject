@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>::주한미군 전역장병 채용 플랫폼 관리자::</title>
+    <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<div class="top-blank"></div>
+
+<section class="hero">
+    <div class="hero-inner">
+        <h1 class="site-title">주한미군 전역장병 채용 플랫폼 관리자</h1>
+
+        <div class="login-card">
+            <div class="card-left">
+                <div class="login-word">Login</div>
+            </div>
+
+            <div class="card-right">
+                <div class="welcome">관리자페이지에 오신걸 환영합니다.</div>
+
+                <form id="loginForm" novalidate>
+                    <div class="field">
+                        <label for="userId">User ID</label>
+                        <input id="userId" type="text" placeholder="아이디를 입력하세요." />
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" placeholder="비밀번호를 입력하세요." />
+                    </div>
+
+                    <div class="btn-row">
+                        <button id="loginBtn" class="btn-login" type="submit">로그인</button>
+                    </div>
+
+                    <p id="message" class="message" aria-live="polite"></p>
+                </form>
+            </div>
+        </div>
+
+        <div class="copyright">COPYRIGHT KCCI ALLIANCE. ALL RIGHTS RESERVED</div>
+    </div>
+</section>
+
+
+<script defer src="/js/admin/admin.js"></script>
+</body>
+</html>

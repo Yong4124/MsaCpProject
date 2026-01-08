@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="22" viewBox="0 0 26 22">
+  <g id="그룹_414" data-name="그룹 414" transform="translate(-902 -689)">
+    <g id="사각형_206" data-name="사각형 206" transform="translate(902 691)" fill="#fff" stroke="#b7b7b7" stroke-width="1">
+      <rect width="26" height="20" stroke="none"/>
+      <rect x="0.5" y="0.5" width="25" height="19" fill="none"/>
+    </g>
+    <rect id="사각형_207" data-name="사각형 207" width="24" height="5" transform="translate(903 691)" fill="#b7b7b7"/>
+    <rect id="사각형_208" data-name="사각형 208" width="3" height="3" transform="translate(906 699)" fill="#b7b7b7"/>
+    <rect id="사각형_215" data-name="사각형 215" width="3" height="3" transform="translate(906 704)" fill="#b7b7b7"/>
+    <rect id="사각형_209" data-name="사각형 209" width="3" height="3" transform="translate(911 699)" fill="#b7b7b7"/>
+    <rect id="사각형_214" data-name="사각형 214" width="3" height="3" transform="translate(911 704)" fill="#b7b7b7"/>
+    <rect id="사각형_210" data-name="사각형 210" width="3" height="3" transform="translate(916 699)" fill="#b7b7b7"/>
+    <rect id="사각형_213" data-name="사각형 213" width="3" height="3" transform="translate(916 704)" fill="#b7b7b7"/>
+    <rect id="사각형_211" data-name="사각형 211" width="3" height="3" transform="translate(921 699)" fill="#b7b7b7"/>
+    <rect id="사각형_212" data-name="사각형 212" width="3" height="3" transform="translate(921 704)" fill="#b7b7b7"/>
+    <g id="사각형_216" data-name="사각형 216" transform="translate(906 689)" fill="#fff" stroke="#b7b7b7" stroke-width="1">
+      <rect width="2" height="3" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1" height="2" rx="0.5" fill="none"/>
+    </g>
+    <g id="사각형_217" data-name="사각형 217" transform="translate(910 689)" fill="#fff" stroke="#b7b7b7" stroke-width="1">
+      <rect width="2" height="3" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1" height="2" rx="0.5" fill="none"/>
+    </g>
+    <g id="사각형_218" data-name="사각형 218" transform="translate(914 689)" fill="#fff" stroke="#b7b7b7" stroke-width="1">
+      <rect width="2" height="3" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1" height="2" rx="0.5" fill="none"/>
+    </g>
+    <g id="사각형_219" data-name="사각형 219" transform="translate(918 689)" fill="#fff" stroke="#b7b7b7" stroke-width="1">
+      <rect width="2" height="3" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1" height="2" rx="0.5" fill="none"/>
+    </g>
+    <g id="사각형_220" data-name="사각형 220" transform="translate(922 689)" fill="#fff" stroke="#b7b7b7" stroke-width="1">
+      <rect width="2" height="3" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1" height="2" rx="0.5" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Navbar fragment에서는 head를 사용하지 않음 -->
+</head>
+<body>
+<!-- ========================================
+     공통 헤더 Fragment
+     ======================================== -->
+<div th:fragment="navbar">
+    <!-- Top Header (로그인/회원가입 영역) -->
+    <div class="header_top">
+        <div class="container">
+            <div class="ht_wrap">
+                <!-- 왼쪽: 로고들 -->
+                <div class="ht_bn">
+                    <a href="https://www.korcham.net" class="mar"><img src="/img/common/t_bndea.svg" alt="대한상공회의소" class="t_bndea"></a>
+                    <a href="https://kusaf.org"><img src="/img/common/t_bnhan.svg" alt="한미동맹재단" class="t_bnhan"></a>
+                </div>
+
+                <!-- 오른쪽: 로그인/회원가입 -->
+                <div class="ht_info">
+                    <!-- 로그인 전 -->
+                    <a href="/login" class="login" id="loginLink">로그인</a>
+                    <a href="/register" class="join" id="registerLink">회원가입</a>
+
+                    <!-- 로그인 후 (초기 숨김) -->
+                    <span id="userInfo" style="display:none; margin-right:20px;"></span>
+                    <a href="javascript:logout();" id="logoutBtn" style="display:none; margin-right:26px;">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GNB (메인 네비게이션) -->
+    <div class="gnb_wrap">
+        <div class="container">
+            <div class="gnb_box_line">
+                <div class="gnb_box">
+                    <!-- 텍스트 제목 -->
+                    <h1>
+                        <a href="/" style="text-decoration: none;">
+                            <div style="font-size: 28px; font-weight: 700; color: #000; line-height: 1.2;">
+                                주한미군 전역장병 채용 플랫폼
+                            </div>
+                            <div style="font-size: 14px; color: #666; margin-top: 5px;">
+                                USFK Job Platform
+                            </div>
+                        </a>
+                    </h1>
+
+                    <!-- 메뉴 -->
+                    <ul class="gnb">
+                        <li class="one"><a href="/intro" class="onea">소개</a></li>
+                        <li class="one"><a href="/jobs" class="onea">채용공고</a></li>
+                        <li class="one"><a href="javascript:goToMyPage();" class="onea">마이페이지</a></li>
+                    </ul>
+
+                    <!-- 모바일 메뉴 버튼 -->
+                    <div class="ac-allwrap">
+                        <button type="button" class="ac-allmenu btnset btn-menu">
+                            <span class="bar"></span>
+                            <span class="menutxt">전체메뉴</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모바일 메뉴 -->
+    <div class="total_menu">
+        <div class="mem_info">
+            <a href="/login" id="mLoginLink">로그인</a>
+            <a href="/register" id="mRegisterLink">회원가입</a>
+            <span id="mUserInfo" style="display:none;"></span>
+            <a href="javascript:logout();" id="mLogoutBtn" style="display:none;">로그아웃</a>
+        </div>
+        <ul class="tmenu">
+            <li class="one"><a href="/intro" class="onea">소개</a></li>
+            <li class="one"><a href="/jobs" class="onea">채용공고</a></li>
+            <li class="one"><a href="javascript:goToMyPage();" class="onea">마이페이지</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
