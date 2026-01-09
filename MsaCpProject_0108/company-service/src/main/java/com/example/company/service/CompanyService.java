@@ -10,13 +10,21 @@ import com.example.company.repository.CompanyRepository;
 import com.example.company.util.PasswordEncoder;
 import com.example.company.util.VerificationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +33,10 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final VerificationService verificationService;
+
+    // 파일 업로드 경로 (application.properties에서 설정 가능)
+    @Value("${file.upload.path:./uploads}")
+    private String uploadPath;
 
     /**
      * 회원가입
@@ -199,10 +211,11 @@ public class CompanyService {
     }
 
     /**
-     * 회원정보 수정
+     * 회원정보 수정 (파일 업로드 지원)
      */
     @Transactional
-    public Map<String, Object> updateMemberInfo(String loginId, Map<String, Object> request) {
+    public Map<String, Object> updateMemberInfo(String loginId, Map<String, Object> request, 
+                                                 MultipartFile logoFile, MultipartFile photoFile) {
         Map<String, Object> result = new HashMap<>();
 
         try {
@@ -249,6 +262,40 @@ public class CompanyService {
                 company.setSalt(newSalt);
             }
 
+            // ⭐ 로고 파일 삭제
+            Boolean logoDelete = (Boolean) request.get("logoDelete");
+            if (Boolean.TRUE.equals(logoDelete) && company.getLogoPath() != null) {
+                deleteFile(company.getLogoPath());
+                company.setLogoPath(null);
+            }
+
+            // ⭐ 기업전경 파일 삭제
+            Boolean photoDelete = (Boolean) request.get("photoDelete");
+            if (Boolean.TRUE.equals(photoDelete) && company.getPhotoPath() != null) {
+                deleteFile(company.getPhotoPath());
+                company.setPhotoPath(null);
+            }
+
+            // ⭐ 로고 파일 업로드
+            if (logoFile != null && !logoFile.isEmpty()) {
+                // 기존 파일 삭제
+                if (company.getLogoPath() != null) {
+                    deleteFile(company.getLogoPath());
+                }
+                String logoPath = saveFile(logoFile, "logos");
+                company.setLogoPath(logoPath);
+            }
+
+            // ⭐ 기업전경 파일 업로드
+            if (photoFile != null && !photoFile.isEmpty()) {
+                // 기존 파일 삭제
+                if (company.getPhotoPath() != null) {
+                    deleteFile(company.getPhotoPath());
+                }
+                String photoPath = saveFile(photoFile, "photos");
+                company.setPhotoPath(photoPath);
+            }
+
             companyRepository.save(company);
 
             result.put("success", true);
@@ -260,6 +307,46 @@ public class CompanyService {
         }
 
         return result;
+    }
+
+    /**
+     * 파일 저장
+     */
+    private String saveFile(MultipartFile file, String subDir) throws IOException {
+        // 업로드 디렉토리 생성
+        Path dirPath = Paths.get(uploadPath, subDir);
+        if (!Files.exists(dirPath)) {
+            Files.createDirectories(dirPath);
+        }
+
+        // 고유 파일명 생성
+        String originalFileName = file.getOriginalFilename();
+        String extension = "";
+        if (originalFileName != null && originalFileName.contains(".")) {
+            extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        }
+        String newFileName = UUID.randomUUID().toString() + extension;
+
+        // 파일 저장
+        Path filePath = dirPath.resolve(newFileName);
+        Files.copy(file.getInputStream(), filePath);
+
+        // 상대 경로 반환 (DB 저장용)
+        return "/" + subDir + "/" + newFileName;
+    }
+
+    /**
+     * 파일 삭제
+     */
+    private void deleteFile(String filePath) {
+        if (filePath == null || filePath.isEmpty()) return;
+        
+        try {
+            Path path = Paths.get(uploadPath, filePath);
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            System.err.println("파일 삭제 실패: " + filePath);
+        }
     }
 
     /**
@@ -388,6 +475,8 @@ public class CompanyService {
         map.put("parentCompanyCd", company.getParentCompanyCd() != null ? company.getParentCompanyCd().name() : null);
         map.put("approvalYn", company.getApprovalYn().name());
         map.put("insertDate", company.getInsertDate() != null ? company.getInsertDate().toString() : null);
+        map.put("logoPath", company.getLogoPath());
+        map.put("photoPath", company.getPhotoPath());
         return map;
     }
 }

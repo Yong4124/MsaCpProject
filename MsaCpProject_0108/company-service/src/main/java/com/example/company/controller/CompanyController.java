@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class CompanyController {
             Cookie cookie = new Cookie("JWT_TOKEN", token);
             cookie.setPath("/");
             cookie.setHttpOnly(true);
-            cookie.setMaxAge(86400); // 24시간
+            cookie.setMaxAge(7200); // 2시간
             response.addCookie(cookie);
 
             result.put("token", token);
@@ -134,10 +135,24 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.getMemberInfo(loginId));
     }
 
-    // ⭐ JWT 회원정보 수정 (이메일 인증 필수)
+    // ⭐ JWT 회원정보 수정 (이메일 인증 필수 + 파일 업로드)
     @PutMapping("/update-info")
     public ResponseEntity<Map<String, Object>> updateInfo(
-            @RequestBody Map<String, Object> request,
+            @RequestParam("company") String company,
+            @RequestParam("businessRegistNum") String businessRegistNum,
+            @RequestParam("presidentNm") String presidentNm,
+            @RequestParam(value = "parentCompanyCd", required = false) String parentCompanyCd,
+            @RequestParam("companyAddress") String companyAddress,
+            @RequestParam("managerNm") String managerNm,
+            @RequestParam("phone") String phone,
+            @RequestParam(value = "department", required = false) String department,
+            @RequestParam("email") String email,
+            @RequestParam(value = "verificationCode", required = false) String verificationCode,
+            @RequestParam(value = "newPassword", required = false) String newPassword,
+            @RequestParam(value = "logoFile", required = false) MultipartFile logoFile,
+            @RequestParam(value = "photoFile", required = false) MultipartFile photoFile,
+            @RequestParam(value = "logoDelete", defaultValue = "false") boolean logoDelete,
+            @RequestParam(value = "photoDelete", defaultValue = "false") boolean photoDelete,
             @CookieValue(value = "JWT_TOKEN", required = false) String token) {
 
         Map<String, Object> result = new HashMap<>();
@@ -149,9 +164,6 @@ public class CompanyController {
         }
 
         // ⭐ 이메일 인증 검증
-        String email = (String) request.get("email");
-        String verificationCode = (String) request.get("verificationCode");
-
         if (email == null || email.isEmpty()) {
             result.put("success", false);
             result.put("message", "이메일을 입력해주세요.");
@@ -174,7 +186,23 @@ public class CompanyController {
         }
 
         String loginId = jwtUtil.extractLoginId(token);
-        Map<String, Object> updateResult = companyService.updateMemberInfo(loginId, request);
+        
+        // request Map 구성
+        Map<String, Object> request = new HashMap<>();
+        request.put("company", company);
+        request.put("businessRegistNum", businessRegistNum);
+        request.put("presidentNm", presidentNm);
+        request.put("parentCompanyCd", parentCompanyCd);
+        request.put("companyAddress", companyAddress);
+        request.put("managerNm", managerNm);
+        request.put("phone", phone);
+        request.put("department", department);
+        request.put("email", email);
+        request.put("newPassword", newPassword);
+        request.put("logoDelete", logoDelete);
+        request.put("photoDelete", photoDelete);
+        
+        Map<String, Object> updateResult = companyService.updateMemberInfo(loginId, request, logoFile, photoFile);
         
         // 수정 성공 시 인증번호 삭제
         if ((boolean) updateResult.get("success")) {

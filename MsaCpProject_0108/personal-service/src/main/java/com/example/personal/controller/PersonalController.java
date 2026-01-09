@@ -78,7 +78,7 @@ public class PersonalController {
             Cookie cookie = new Cookie("JWT_TOKEN", token);
             cookie.setPath("/");
             cookie.setHttpOnly(true);
-            cookie.setMaxAge(86400); // 24시간
+            cookie.setMaxAge(7200); // 2시간
             response.addCookie(cookie);
 
             result.put("success", true);

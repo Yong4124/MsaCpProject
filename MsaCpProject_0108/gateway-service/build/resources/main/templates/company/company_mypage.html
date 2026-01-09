@@ -392,7 +392,6 @@
                         <input type="checkbox" id="logoDelete"> 파일삭제
                         <button type="button" class="btn-file" onclick="document.getElementById('logoFile').click()">파일 선택</button>
                         <input type="file" id="logoFile" style="display:none" accept="image/*" onchange="updateFileName('logo')">
-                        <span>선택된 파일 없음</span>
                     </div>
                 </div>
             </div>
@@ -402,10 +401,11 @@
                 <h3>기업전경</h3>
                 <div class="file-box">
                     <label>사진 첨부</label>
+                    <span class="file-name" id="photoFileName">선택된 파일 없음</span>
                     <div class="file-input-wrap">
+                        <input type="checkbox" id="photoDelete"> 파일삭제
                         <button type="button" class="btn-file" onclick="document.getElementById('photoFile').click()">파일 선택</button>
                         <input type="file" id="photoFile" style="display:none" accept="image/*" onchange="updateFileName('photo')">
-                        <span id="photoFileName">선택된 파일 없음</span>
                     </div>
                 </div>
             </div>
@@ -466,6 +466,22 @@
                 document.getElementById('phone').value = m.phone || '';
                 document.getElementById('department').value = m.department || '';
                 document.getElementById('email').value = m.email || '';
+                
+                // 로고 파일 표시
+                if (m.logoPath) {
+                    document.getElementById('logoFileName').textContent = m.logoPath.split('/').pop();
+                    document.getElementById('logoFileName').href = '/uploads' + m.logoPath;
+                    document.getElementById('logoFileName').target = '_blank';
+                } else {
+                    document.getElementById('logoFileName').textContent = '선택된 파일 없음';
+                }
+                
+                // 기업전경 파일 표시
+                if (m.photoPath) {
+                    document.getElementById('photoFileName').textContent = m.photoPath.split('/').pop();
+                } else {
+                    document.getElementById('photoFileName').textContent = '선택된 파일 없음';
+                }
             } else {
                 alert('회원정보를 불러올 수 없습니다.');
             }
@@ -515,7 +531,7 @@
 
         // 비밀번호 변경 체크
         const pwChange = document.querySelector('input[name="pwChange"]:checked').value;
-        let newPassword = null;
+        let newPassword = '';
 
         if (pwChange === 'Y') {
             if (!form.newPassword.value) {
@@ -539,36 +555,61 @@
 
         if (!confirm('회원정보를 수정하시겠습니까?')) return;
 
-        const updateData = {
-            company: form.company.value,
-            businessRegistNum: form.businessRegistNum.value,
-            presidentNm: form.presidentNm.value,
-            parentCompanyCd: form.parentCompanyCd.value,
-            companyAddress: form.companyAddress.value,
-            managerNm: form.managerNm.value,
-            phone: form.phone.value,
-            department: form.department.value,
-            email: form.email.value,
-            verificationCode: form.verifyCode.value,  // 인증번호 추가
-            newPassword: newPassword
-        };
+        // ⭐ FormData 사용 (파일 업로드 지원)
+        const formData = new FormData();
+        
+        // 텍스트 데이터
+        formData.append('company', form.company.value);
+        formData.append('businessRegistNum', form.businessRegistNum.value);
+        formData.append('presidentNm', form.presidentNm.value);
+        formData.append('parentCompanyCd', form.parentCompanyCd.value || '');
+        formData.append('companyAddress', form.companyAddress.value);
+        formData.append('managerNm', form.managerNm.value);
+        formData.append('phone', form.phone.value);
+        formData.append('department', form.department.value || '');
+        formData.append('email', form.email.value);
+        formData.append('verificationCode', form.verifyCode.value || '');
+        formData.append('newPassword', newPassword);
+
+        // 파일 데이터
+        const logoFile = document.getElementById('logoFile').files[0];
+        const photoFile = document.getElementById('photoFile').files[0];
+        
+        if (logoFile) {
+            formData.append('logoFile', logoFile);
+        }
+        if (photoFile) {
+            formData.append('photoFile', photoFile);
+        }
+        
+        // 삭제 체크박스
+        formData.append('logoDelete', document.getElementById('logoDelete').checked);
+        formData.append('photoDelete', document.getElementById('photoDelete') ? document.getElementById('photoDelete').checked : false);
 
         try {
             const response = await fetch('/api/company/update-info', {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updateData)
+                // Content-Type 헤더를 설정하지 않음 (브라우저가 자동으로 multipart/form-data 설정)
+                body: formData
             });
             const data = await response.json();
 
             if (data.success) {
                 alert('회원정보가 수정되었습니다.');
                 document.getElementById('verifyCode').value = '';  // 인증번호 입력란 초기화
+                // 파일 입력 초기화
+                document.getElementById('logoFile').value = '';
+                document.getElementById('photoFile').value = '';
+                document.getElementById('logoDelete').checked = false;
+                if (document.getElementById('photoDelete')) {
+                    document.getElementById('photoDelete').checked = false;
+                }
                 loadMemberInfo();
             } else {
                 alert(data.message || '수정에 실패했습니다.');
             }
         } catch (error) {
+            console.error('수정 오류:', error);
             alert('수정 중 오류가 발생했습니다.');
         }
     }

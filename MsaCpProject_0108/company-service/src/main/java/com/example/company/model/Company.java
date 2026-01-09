@@ -81,4 +81,12 @@ public class Company {
     @Column(name = "DEL_YN", nullable = false, columnDefinition = "VARCHAR(1)")
     @Enumerated(EnumType.STRING)
     private DelYn delYn = DelYn.N;
+
+    // 기업로고 경로
+    @Column(name = "LOGO_PATH", length = 500)
+    private String logoPath;
+
+    // 기업전경 사진 경로
+    @Column(name = "PHOTO_PATH", length = 500)
+    private String photoPath;
 }
