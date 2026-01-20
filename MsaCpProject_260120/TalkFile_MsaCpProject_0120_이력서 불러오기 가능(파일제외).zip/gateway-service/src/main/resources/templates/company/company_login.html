@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기업회원 로그인 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+</head>
+
+<script type="text/javascript">
+
+    // Enter 키 처리
+    function handleEnter(field, event) {
+        var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+        if (keyCode == 13) {
+            goLoginAct();
+        } else return true;
+    }
+
+    // 로그인 처리
+    async function goLoginAct() {
+        var form = document.rpForm;
+
+        // 아이디 검증
+        if ((form.ID.value).length == 0) {
+            alert('아이디를 입력해주세요.');
+            form.ID.value = "";
+            form.ID.focus();
+            return;
+        }
+
+        // 비밀번호 검증
+        if ((form.PW.value).length == 0) {
+            alert('비밀번호를 입력해주세요.');
+            form.PW.value = "";
+            form.PW.focus();
+            return;
+        }
+
+        // 로그인 요청
+        const loginData = {
+            loginId: form.ID.value,
+            pw: form.PW.value
+        };
+
+        try {
+            const response = await fetch('/api/company/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // 메인 페이지로 이동
+                window.location.href = '/';
+            } else {
+                alert(data.message || '로그인에 실패했습니다.');
+                form.PW.value = "";
+                form.PW.focus();
+            }
+        } catch (error) {
+            alert('로그인 중 오류가 발생했습니다.');
+            console.error(error);
+        }
+    }
+
+</script>
+
+<body class="sub">
+
+<div class="wrapper">
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <form name="rpForm" method="post">
+
+        <div class="sub_container">
+            <div class="container">
+                <div class="login_view">
+                    <div class="sub_tit mb20">로그인</div>
+                    <div class="sub_tab">
+                        <a href="/login">개인회원</a>
+                        <a href="#" class="on">기업회원</a>
+                    </div>
+                    <div class="login_box">
+                        <div class="mar1">
+                            <input type="text" class="input" name="ID" id="ID" maxlength="100" placeholder="아이디">
+                        </div>
+                        <div class="mar2">
+                            <input type="password" class="input" name="PW" id="PW" maxlength="100" placeholder="비밀번호" onkeypress="return handleEnter(this, event)">
+                        </div>
+                        <div class="btn_area center">
+                            <a href="javascript:goLoginAct();" class="btn-submit">로그인</a>
+                        </div>
+                    </div>
+                    <div class="join_info">
+                        <a href="/company/search-id">아이디 찾기</a>
+                        <span class="bar"></span>
+                        <a href="/company/search-pw">비밀번호 찾기</a>
+                        <span class="bar"></span>
+                        <a href="/company/register">회원가입</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </form>
+
+</div>
+
+<script src="/js/common.js?v=1"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

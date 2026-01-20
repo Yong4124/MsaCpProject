@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/main.css?v=2"/>
+    <link rel="stylesheet" href="/css/job.css">
+    <script src="/js/jobspublic.js" defer></script>
+</head>
+
+<body>
+<div class="wrapper">
+
+    <!-- ===========================
+         공통 헤더 (Navbar Fragment)
+         =========================== -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="detail_container">
+        <header class="detail_header">
+            <h3 id="displayCompName" class="comp_name">회사명</h3>
+            <h1 id="jobTitle" class="job_title">채용 공고 제목</h1>
+            <p class="period">접수기간 &nbsp;&nbsp;&nbsp; <span id="startDate">-</span> ~ <span id="endDate">-</span></p>
+        </header>
+
+
+        <div class="summary_grid grid_layout">
+            <label>● 직업유형</label><span id="jobForm">-</span>
+            <label>● 고용형태</label><span id="jobType">-</span>
+            <label>● 직종</label><span id="jobCategory">-</span>
+            <label>● 업계</label><span id="industry">-</span>
+            <label>● 직급</label><span id="roleLevel">-</span>
+            <label>● 경력</label><span id="experience">-</span>
+            <label>● 기본급</label><span id="baseSalary">-</span>
+            <label>● 근무시간</label><span id="workTime">-</span>
+            <label>● 근무처</label><span id="workLocation">-</span>
+        </div>
+
+
+        <div class="content_section">
+            <div class="section_title">회사소개</div>
+            <div class="text_content" id="companyIntro"></div>
+
+            <div class="section_title">담당업무</div>
+            <div class="text_content" id="positionSummary"></div>
+
+            <div class="section_title">기술 및 자격요건</div>
+            <div class="text_content" id="skillQualification"></div>
+
+            <div class="section_title">복지 및 보상</div>
+            <div class="text_content" id="benefits"></div>
+
+            <div class="section_title">유의사항</div>
+            <div class="text_content" id="notes"></div>
+        </div>
+
+        <section class="content_section">
+            <div class="section_title">회사정보</div>
+            <div class="comp_grid grid_layout">
+                <div><label>기업구분</label><span id="companyType">-</span></div>
+                <div><label>설립일</label><span id="establishedDate">-</span></div>
+                <div><label>사원수</label><span id="employeeNum">-</span></div>
+                <div><label>자본금</label><span id="capital">-</span></div>
+                <div><label>매출액</label><span id="revenue">-</span></div>
+                <div><label>홈페이지</label><a id="homepage" href="#" target="_blank">-</a></div>
+            </div>
+        </section>
+
+        <div class="btn-flex-center">
+            <button class="btn-common btn-blue" onclick="applyJob()">지원하기</button>
+            <button class="btn-common btn-blue" onclick="window.print()">인쇄하기</button>
+            <button class="btn-common btn-gray" onclick="location.href='/jobs'">목록보기</button>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/common.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="MsaCpProject.company-service.main" />
+        <module name="MsaCpProject.gateway-service.main" />
+        <module name="MsaCpProject.admin-service.main" />
+        <module name="MsaCpProject.personal-service.main" />
+        <module name="MsaCpProject.job-service.main" />
+        <module name="MsaCpProject.eureka-server.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="17" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="MsaCpProject.admin-service" options="-parameters" />
+      <module name="MsaCpProject.admin-service.main" options="-parameters" />
+      <module name="MsaCpProject.admin-service.test" options="-parameters" />
+      <module name="MsaCpProject.cart-service" options="-parameters" />
+      <module name="MsaCpProject.cart-service.main" options="-parameters" />
+      <module name="MsaCpProject.cart-service.test" options="-parameters" />
+      <module name="MsaCpProject.company-service" options="-parameters" />
+      <module name="MsaCpProject.company-service.main" options="-parameters" />
+      <module name="MsaCpProject.company-service.test" options="-parameters" />
+      <module name="MsaCpProject.customer-service" options="-parameters" />
+      <module name="MsaCpProject.customer-service.main" options="-parameters" />
+      <module name="MsaCpProject.customer-service.test" options="-parameters" />
+      <module name="MsaCpProject.eureka-server" options="-parameters" />
+      <module name="MsaCpProject.eureka-server.main" options="-parameters" />
+      <module name="MsaCpProject.eureka-server.test" options="-parameters" />
+      <module name="MsaCpProject.gateway-service" options="-parameters" />
+      <module name="MsaCpProject.gateway-service.main" options="-parameters" />
+      <module name="MsaCpProject.gateway-service.test" options="-parameters" />
+      <module name="MsaCpProject.job-service" options="-parameters" />
+      <module name="MsaCpProject.job-service.main" options="-parameters" />
+      <module name="MsaCpProject.job-service.test" options="-parameters" />
+      <module name="MsaCpProject.order-service" options="-parameters" />
+      <module name="MsaCpProject.order-service.main" options="-parameters" />
+      <module name="MsaCpProject.order-service.test" options="-parameters" />
+      <module name="MsaCpProject.personal-service" options="-parameters" />
+      <module name="MsaCpProject.personal-service.main" options="-parameters" />
+      <module name="MsaCpProject.personal-service.test" options="-parameters" />
+      <module name="MsaCpProject.product-service" options="-parameters" />
+      <module name="MsaCpProject.product-service.main" options="-parameters" />
+      <module name="MsaCpProject.product-service.test" options="-parameters" />
+      <module name="MsaCpProject.review-service" options="-parameters" />
+      <module name="MsaCpProject.review-service.main" options="-parameters" />
+      <module name="MsaCpProject.review-service.test" options="-parameters" />
+      <module name="sb3_msa3.eureka-server" options="-parameters" />
+      <module name="sb3_msa3.eureka-server.main" options="-parameters" />
+      <module name="sb3_msa3.eureka-server.test" options="-parameters" />
+      <module name="sb3_msa3.gateway-service" options="-parameters" />
+      <module name="sb3_msa3.gateway-service.main" options="-parameters" />
+      <module name="sb3_msa3.gateway-service.test" options="-parameters" />
+      <module name="sb3_msa3.order-service" options="-parameters" />
+      <module name="sb3_msa3.order-service.main" options="-parameters" />
+      <module name="sb3_msa3.order-service.test" options="-parameters" />
+      <module name="sb3_msa3.product-service" options="-parameters" />
+      <module name="sb3_msa3.product-service.main" options="-parameters" />
+      <module name="sb3_msa3.product-service.test" options="-parameters" />
+    </option>
+  </component>
+</project>

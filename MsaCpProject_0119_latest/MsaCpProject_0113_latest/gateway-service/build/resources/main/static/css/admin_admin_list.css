@@ -1,0 +1,46 @@
+/* 관리자관리 화면 폭: 원본처럼 좀 더 좁게 + 왼쪽 정렬 */
+.admin-inner{
+    max-width: 980px;  /* 필요하면 900~1050 조절 */
+    margin: 0;         /* 왼쪽 정렬 */
+}
+
+/* 검색 줄을 우측으로 붙이기 */
+.admin-search .search-row.right{
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 테이블: 원본처럼 선 깔끔하게 */
+.admin-table th,
+.admin-table td{
+    padding: 12px 10px;
+    font-size: 13px;
+}
+
+/* 하단 등록 버튼 오른쪽 */
+.actions.right{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 슈퍼관리자 아니면 뜨는 안내 */
+.hint{
+    font-size: 12px;
+    color: #666;
+}
+/* 아이디 컬럼 가운데 정렬 */
+#adminTbody td.col-id {
+    text-align: center;
+}
+
+/* 아이디 링크 밑줄 제거 + 색 유지 */
+.admin-id-link,
+.admin-id-link:visited,
+.admin-id-link:hover,
+.admin-id-link:active {
+    color: #000;              /* 검정 */
+    text-decoration: none;    /* 밑줄 제거 */
+}
+

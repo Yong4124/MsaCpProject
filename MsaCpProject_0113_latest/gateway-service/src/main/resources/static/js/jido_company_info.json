@@ -1,0 +1,1138 @@
+{
+  "1_1": {
+    "groupInfo": {
+      "logo": "logo_hyundai2.png",
+      "groupName": "Hyundai Motor Company",
+      "industry": "Automotive",
+      "foundedYear": "1967",
+      "revenue": "$125.8B",
+      "headquarters": "Suwon-si, Gyeonggi-do, South Korea",
+      "website": "https://www.hyundaimotorgroup.com/en/main/mainRecommend",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_hyundai.png",
+        "companyName": "Hyundai Motor America",
+        "industry": "Automotive",
+        "foundedYear": "1985",
+        "revenue": "$31.5B",
+        "locations": "<p>10550 Talbert Avenue, Fountain Valley, CA</p><p>81 Bunsen Irvine, CA</p><p>5759 Highway 58, California City, CA</p><p>12610 East End Avenue, Chino, CA</p><p>8880 Rio San Diego Drive, Suite #600, San Diego, CA</p>",
+        "website": "https://www.hyundaitranslead.com",
+        "notes": ""
+      }
+    ]
+  },
+  "1_2": {
+    "groupInfo": {
+      "logo": "logo_samsung.png",
+      "groupName": "Samsung Electronics",
+      "industry": "Electronics",
+      "foundedYear": "1969",
+      "revenue": "$216B",
+      "headquarters": "129 Samsung-ro, Yeongtong-gu, Suwon-si, Gyeonggi-do 16677, South Korea",
+      "website": "https://www.samsung.com/us/business/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_samsung.png",
+        "companyName": "Samsung Electronics",
+        "industry": "Electronics",
+        "foundedYear": "1983(Samsung Semiconductor)",
+        "revenue": "$31.9B(Samsung Semiconductor)",
+        "locations": "<p>3655 North First Street, San Jose, CA</p><p>4350 Executive Drive, Suite 300, San Diego, CA</p><p>9808, 9868 Scranton Road, Penthouse, San Diego, CA</p><p>101 Parkshore Drive, Office 125, Folsom, CA</p><p>1261 3rd Ave, Suite E, Chula Vista, CA</p><p>2 North Lake Ave, Ste 240, Pasadena, CA</p>",
+        "website": "https://www.samsung.com/us/about-us/our-business/",
+        "notes": ""
+      }
+    ]
+  },
+  "1_3": {
+    "groupInfo": {
+      "logo": "logo_skhynix.png",
+      "groupName": "SK hynix",
+      "industry": "Semiconductors",
+      "foundedYear": "1983",
+      "revenue": "$48B",
+      "headquarters": "2091 Gyeongchung-daero, Bubal-eup, Icheon-si, Gyeonggi-do, South Korea",
+      "website": "https://www.skhynix.com/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_skhynix.png",
+        "companyName": "SK hynix America",
+        "industry": "Semiconductors",
+        "foundedYear": "1983",
+        "revenue": "$8.5B",
+        "locations": "3101 North 1st Street, San Jose, CA",
+        "website": "https://www.skhynix.com",
+        "notes": ""
+      }
+    ]
+  },
+ "1_4": {
+    "groupInfo": {
+      "logo": "logo_solidigm.png",
+      "groupName": "Solidigm",
+      "industry": "Semiconductors",
+      "foundedYear": "2021",
+      "revenue": "$6.3B",
+      "headquarters": "10951 White Rock Rd, Rancho Cordova, CA",
+      "website": "https://www.solidigm.com",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_solidigm.png",
+        "companyName": "Solidigm",
+        "industry": "Semiconductors",
+        "foundedYear": "2021",
+        "revenue": "$6B",
+        "locations": "10951 White Rock Rd, Rancho Cordova, CA",
+        "website": "https://www.solidigm.com",
+        "notes": "Operates as SK hynix NAND Product Solutions Corp. following the acquisition of Solidigm from Intel."
+      }
+    ]
+  },
+  "2_1": {
+    "groupInfo": {
+      "logo": "logo_lgenergys.png",
+      "groupName": "LG Energy Solution",
+      "industry": "EV Batteries",
+      "foundedYear": "2020",
+      "revenue": "$18.4B",
+      "headquarters": "108 Yeoui-daero, Yeongdeungpo-gu, Seoul 07335, South Korea",
+      "website": "https://www.lgensol.com/en/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgenergys.png",
+        "companyName": "LG Energy Solution Arizona",
+        "industry": "EV Batteries",
+        "foundedYear": "2022",
+        "revenue": "",
+        "locations": "335 E Pecos Rd, Queen Creek, AZ",
+        "website": "https://www.lgensol.com/en/index",
+        "notes": ""
+      }
+    ]
+  },
+  "3_1": {
+    "groupInfo": {
+      "logo": "logo_samsung.png",
+      "groupName": "Samsung Electronics",
+      "industry": "Electronics",
+      "foundedYear": "1996",
+      "revenue": "$216B",
+      "headquarters": "129 Samsung-ro, Yeongtong-gu, Suwon-si, Gyeonggi-do 16677, South Korea",
+      "website": "https://www.samsung.com/us/business/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_samsung.png",
+        "companyName": "Samsung Austin Semiconductor",
+        "industry": "Electronics",
+        "foundedYear": "1996",
+        "revenue": "$3.4B",
+        "locations": "12100 Samsung Blvd, Austin, TX",
+        "website": "https://semiconductor.samsung.com/sas/company/austin/",
+        "notes": ""
+      },
+      {
+        "logo": "logo_samsung.png",
+        "companyName": "Samsung Taylor Semiconductor",
+        "industry": "Electronics",
+        "foundedYear": "",
+        "revenue": "",
+        "locations": "1530 FM 973 Taylor, TX",
+        "website": "https://semiconductor.samsung.com/sas/company/taylor/",
+        "notes": ""
+      }
+    ]
+   },
+  "3_2": {
+    "groupInfo": {
+      "logo": "logo_dl.png",
+      "groupName": "DL Chemical",
+      "industry": "Chemicals",
+      "foundedYear": "1979",
+      "revenue": "$3.3B",
+      "headquarters": "26F Donuimun D-Tower Building, 134 Tongil-ro, Jongno-gu, Seoul 03181, South Korea",
+      "website": "https://www.dlchemical.co.kr/en",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_kraton.png",
+        "companyName": "Kraton",
+        "industry": "Chemicals",
+        "foundedYear": "2003",
+        "revenue": "$1.9B",
+        "locations": "<p>9950 Woodloch Forest Drive Suite 2400 The Woodlands, TX</p><p>16400 Park Row Dr, Houston, TX</p>",
+        "website": "https://kraton.com/",
+        "notes": ""
+      }
+      
+    ]
+   },
+  "3_3": {
+    "groupInfo": {
+      "logo": "logo_soulbrain.png",
+      "groupName": "SoulBrain",
+      "industry": "Chemicals",
+      "foundedYear": "2022",
+      "revenue": "$0.6B",
+      "headquarters": "52, Geumto-ro, Sujeong-gu, Seongnam-si, Gyeonggi-do, South Korea",
+      "website": "https://www.soulbrain.co.kr/en/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_soulbrain.png",
+        "companyName": "Soulbrain TX",
+        "industry": "Chemicals",
+        "foundedYear": "2022",
+        "revenue": "$0.00012B",
+        "locations": "<p>301 Flowers Avenue, Hutto, TX</p>",
+        "website": "https://www.soulbrain.co.kr/en/",
+        "notes": ""
+      }
+      
+    ]
+   },
+  "5_1": {
+    "groupInfo": {
+      "logo": "logo_lottechemical.png",
+      "groupName": "Lotte Chemical",
+      "industry": "Chemicals",
+      "foundedYear": "1976",
+      "revenue": "$14.8B",
+      "headquarters": "4 F-16 F, LOTTE World Tower,300 Olympic-ro, Songpa-gu,Seoul 05551, South Korea",
+      "website": "https://www.lottechem.com/en/index.do",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lottechemical.png",
+        "companyName": "Lotte Chemical Louisiana",
+        "industry": "Chemicals",
+        "foundedYear": "2015",
+        "revenue": "$0.4B",
+        "locations": "2200 Bayou D'Inde Pass #14, Westlake, LA",
+        "website": "https://lottechemusa.com/our-companies/lotte-chemical-louisiana-llc/",
+        "notes": ""
+      }
+    ]
+   },
+  "6_1": {
+    "groupInfo": {
+      "logo": "logo_doosan.png",
+      "groupName": "Doosan Bobcat",
+      "industry": "Equipment",
+      "foundedYear": "1947",
+      "revenue": "$6.2B",
+      "headquarters": "250 E Beaton Drive, West Fargo, ND",
+      "website": "https://www.doosanbobcat.com/en",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_doosan.png",
+        "companyName": "Bobcat Company",
+        "industry": "Equipment",
+        "foundedYear": "1947",
+        "revenue": "$4.8B",
+        "locations": "<p>3901 Morrison Ave, Bismarck, ND</p><p>118 Broadway N, Fargo, ND</p><p>3901 Morrison Ave, Bismarck, ND</p><p>210 1st Ave NE, Gwinner, ND</p><p>2101 11th St N, Wahpeton, ND</p><p>3901 Morrison Ave, Bismarck, ND</p><p>210 1st Ave NE, Gwinner, ND</p><p>2101 11th St N, Wahpeton, ND</p>",
+        "website": "https://www.bobcat.com/na/en",
+        "notes": ""
+      }
+    ]
+   },
+  "7_1": {
+    "groupInfo": {
+      "logo": "logo_doosan.png",
+      "groupName": "Doosan Bobcat",
+      "industry": "Equipment",
+      "foundedYear": "1947",
+      "revenue": "$6.2B",
+      "headquarters": "250 E Beaton Drive, West Fargo, ND",
+      "website": "https://www.doosanbobcat.com/en",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_doosan.png",
+        "companyName": "Bobcat Company",
+        "industry": "Equipment",
+        "foundedYear": "1947",
+        "revenue": "$4.8B",
+        "locations": "<p>150 S 5th St Ste. 500, Minneapolis, MN</p><p>520 Polydome Dr, Litchfield, MN</p><p>19850 Diamond Lake Road South Rogers, MN</p>",
+        "website": "https://www.bobcat.com/na/en",
+        "notes": ""
+      }
+    ]
+   },
+  "8_1": {
+    "groupInfo": {
+      "logo": "logo_sksiltron.png",
+      "groupName": "SK Siltron",
+      "industry": "Semiconductor",
+      "foundedYear": "1983",
+      "revenue": "$1.5B",
+      "headquarters": "132-11 3 Gongdan 3-ro, Gumi-si, Gyeongsangbuk-do, South Korea",
+      "website": "https://www.sksiltron.com/en/main/main.do",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_sksiltron.png",
+        "companyName": "SK Siltron CSS",
+        "industry": "Semiconductor",
+        "foundedYear": "",
+        "revenue": "",
+        "locations": "<p>1311 Straits Dr, Bay City, MI</p>",
+        "website": "https://www.sksiltron.com/en/main/main.do",
+        "notes": ""
+      }
+    ]
+   },
+  "8_2": {
+    "groupInfo": {
+      "logo": "logo_lgenergys.png",
+      "groupName": "LG Energy Solution",
+      "industry": "EV Batteries",
+      "foundedYear": "2020",
+      "revenue": "$18.4B",
+      "headquarters": "108 Yeoui-daero, Yeongdeungpo-gu, Seoul 07335, South Korea",
+      "website": "https://www.lgensol.com/en/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgenergys.png",
+        "companyName": "LG Energy Solution Michigan",
+        "industry": "EV Batteries",
+        "foundedYear": "2020",
+        "revenue": "$0.5B",
+        "locations": "1 LG Way, Holland, MI",
+        "website": "https://www.lgensol.com/en/index",
+        "notes": ""
+      }
+    ]
+   },
+  "9_1": {
+    "groupInfo": {
+      "logo": "logo_sdi.png",
+      "groupName": "SAMSUNG SDI",
+      "industry": "EV Batteries",
+      "foundedYear": "2022",
+      "revenue": "$11.55B",
+      "headquarters": "150-20 Gongse-ro, Giheung-gu, Yongin-si, Gyeonggi-do, 17084, South Korea",
+      "website": "https://www.samsungsdi.com/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_sdi.png",
+        "companyName": "StarPlus Energy LLC",
+        "industry": "EV Batteries",
+        "foundedYear": "2022",
+        "revenue": "Not started",
+        "locations": "2724 N 50 E Kokomo, IN",
+        "website": "https://starplusenergyus.com/",
+        "notes": "Samsung SDI - Stellantis Joint Venture"
+      }
+    ]
+   },
+  "9_2": {
+    "groupInfo": {
+      "logo": "logo_skhynix.png",
+      "groupName": "SK hynix",
+      "industry": "Semiconductors",
+      "foundedYear": "1983",
+      "revenue": "$48B",
+      "headquarters": "2091 Gyeongchung-daero, Bubal-eup, Icheon-si, Gyeonggi-do, South Korea",
+      "website": "https://www.skhynix.com/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_skhynix.png",
+        "companyName": "SK hynix America",
+        "industry": "Semiconductors",
+        "foundedYear": "1983",
+        "revenue": "$23.5B",
+        "locations": "1281 Win Hentschel Blvd, Suite 2510, West Lafayette, IN",
+        "website": "https://www.skhynix.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "10_1": {
+    "groupInfo": {
+      "logo": "logo_sd.png",
+      "groupName": "SD Biosensor",
+      "industry": "Biotechnology",
+      "foundedYear": "1999",
+      "revenue": "$0.5B",
+      "headquarters": "Seoul, South Korea",
+      "website": "https://www.sdbiosensor.com/#firstPag",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_sd.png",
+        "companyName": "Merdian Bioscience",
+        "industry": "Biotechnology",
+        "foundedYear": "1976",
+        "revenue": "$0.0002B",
+        "locations": "3471 River Hills Drive, Cincinnati, OH",
+        "website": "https://www.meridianbioscience.com",
+        "notes": ""
+      }
+    ]
+   },
+  "10_2": {
+    "groupInfo": {
+      "logo": "logo_lgchem.png",
+      "groupName": "LG Chem",
+      "industry": "Chemicals",
+      "foundedYear": "1947",
+      "revenue": "$35.1B",
+      "headquarters": "LG Twin Towers, 128 Yeoui-daero, Yeongdeungpo-gu, Seoul 07336, South Korea",
+      "website": "https://www.lgchem.com/main/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgchem.png",
+        "companyName": "LG Chem",
+        "industry": "Chemicals",
+        "foundedYear": "2024",
+        "revenue": "$0.0007B",
+        "locations": "310 Rayann Pkwy, Ravenna, OH",
+        "website": "https://www.lgchem.com/main/index",
+        "notes": ""
+      }
+    ]
+   },
+  "10_3": {
+    "groupInfo": {
+      "logo": "logo_lgenergys.png",
+      "groupName": "SK Siltron",
+      "industry": "Semiconductors",
+      "foundedYear": "1983",
+      "revenue": "$1.5B",
+      "headquarters": "132-11, 3 Gongdan 3-ro, Simi-dong, Gumi-si, Gyeongsangbuk-do 39371, South Korea",
+      "website": "https://www.sksiltron.com/en/main/main.do",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgenergys.png",
+        "companyName": "L-H Battery Company",
+        "industry": "Semiconductors",
+        "foundedYear": "2020",
+        "revenue": "$1.4B",
+        "locations": "11183 OH-729, Jeffersonville, OH",
+        "website": "https://lgeshonda.com/",
+        "notes": "LG Energy Solution - Honda Joint Venture"
+      }
+    ]
+   },
+  "11_1": {
+    "groupInfo": {
+      "logo": "logo_samsungdisp.png",
+      "groupName": "Samsung Display",
+      "industry": "Display Technology/Electronics Manufacturing",
+      "foundedYear": "2012",
+      "revenue": "$19.99B",
+      "headquarters": "1 Samsung-ro, Giheung-gu, Yongin-si, Gyeonggi-do 17113, Republic of Korea",
+      "website": "https://www.samsung.com/us/business/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_samsungdisp.png",
+        "companyName": "Samsung Display",
+        "industry": "",
+        "foundedYear": "",
+        "revenue": "",
+        "locations": "",
+        "website": "https://www.samsung.com/us/business/",
+        "notes": ""
+      }
+    ]
+   },
+  "11_2": {
+    "groupInfo": {
+      "logo": "logo_lottebiologics.png",
+      "groupName": "Lotte Biologics",
+      "industry": "Pharmaceticuels",
+      "foundedYear": "2022",
+      "revenue": "$0.2B",
+      "headquarters": "30F, LOTTE World Tower, 300 Olympic-ro, Songpa-gu, Seoul 05551, South Korea",
+      "website": "https://www.lottebiologics.com/en",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lottebiologics.png",
+        "companyName": "Lotte Biologics",
+        "industry": "Pharmaceticuels",
+        "foundedYear": "2022",
+        "revenue": "",
+        "locations": "6000 Thompson Rd, East Syracuse, NY",
+        "website": "https://www.lottebiologics.com/en",
+        "notes": ""
+      }
+    ]
+   },
+  "12_1": {
+    "groupInfo": {
+      "logo": "logo_lgchem.png",
+      "groupName": "LG Chem",
+      "industry": "Chemicals",
+      "foundedYear": "1947",
+      "revenue": "$35.1B",
+      "headquarters": "LG Twin Towers, 128 Yeoui-daero, Yeongdeungpo-gu, Seoul 07336, South Korea",
+      "website": "https://www.lgchem.com/main/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgchem.png",
+        "companyName": "LG Chem Life Sciences USA",
+        "industry": "Chemicals",
+        "foundedYear": "2019",
+        "revenue": "$0.01B",
+        "locations": "Marina Park Drive Suite 1200, Boston, MA",
+        "website": "https://innovation.lgchem.com/index.do",
+        "notes": ""
+      }
+    ]
+   },
+  "12_2": {
+    "groupInfo": {
+      "logo": "logo_hyundai2.png",
+      "groupName": "Hyundai Motor Group",
+      "industry": "Automotive",
+      "foundedYear": "1967",
+      "revenue": "$125.8B",
+      "headquarters": "Seoul, South Korea",
+      "website": "https://www.hyundaimotorgroup.com/en/main/mainRecommend",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_hyundai.png",
+        "companyName": "Hyundai Motor America",
+        "industry": "Automotive",
+        "foundedYear": "",
+        "revenue": "",
+        "locations": "",
+        "website": "",
+        "notes": ""
+      }
+    ]
+   },
+  "13_1": {
+    "groupInfo": {
+      "logo": "logo_pmc.png",
+      "groupName": "SK Pharmteco",
+      "industry": "Pharmaceuticals",
+      "foundedYear": "2019",
+      "revenue": "",
+      "headquarters": "12460 Akron Street, Suite 100, Rancho Cordova, CA",
+      "website": "https://www.skpharmteco.com",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_pmc.png",
+        "companyName": "SK Pharmteco",
+        "industry": "Pharmaceuticals",
+        "foundedYear": "2019",
+        "revenue": "$0.5B",
+        "locations": "411 Swedeland Rd #100, King of Prussia, PA",
+        "website": "https://www.skpharmteco.com",
+        "notes": ""
+      }
+    ]
+   },
+  "13_2": {
+    "groupInfo": {
+      "logo": "logo_biopmc.png",
+      "groupName": "SK Biopharmaceuticals",
+      "industry": "Pharmaceuticals",
+      "foundedYear": "2011",
+      "revenue": "$0.4B",
+      "headquarters": "221 Pangyoyeok-ro, Bundang-gu, Seongnam-si, Gyeonggi-do 13494, South Korea",
+      "website": "https://www.skbp.com/eng.do",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_biopmc.png",
+        "companyName": "SK Life Science",
+        "industry": "Pharmaceuticals",
+        "foundedYear": "2002",
+        "revenue": "$0.4B",
+        "locations": "461 From Rd 5th Floor, Paramus, NJ",
+        "website": "https://www.sklifescienceinc.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "13_3": {
+    "groupInfo": {
+      "logo": "logo_hanwhaocean.png",
+      "groupName": "Hanwha Ocean",
+      "industry": "Shipbuilding",
+      "foundedYear": "1973",
+      "revenue": "$7.7B",
+      "headquarters": "3370 Geoje-daero, Geoje-si, Gyeongsangnam-do 53302, South Korea",
+      "website": "https://www.hanwhaocean.com/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_hanwhaphllyshipyard.png",
+        "companyName": "Hanwha Philly Shipyard",
+        "industry": "Shipbuilding",
+        "foundedYear": "1997",
+        "revenue": "$0.09M",
+        "locations": "2100 Kitty Hawk Ave, Philadelphia, PA",
+        "website": "https://hanwhaphillyshipyard.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "14_1": {
+    "groupInfo": {
+      "logo": "logo_lgelect.png",
+      "groupName": "LG Electronics",
+      "industry": "Electronics",
+      "foundedYear": "1958",
+      "revenue": "$63B",
+      "headquarters": "LG Twin Towers, 128 Yeoui-daero, Yeongdeungpo-gu, Seoul 07336, Republic of Korea, South Korea",
+      "website": "https://www.lg.com/us/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgnova.png",
+        "companyName": "LG NOVA",
+        "industry": "Electronics",
+        "foundedYear": "2021",
+        "revenue": "",
+        "locations": "2156 University Ave Suite 400, Morgantown, WV",
+        "website": "https://www.lgnova.com/west-virginia-team",
+        "notes": ""
+      }
+    ]
+   },
+  "15_1": {
+    "groupInfo": {
+      "logo": "logo_lgenergys.png",
+      "groupName": "LG Energy Solution",
+      "industry": "Automotive Battery",
+      "foundedYear": "2020",
+      "revenue": "$18.4B",
+      "headquarters": "108 Yeoui-daero, Yeongdeungpo-gu, Seoul 07335, South Korea",
+      "website": "https://www.lgensol.com/en/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_ultiumcells.png",
+        "companyName": "Ultium Cells",
+        "industry": "",
+        "foundedYear": "",
+        "revenue": "",
+        "locations": "",
+        "website": "https://www.ultiumcell.com",
+        "notes": "LG Energy Solution - General Motors Joint Venture"
+      }
+    ]
+   },
+  "15_2": {
+    "groupInfo": {
+      "logo": "logo_samsungsds.png",
+      "groupName": "Samsung SDS",
+      "industry": "IT Services",
+      "foundedYear": "1985",
+      "revenue": "$10B",
+      "headquarters": "Seoul, South Korea",
+      "website": "https://www.samsungsds.com/us/company/overview/about_comp_over.html",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_samsungsds.png",
+        "companyName": "Samsung SDS America",
+        "industry": "IT Services",
+        "foundedYear": "2016",
+        "revenue": "$0.03B",
+        "locations": "100 Challenger Road 6 Fl. Ridgefield Park, NJ",
+        "website": "https://www.samsungsds.com/us/company/overview/about_comp_over.html",
+        "notes": ""
+      }
+    ]
+   },
+  "16_1": {
+    "groupInfo": {
+      "logo": "logo_lscablesystem.png",
+      "groupName": "LS Cable&System",
+      "industry": "Electric Power",
+      "foundedYear": "1962",
+      "revenue": "$4.6B",
+      "headquarters": "LS Tower, 127 LS-ro, Dongan-gu, Anyang-si, Gyeonggi-do 14119, South Korea",
+      "website": "https://www.lscns.co.kr/en/main.asp",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lsgreenlink.png",
+        "companyName": "LS GreenLink",
+        "industry": "Electric Power",
+        "foundedYear": "2025",
+        "revenue": "Not started",
+        "locations": "1213 Victory Blvd, Chesapeake, VA",
+        "website": "https://www.lsgreenlink.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "17_1": {
+    "groupInfo": {
+      "logo": "logo_doosan.png",
+      "groupName": "Doosan Bobcat",
+      "industry": "Equipment",
+      "foundedYear": "1947",
+      "revenue": "$6.2B",
+      "headquarters": "155 Jeongjail-ro, Bundang-gu, Seongnam-si, Gyeonggi-do 13557, South Korea",
+      "website": "https://www.doosanbobcat.com/en",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_doosan.png",
+        "companyName": "Bobcat Company",
+        "industry": "Equipment",
+        "foundedYear": "1947",
+        "revenue": "$4.8B",
+        "locations": "1293 Glenway Drive, Statesville, NC",
+        "website": "https://www.bobcat.com/na/en",
+        "notes": ""
+      }
+    ]
+   },
+  "18_1": {
+    "groupInfo": {
+      "logo": "logo_skon.png",
+      "groupName": "SK On",
+      "industry": "EV Batteries",
+      "foundedYear": "2021",
+      "revenue": "$4.5B",
+      "headquarters": "51 Jong-ro, Jongno-gu, Seoul 03161, South Korea",
+      "website": "http://eng.sk-on.com/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_blueovalsk.png",
+        "companyName": "BlueOval SK",
+        "industry": "Automotive Battery",
+        "foundedYear": "2022",
+        "revenue": "",
+        "locations": "Blue Oval SK Battery Park, Glendale, KY",
+        "website": "https://www.blueovalsk.com/kentucky",
+        "notes": "SK on - Ford Joint Venture"
+      }
+    ]
+   },
+  "19_1": {
+    "groupInfo": {
+      "logo": "logo_samsung.png",
+      "groupName": "Samsung Electronics",
+      "industry": "Electronics",
+      "foundedYear": "1969",
+      "revenue": "$216B",
+      "headquarters": "129 Samsung-ro, Yeongtong-gu, Suwon-si, Gyeonggi-do 16677, South Korea",
+      "website": "https://www.samsung.com/us/business/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_samsung.png",
+        "companyName": "Samsung Electronics",
+        "industry": "Electronics",
+        "foundedYear": "2017",
+        "revenue": "$28.6B",
+        "locations": "284 Mawsons Way, Newberry, SC",
+        "website": "https://www.samsung.com/us/about-us/our-business/",
+        "notes": ""
+      }
+    ]
+   },
+  "20_1": {
+    "groupInfo": {
+      "logo": "logo_nakook.png",
+      "groupName": "Hankook Tire & Technology",
+      "industry": "Tires",
+      "foundedYear": "1941",
+      "revenue": "$6.8B",
+      "headquarters": "286, Pangyo-ro, Bundang-gu, Seongnam-si, Gyeonggi-do 13494, South Korea",
+      "website": "https://www.hankooktire.com/global/en/home.html",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_nakook.png",
+        "companyName": "Hankook Tire & Technology",
+        "industry": "Tires",
+        "foundedYear": "2014",
+        "revenue": "$0.3B",
+        "locations": "333 Commerce st. Suite 600. Nashville, TN",
+        "website": "https://www.hankooktire.com/us/en/home.html",
+        "notes": ""
+      },
+      {
+        "logo": "logo_nakook.png",
+        "companyName": "Hankook Tire Manufacturing Tennessee",
+        "industry": "Tires",
+        "foundedYear": "2014",
+        "revenue": "$0.3B",
+        "locations": "2950 International Blvd, Clarksville, TN",
+        "website": "https://www.hankooktire.com/us/en/home.html",
+        "notes": ""
+      }
+    ]
+   },
+  "20_2": {
+    "groupInfo": {
+      "logo": "logo_lgenergys.png",
+      "groupName": "LG Energy Solution",
+      "industry": "EV Batteries",
+      "foundedYear": "2020",
+      "revenue": "$18.4B",
+      "headquarters": "108 Yeoui-daero, Yeongdeungpo-gu, Seoul 07335, South Korea",
+      "website": "https://www.lgensol.com/en/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_ultiumcells.png",
+        "companyName": "Ultium Cells",
+        "industry": "EV Batteries",
+        "foundedYear": "2022",
+        "revenue": "$3.7B",
+        "locations": "301 Donald F Ephlin Pkwy, Spring Hill, TN",
+        "website": "https://www.ultiumcell.com/",
+        "notes": "LG Energy Solution - GM Joint Venture"
+      }
+    ]
+   },
+  "20_3": {
+    "groupInfo": {
+      "logo": "logo_lgchem.png",
+      "groupName": "LG Chem",
+      "industry": "Chemicals",
+      "foundedYear": "1947",
+      "revenue": "$35.1B",
+      "headquarters": "LG Twin Towers, 128 Yeoui-daero, Yeongdeungpo-gu, Seoul 07336, South Korea",
+      "website": "https://www.lgchem.com/main/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgchem.png",
+        "companyName": "LG Chem America Advanced Materials",
+        "industry": "Chemicals",
+        "foundedYear": "2024",
+        "revenue": "",
+        "locations": "1301 Charles Bell Rd, Clarksville, TN",
+        "website": "https://www.lgchem.com/main/index",
+        "notes": ""
+      }
+    ]
+   },
+  "20_4": {
+    "groupInfo": {
+      "logo": "logo_lgelect.png",
+      "groupName": "LG Electronics",
+      "industry": "Electronics",
+      "foundedYear": "1958",
+      "revenue": "$63B",
+      "headquarters": "LG Twin Towers, 128 Yeoui-daero, Yeongdeungpo-gu, Seoul 07336, South Korea",
+      "website": "https://www.lg.com/us/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_lgelect.png",
+        "companyName": "LG Electronics",
+        "industry": "Electronics",
+        "foundedYear": "",
+        "revenue": "$10B",
+        "locations": "3525 Jim Johnson Road, Clarksville, TN",
+        "website": "https://solutions.lg.com/us/corporate-profile",
+        "notes": ""
+      }
+    ]
+   },
+  "20_5": {
+    "groupInfo": {
+      "logo": "logo_hyosunghead.png",
+      "groupName": "Hyosung Heavy Industries",
+      "industry": "Electric Power",
+      "foundedYear": "1962",
+      "revenue": "$3.5B",
+      "headquarters": "119 Mapo-daero, Gongdeok-dong, Mapo-gu, Seoul 04144, South Korea",
+      "website": "https://www.hyosungheavyindustries.com/en",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_hyosung.png",
+        "companyName": "Hyosung HICO",
+        "industry": "Electric Power",
+        "foundedYear": "2019",
+        "revenue": "$0.2B",
+        "locations": "2865 Riverport Rd, Memphis, TN",
+        "website": "https://www.hyosunghico.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "20_6": {
+    "groupInfo": {
+      "logo": "logo_skon.png",
+      "groupName": "SK On",
+      "industry": "EV Batteries",
+      "foundedYear": "2021",
+      "revenue": "$4.5B",
+      "headquarters": "51 Jong-ro, Jongno-gu, Seoul 03161, South Korea",
+      "website": "http://eng.sk-on.com/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_blueovalsk.png",
+        "companyName": "BlueOval SK",
+        "industry": "EV Batteries",
+        "foundedYear": "2022",
+        "revenue": "",
+        "locations": "2025 BlueOval City Drive, Stanton, TN",
+        "website": "https://www.blueovalsk.com/tennessee",
+        "notes": "SK On - Ford Joint Venture"
+      }
+    ]
+   },
+  "21_1": {
+    "groupInfo": {
+      "logo": "logo_kumho.png",
+      "groupName": "Kumho Tire",
+      "industry": "Tires",
+      "foundedYear": "1960",
+      "revenue": "$3.3B",
+      "headquarters": "",
+      "website": "https://www.kumhotireusa.com/us/index.do",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_kumho.png",
+        "companyName": "Kumho Tire Georgia Plant",
+        "industry": "Tires",
+        "foundedYear": "1975(U.S.A.)",
+        "revenue": "$0.9B",
+        "locations": "3051 Kumho Parkway, Macon, GA",
+        "website": "https://www.kumhotireusa.com/us/index.do",
+        "notes": ""
+      },
+      {
+        "logo": "logo_kumho.png",
+        "companyName": "Kumho Tire U.S.A.",
+        "industry": "Tires",
+        "foundedYear": "2008(Georgia착공)",
+        "revenue": "$0.9B",
+        "locations": "1001 Summit Boulevard NE, Suite 1800, Atlanta, GA",
+        "website": "https://www.kumhotireusa.com/us/index.do",
+        "notes": ""
+      }     
+    ]
+   },
+  "21_2": {
+    "groupInfo": {
+      "logo": "logo_hyundai2.png",
+      "groupName": "Hyundai Motor Company",
+      "industry": "Automotive",
+      "foundedYear": "1967",
+      "revenue": "$125.8B",
+      "headquarters": "Seoul, South Korea",
+      "website": "https://www.hyundaimotorgroup.com/en/main/mainRecommend",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_hyundai.png",
+        "companyName": "Hyundai Motor Group Metaplant America",
+        "industry": "Automotive",
+        "foundedYear": "2022",
+        "revenue": "",
+        "locations": "1500 Genesis Dr, Ellabell, GA",
+        "website": "https://www.hmgma.com/",
+        "notes": "Production begins in October 2024"
+      }
+    ]
+   },
+  "21_3": {
+    "groupInfo": {
+      "logo": "logo_nia.png",
+      "groupName": "KIA",
+      "industry": "Automotive",
+      "foundedYear": "1944",
+      "revenue": "$77.1B",
+      "headquarters": "12 Heolleung-ro, Seocho-gu, Seoul 06797, South Korea",
+      "website": "https://www.kia.com/us/en",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_nia.png",
+        "companyName": "KIA Georgia",
+        "industry": "Automotive",
+        "foundedYear": "2006",
+        "revenue": "$10.3B",
+        "locations": "7777 Kia Pkwy, West Point, GA",
+        "website": "https://www.kiageorgia.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "21_4": {
+    "groupInfo": {
+      "logo": "logo_skon.png",
+      "groupName": "SK On",
+      "industry": "EV Batteries",
+      "foundedYear": "2021",
+      "revenue": "$4.5B",
+      "headquarters": "51 Jong-ro, Jongno-gu, Seoul 03161, South Korea",
+      "website": "http://eng.sk-on.com/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_skbattery.png",
+        "companyName": "SK Battery America",
+        "industry": "EV Batteries",
+        "foundedYear": "2018",
+        "revenue": "$1.1B",
+        "locations": "1760 SK Blvd, Commerce, GA",
+        "website": "https://www.skbatteryamerica.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "21_5": {
+    "groupInfo": {
+      "logo": "logi_skc.png",
+      "groupName": "SKC",
+      "industry": "Semiconductor",
+      "foundedYear": "1973",
+      "revenue": "$1.2B",
+      "headquarters": "15, Chungmu-ro, Jung-gu, Seoul, 04554, South Korea",
+      "website": "https://www.skc.co.kr/eng/main/index.do",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_absolics.png",
+        "companyName": "Absolics",
+        "industry": "Semiconductor",
+        "foundedYear": "2021",
+        "revenue": "$0.00011B",
+        "locations": "SKC Drive, Covington, GA",
+        "website": "https://www.absolicsinc.com/about",
+        "notes": ""
+      }
+    ]
+   },
+  "21_6": {
+    "groupInfo": {
+      "logo": "logo_lgenergys.png",
+      "groupName": "LG Energy Solution",
+      "industry": "EV Batteries",
+      "foundedYear": "2020",
+      "revenue": "$18.4B",
+      "headquarters": "108 Yeoui-daero, Yeongdeungpo-gu, Seoul 07335, South Korea",
+      "website": "https://www.lgensol.com/en/index",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_hlgabattery.png",
+        "companyName": "HL-GA Battery Company",
+        "industry": "EV Batteries",
+        "foundedYear": "2023",
+        "revenue": "",
+        "locations": "1 LG Road, Ellabell, Georgia",
+        "website": "https://hlgabattery.com/",
+        "notes": "LG Energy Solution - GM Joint Venture"
+      }
+    ]
+   },
+  "21_7": {
+    "groupInfo": {
+      "logo": "logo_hanwhasolutions.png",
+      "groupName": "Hanhwa Solutions",
+      "industry": "Energy",
+      "foundedYear": "1999",
+      "revenue": "$8.9B",
+      "headquarters": "Hanwha Building, 86 Cheonggyecheon-ro, Jung-gu, Seoul 04541, South Korea",
+      "website": "https://www.hanwhasolutions.com/en/",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_qcells.png",
+        "companyName": "Hanhwa Q Cells",
+        "industry": "Energy",
+        "foundedYear": "2018",
+        "revenue": "$3.4B",
+        "locations": "300 Nexus Drive, Dalton, GA",
+        "website": "https://us.qcells.com/",
+        "notes": ""
+      }
+    ]
+   },
+  "22_1": {
+    "groupInfo": {
+      "logo": "logo_hyundai2.png",
+      "groupName": "Hyundai Motor Company",
+      "industry": "Automotive",
+      "foundedYear": "1967",
+      "revenue": "$125.8B",
+      "headquarters": "12 Heolleung-ro, Seocho-gu, Seoul 06797, South Korea",
+      "website": "https://www.hyundaimotorgroup.com/en/main/mainRecommend",
+      "notes": ""
+    },
+    "corporateList": [
+      {
+        "logo": "logo_hyundai.png",
+        "companyName": "Hyundai Motor Manufacturing Alabama",
+        "industry": "Automotive",
+        "foundedYear": "2005",
+        "revenue": "$19.3B",
+        "locations": "700 Hyundai Boulevard, Montgomery, AL",
+        "website": "https://www.hmmausa.com/",
+        "notes": ""
+      }
+    ]
+   }
+ }

@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보관리 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/sub.css">
+
+    <style>
+        .mypage-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        /* 탭 메뉴 */
+        .tab-menu {
+            display: flex;
+            border-bottom: 3px solid #F0F0F0;
+            margin-bottom: 80px;
+        }
+        .tab-menu a {
+            font-size: 24px;
+            color: #000;
+            font-weight: 700;
+            margin-right: 50px;
+            position: relative;
+            padding-bottom: 8px;
+            text-decoration: none;
+        }
+        .tab-menu a:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: transparent;
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+        }
+        .tab-menu a:last-child {
+            margin-right: 0;
+        }
+        .tab-menu a:hover {
+            color: #255EB8;
+        }
+        .tab-menu a.active {
+            color: #255EB8;
+        }
+        .tab-menu a.active:after {
+            background-color: #255EB8;
+        }
+        .section-title {
+            font-size: 36px;
+            color: #000;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .section-desc {
+            font-size: 18px;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 60px;
+        }
+        .info-section {
+            margin-bottom: 60px;
+        }
+        .info-section h3 {
+            font-size: 24px;
+            color: #222;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .info-box {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+        }
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            width: 50%;
+            margin-bottom: 15px;
+        }
+        .info-item.full {
+            width: 100%;
+        }
+        .info-item label {
+            width: 140px;
+            font-size: 18px;
+            color: #000;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .info-item input,
+        .info-item select {
+            flex: 1;
+            height: 45px;
+            padding: 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 18px;
+            max-width: 280px;
+        }
+        .info-item.full input {
+            max-width: 100%;
+        }
+        .info-item input:read-only {
+            background: #f5f5f5;
+            color: #888;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .radio-group label {
+            width: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .radio-group input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+        }
+        .email-verify {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            max-width: 400px;
+        }
+        .email-verify input {
+            flex: 1;
+            max-width: none;
+        }
+        .btn-verify {
+            padding: 0 20px;
+            height: 45px;
+            background: #255EB8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-verify:hover {
+            background: #1a4a8f;
+        }
+        .file-section {
+            margin-bottom: 60px;
+        }
+        .file-section h3 {
+            font-size: 24px;
+            color: #222;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        .file-box {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .file-box label {
+            font-size: 18px;
+            color: #000;
+            font-weight: 600;
+        }
+        .file-box .file-name {
+            color: #255EB8;
+            text-decoration: underline;
+            font-size: 18px;
+        }
+        .file-box .file-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .file-box input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+        .btn-file {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-area {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 60px;
+        }
+        .btn-submit {
+            width: 230px;
+            height: 50px;
+            background-color: #255EB8;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-submit:hover {
+            background-color: #4773b7;
+        }
+        .btn-cancel {
+            width: 230px;
+            height: 50px;
+            background-color: #B4B4B4;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-cancel:hover {
+            background-color: #a3a3a3;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="wrapper">
+
+    <main class="mypage-container">
+        <!-- 탭 메뉴 -->
+        <div class="tab-menu">
+            <a href="/company/mypage" class="active">회원정보관리</a>
+            <a href="/company/jobs">채용공고관리</a>
+        </div>
+
+        <!-- 회원정보관리 -->
+        <div class="section-title">회원정보관리</div>
+        <div class="section-desc">회원님의 정보를 수정·확인하실 수 있습니다.</div>
+
+        <form name="memberForm" id="memberForm">
+            <!-- 기업정보 -->
+            <div class="info-section">
+                <h3>기업정보</h3>
+                <div class="info-box">
+                    <div class="info-row">
+                        <div class="info-item">
+                            <label>회사명</label>
+                            <input type="text" name="company" id="company">
+                        </div>
+                        <div class="info-item">
+                            <label>사업자등록번호</label>
+                            <input type="text" name="businessRegistNum" id="businessRegistNum">
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <label>대표자명</label>
+                            <input type="text" name="presidentNm" id="presidentNm">
+                        </div>
+                        <div class="info-item">
+                            <label>그룹사</label>
+                            <select name="parentCompanyCd" id="parentCompanyCd">
+                                <option value="">선택</option>
+                                <option value="SAMSUNG">삼성</option>
+                                <option value="SK">SK</option>
+                                <option value="HYUNDAI">현대</option>
+                                <option value="LG">LG</option>
+                                <option value="LOTTE">롯데</option>
+                                <option value="HANWHA">한화</option>
+                                <option value="LS">LS</option>
+                                <option value="DL">DL</option>
+                                <option value="DOOSAN">두산</option>
+                                <option value="HANKOOKTIRE">한국타이어</option>
+                                <option value="HYOSUNG">효성</option>
+                                <option value="KUMHOTIRE">금호타이어</option>
+                                <option value="SOULBRAIN">솔브레인</option>
+                                <option value="SD">SD</option>
+                                <option value="ETC">기타</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item full">
+                            <label>회사주소(본사)</label>
+                            <input type="text" name="companyAddress" id="companyAddress">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 기업담당자 정보 -->
+            <div class="info-section">
+                <h3>기업담당자 정보</h3>
+                <div class="info-box">
+                    <div class="info-row">
+                        <div class="info-item">
+                            <label>아이디</label>
+                            <input type="text" name="loginId" id="loginId" readonly>
+                        </div>
+                        <div class="info-item">
+                            <label>이름</label>
+                            <input type="text" name="managerNm" id="managerNm">
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item full">
+                            <label>비밀번호를<br>수정하시겠습니까?</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="pwChange" value="Y"> 예</label>
+                                <label><input type="radio" name="pwChange" value="N" checked> 아니오</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-row" id="pwFields" style="display:none;">
+                        <div class="info-item">
+                            <label>비밀번호</label>
+                            <input type="password" name="newPassword" id="newPassword" placeholder="8~16자의 영문, 숫자, 특수기호">
+                        </div>
+                        <div class="info-item">
+                            <label>비밀번호 확인</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword">
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <label>전화번호</label>
+                            <input type="text" name="phone" id="phone">
+                        </div>
+                        <div class="info-item">
+                            <label>부서</label>
+                            <input type="text" name="department" id="department">
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <label>이메일 인증</label>
+                            <div class="email-verify">
+                                <input type="text" name="email" id="email">
+                                <button type="button" class="btn-verify" onclick="sendVerification()">인증번호 발송</button>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <label>인증번호 확인</label>
+                            <div class="email-verify">
+                                <input type="text" name="verifyCode" id="verifyCode" placeholder="인증번호를 입력해주세요">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 기업로고 -->
+            <div class="file-section">
+                <h3>기업로고</h3>
+                <div class="file-box">
+                    <label>이미지 첨부</label>
+                    <span class="file-name" id="logoFileName">선택된 파일 없음</span>
+                    <div class="file-input-wrap">
+                        <input type="checkbox" id="logoDelete"> 파일삭제
+                        <button type="button" class="btn-file" onclick="document.getElementById('logoFile').click()">파일 선택</button>
+                        <input type="file" id="logoFile" style="display:none" accept="image/*" onchange="updateFileName('logo')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 기업전경 -->
+            <div class="file-section">
+                <h3>기업전경</h3>
+                <div class="file-box">
+                    <label>사진 첨부</label>
+                    <span class="file-name" id="photoFileName">선택된 파일 없음</span>
+                    <div class="file-input-wrap">
+                        <input type="checkbox" id="photoDelete"> 파일삭제
+                        <button type="button" class="btn-file" onclick="document.getElementById('photoFile').click()">파일 선택</button>
+                        <input type="file" id="photoFile" style="display:none" accept="image/*" onchange="updateFileName('photo')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 버튼 -->
+            <div class="btn-area">
+                <a href="javascript:updateMemberInfo();" class="btn-submit">수정하기</a>
+                <a href="javascript:deleteMember();" class="btn-cancel">탈퇴하기</a>
+            </div>
+        </form>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</div>
+
+<script>
+    var verificationCode = '';
+
+    document.addEventListener('DOMContentLoaded', function() {
+        checkSession();
+        loadMemberInfo();
+
+        // 비밀번호 변경 라디오 이벤트
+        document.querySelectorAll('input[name="pwChange"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                document.getElementById('pwFields').style.display = this.value === 'Y' ? 'flex' : 'none';
+            });
+        });
+    });
+
+    async function checkSession() {
+        try {
+            const response = await fetch('/api/company/check-session');
+            const data = await response.json();
+            if (!data.loggedIn) {
+                window.location.href = '/company/login';
+            }
+        } catch (error) {
+            console.error('세션 확인 실패:', error);
+        }
+    }
+
+    async function loadMemberInfo() {
+        try {
+            const response = await fetch('/api/company/myinfo');
+            const data = await response.json();
+
+            if (data.success && data.data) {
+                const m = data.data;
+                document.getElementById('company').value = m.company || '';
+                document.getElementById('businessRegistNum').value = m.businessRegistNum || '';
+                document.getElementById('presidentNm').value = m.presidentNm || '';
+                document.getElementById('parentCompanyCd').value = m.parentCompanyCd || '';
+                document.getElementById('companyAddress').value = m.companyAddress || '';
+                document.getElementById('loginId').value = m.loginId || '';
+                document.getElementById('managerNm').value = m.managerNm || '';
+                document.getElementById('phone').value = m.phone || '';
+                document.getElementById('department').value = m.department || '';
+                document.getElementById('email').value = m.email || '';
+                
+                // 로고 파일 표시
+                if (m.logoPath) {
+                    document.getElementById('logoFileName').textContent = m.logoPath.split('/').pop();
+                    document.getElementById('logoFileName').href = '/uploads' + m.logoPath;
+                    document.getElementById('logoFileName').target = '_blank';
+                } else {
+                    document.getElementById('logoFileName').textContent = '선택된 파일 없음';
+                }
+                
+                // 기업전경 파일 표시
+                if (m.photoPath) {
+                    document.getElementById('photoFileName').textContent = m.photoPath.split('/').pop();
+                } else {
+                    document.getElementById('photoFileName').textContent = '선택된 파일 없음';
+                }
+            } else {
+                alert('회원정보를 불러올 수 없습니다.');
+            }
+        } catch (error) {
+            console.error('회원정보 로드 실패:', error);
+            alert('회원정보를 불러오는 중 오류가 발생했습니다.');
+        }
+    }
+
+    async function sendVerification() {
+        const email = document.getElementById('email').value;
+        if (!email) {
+            alert('이메일을 입력해주세요.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/company/send-verification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                verificationCode = data.code;
+                alert('인증번호가 발송되었습니다. (개발모드: ' + data.code + ')');
+            } else {
+                alert(data.message || '인증번호 발송에 실패했습니다.');
+            }
+        } catch (error) {
+            alert('인증번호 발송 중 오류가 발생했습니다.');
+        }
+    }
+
+    async function updateMemberInfo() {
+        const form = document.getElementById('memberForm');
+
+        // 필수값 검증
+        if (!form.company.value) { alert('회사명을 입력해주세요.'); form.company.focus(); return; }
+        if (!form.businessRegistNum.value) { alert('사업자등록번호를 입력해주세요.'); form.businessRegistNum.focus(); return; }
+        if (!form.presidentNm.value) { alert('대표자명을 입력해주세요.'); form.presidentNm.focus(); return; }
+        if (!form.companyAddress.value) { alert('회사주소를 입력해주세요.'); form.companyAddress.focus(); return; }
+        if (!form.managerNm.value) { alert('이름을 입력해주세요.'); form.managerNm.focus(); return; }
+        if (!form.phone.value) { alert('전화번호를 입력해주세요.'); form.phone.focus(); return; }
+        if (!form.email.value) { alert('이메일을 입력해주세요.'); form.email.focus(); return; }
+
+        // 비밀번호 변경 체크
+        const pwChange = document.querySelector('input[name="pwChange"]:checked').value;
+        let newPassword = '';
+
+        if (pwChange === 'Y') {
+            if (!form.newPassword.value) {
+                alert('새 비밀번호를 입력해주세요.');
+                form.newPassword.focus();
+                return;
+            }
+            const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+            if (!pwRegex.test(form.newPassword.value)) {
+                alert('비밀번호는 8~16자의 영문, 숫자, 특수기호를 포함해야 합니다.');
+                form.newPassword.focus();
+                return;
+            }
+            if (form.newPassword.value !== form.confirmPassword.value) {
+                alert('비밀번호가 일치하지 않습니다.');
+                form.confirmPassword.focus();
+                return;
+            }
+            newPassword = form.newPassword.value;
+        }
+
+        if (!confirm('회원정보를 수정하시겠습니까?')) return;
+
+        // ⭐ FormData 사용 (파일 업로드 지원)
+        const formData = new FormData();
+        
+        // 텍스트 데이터
+        formData.append('company', form.company.value);
+        formData.append('businessRegistNum', form.businessRegistNum.value);
+        formData.append('presidentNm', form.presidentNm.value);
+        formData.append('parentCompanyCd', form.parentCompanyCd.value || '');
+        formData.append('companyAddress', form.companyAddress.value);
+        formData.append('managerNm', form.managerNm.value);
+        formData.append('phone', form.phone.value);
+        formData.append('department', form.department.value || '');
+        formData.append('email', form.email.value);
+        formData.append('verificationCode', form.verifyCode.value || '');
+        formData.append('newPassword', newPassword);
+
+        // 파일 데이터
+        const logoFile = document.getElementById('logoFile').files[0];
+        const photoFile = document.getElementById('photoFile').files[0];
+        
+        if (logoFile) {
+            formData.append('logoFile', logoFile);
+        }
+        if (photoFile) {
+            formData.append('photoFile', photoFile);
+        }
+        
+        // 삭제 체크박스
+        formData.append('logoDelete', document.getElementById('logoDelete').checked);
+        formData.append('photoDelete', document.getElementById('photoDelete') ? document.getElementById('photoDelete').checked : false);
+
+        try {
+            const response = await fetch('/api/company/update-info', {
+                method: 'PUT',
+                // Content-Type 헤더를 설정하지 않음 (브라우저가 자동으로 multipart/form-data 설정)
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                alert('회원정보가 수정되었습니다.');
+                document.getElementById('verifyCode').value = '';  // 인증번호 입력란 초기화
+                // 파일 입력 초기화
+                document.getElementById('logoFile').value = '';
+                document.getElementById('photoFile').value = '';
+                document.getElementById('logoDelete').checked = false;
+                if (document.getElementById('photoDelete')) {
+                    document.getElementById('photoDelete').checked = false;
+                }
+                loadMemberInfo();
+            } else {
+                alert(data.message || '수정에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('수정 오류:', error);
+            alert('수정 중 오류가 발생했습니다.');
+        }
+    }
+
+    async function deleteMember() {
+        if (!confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) return;
+
+        const password = prompt('비밀번호를 입력해주세요.');
+        if (!password) return;
+
+        try {
+            const response = await fetch('/api/company/delete-account', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: password })
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                alert('회원 탈퇴가 완료되었습니다.');
+                window.location.href = '/';
+            } else {
+                alert(data.message || '탈퇴에 실패했습니다.');
+            }
+        } catch (error) {
+            alert('탈퇴 중 오류가 발생했습니다.');
+        }
+    }
+
+    async function logout() {
+        try {
+            await fetch('/api/company/logout', { method: 'POST' });
+            window.location.href = '/';
+        } catch (error) {
+            window.location.href = '/';
+        }
+    }
+
+    function updateFileName(type) {
+        const fileInput = document.getElementById(type + 'File');
+        const fileName = fileInput.files[0] ? fileInput.files[0].name : '선택된 파일 없음';
+        if (type === 'logo') {
+            document.getElementById('logoFileName').textContent = fileName;
+        } else {
+            document.getElementById('photoFileName').textContent = fileName;
+        }
+    }
+</script>
+<script src="/js/common.js?v=1"></script>
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+    <link rel="stylesheet" href="/css/job.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/evidenceprime/html-docx-js/dist/html-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="/js/jobs.js" defer></script>
+
+    <style>
+        /* 탭 메뉴 */
+        .tab-menu {
+            display: flex;
+            border-bottom: 3px solid #F0F0F0;
+            margin-bottom: 80px;
+        }
+
+        .tab-menu a {
+            font-size: 24px;
+            color: #000;
+            font-weight: 700;
+            margin-right: 50px;
+            position: relative;
+            padding-bottom: 8px;
+            text-decoration: none;
+        }
+
+        .tab-menu a:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: transparent;
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+        }
+
+        .tab-menu a:last-child {
+            margin-right: 0;
+        }
+
+        .tab-menu a:hover {
+            color: #255EB8;
+        }
+
+        .tab-menu a.active {
+            color: #255EB8;
+        }
+
+        .tab-menu a.active:after {
+            background-color: #255EB8;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="sub_container">
+    <div class="container">
+
+        <div class="tab-menu">
+            <a href="/company/mypage">회원정보관리</a>
+            <a href="/company/jobs" class="active">채용공고관리</a>
+        </div>
+
+        <!-- 타이틀 / 검색 -->
+        <div class="sub_tit_wrap between" style="border-bottom: none;">
+            <div class="sub_tit">지원현황</div>
+
+            <form name="rpForm" class="sub_search_area diff" onsubmit="goSearch(event); return false;">
+                <div class="sort_box">
+                    <select class="select" name="searchfield">
+                        <option value="ALL">전체</option>
+                        <option value="TITLE">공고명</option>
+                        <option value="JOB_LOCATION">근무처</option>
+                    </select>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" class="input" name="searchword" placeholder="검색어"
+                           onkeypress="if(event.keyCode==13){event.preventDefault(); goSearch(event);}">
+                    <a href="javascript:goSearch();" class="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333"
+                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="sort_box">
+                    <select class="select" name="searchtype" onchange="javascript:goSearch();">
+                        <option value="ALL">전체</option>
+                        <option value="1">공고중</option>
+                        <option value="2">임시저장</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- 채용공고 목록 -->
+        <ul class="job_list"></ul>
+
+        <!-- 등록 버튼 -->
+        <div class="btn-flex-right">
+            <a href="/company/jobs/write" class="btn-common btn-blue">등록하기</a>
+        </div>
+    </div>
+</div>
+
+<!-- 지원자 모달 -->
+<div id="applicantModal" class="modal">
+    <div class="modal_box">
+        <button class="modal_close" onclick="closeApplicantModal()">&times;</button>
+
+        <h2 class="comp_name" id="modalJobTitle" style="margin-bottom:20px;">Production Team Member</h2>
+
+        <div class="sub_tit_wrap between" style="margin-bottom:30px;">
+            <div class="search_left">
+                총지원자 수 : <b id="applicantCount">0</b>
+            </div>
+
+            <div class="sub_search_area">
+                <div class="sort_box">
+                    <select id="searchType" class="select">
+                        <option value="ALL">전체</option>
+                        <option value="NAME">이름</option>
+                    </select>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" id="applicantSearchWord" class="input" placeholder="검색어"
+                           onkeypress="if(event.keyCode==13){ event.preventDefault(); loadApplicants(event); return false; }">
+
+                    <a href="javascript:void(0);" onclick="loadApplicants(event);" class="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#333"
+                             stroke-width="2.5">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="sort_box">
+                    <select id="filterStatus" class="select" onchange="loadApplicants(event)">
+                        <option value="">심사상태 선택</option>
+                        <option value="0">미심사</option>
+                        <option value="1">1차합격</option>
+                        <option value="2">합격</option>
+                        <option value="3">불합격</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal_content_area">
+            <ul id="applicantList" class="jiwon_list">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 이력서 모달 -->
+<div id="resumeModal" class="modal" style="display:none;">
+    <div class="modal_box mw1020 resume_wrap">
+        <button class="modal_close" onclick="closeResumeModal()">&times;</button>
+
+        <div class="sub_tit_wrap" style="border-bottom:none; margin-bottom:10px;">
+            <h2 class="comp_name">Data Analysis Specialist</h2>
+        </div>
+
+        <section class="resume_section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 class="section_title" style="margin: 0;">인적사항</h3>
+                <div class="sub_search_area">
+                    <select class="select">
+                        <option value="합격">합격</option>
+                        <option value="불합격">불합격</option>
+                        <option value="대기">대기</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid_layout info_grid"
+                 style="white-space: normal; display: grid; grid-template-columns: 160px 80px 1fr 80px 1fr; gap: 12px 15px; align-items: center;">
+
+                <!-- 프로필 사진 제거 (불필요한 404 에러 방지) -->
+                <div class="card_photo" style="grid-row: span 5; align-self: start; display: none;">
+                    <img id="r_photo" alt="프로필" style="width: 100%; height: auto; border-radius: 4px;">
+                </div>
+
+                <label class="label">이름</label>
+                <div class="value_box">
+                    <span id="r_name" style="white-space: nowrap;"></span>
+                </div>
+                <label class="label">성별</label>
+                <div class="value_box">
+                    <span id="r_gender"></span>
+                </div>
+
+                <label class="label">생년월일</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_birth"></span>
+                </div>
+
+                <label class="label">이메일</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_email"></span>
+                </div>
+
+                <label class="label">전화번호</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_phone"></span>
+                </div>
+
+                <label class="label">주소</label>
+                <div class="value_box" style="grid-column: span 3;">
+                    <span id="r_address"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume_section">
+            <h3 class="section_title">최종학력</h3>
+            <div class="grid_layout info_grid">
+                <label class="label">학교</label>
+                <div class="value_box"><span id="r_school"></span></div>
+                <label class="label">전공명</label>
+                <div class="value_box"><span id="r_major"></span></div>
+                <label class="label">입학년월</label>
+                <div class="value_box"><span id="r_entrance"></span></div>
+                <label class="label">졸업년월</label>
+                <div class="value_box"><span id="r_grad"></span></div>
+                <label class="label">학점</label>
+                <div class="value_box"><span id="r_score"></span></div>
+                <label class="label">졸업상태</label>
+                <div class="value_box"><span id="r_status_edu"></span></div>
+            </div>
+        </section>
+
+        <section class="resume_section">
+            <h3 class="section_title">전문분야</h3>
+            <div class="text_box" style="padding: 15px 20px !important; line-height: 1 !important;">
+                <span id="r_field" style="display: inline-block; line-height: 1.7; vertical-align: top;"></span>
+            </div>
+        </section>
+
+        <section class="resume_section">
+            <h3 class="section_title">경력</h3>
+            <div class="grid_layout info_grid">
+                <label class="label">회사명</label>
+                <div class="value_box"><span id="r_company"></span></div>
+                <label class="label">부서명</label>
+                <div class="value_box"><span id="r_dept"></span></div>
+                <label class="label">입사년월</label>
+                <div class="value_box"><span id="r_join"></span></div>
+                <label class="label">퇴사년월</label>
+                <div class="value_box"><span id="r_leave"></span></div>
+                <label class="label">직급/직책</label>
+                <div class="value_box"><span id="r_position"></span></div>
+                <label class="label">연봉</label>
+                <div class="value_box"><span id="r_salary"></span></div>
+                <label class="label">담당업무</label>
+                <div class="full_row">
+                    <div class="text_box" style="text-align: left !important; display: block !important;">
+                        <span id="r_task" style="display: block; text-align: left !important;"></span>
+                    </div>
+                </div>
+                <label class="label">경력기술서</label>
+                <div class="full_row">
+                    <div class="text_box" style="text-align: left !important; display: block !important;">
+                        <span id="r_career_desc" style="display: block; text-align: left !important;"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume_section">
+            <h3 class="section_title">자격증 기술</h3>
+            <div id="r_cert_list">
+                <!-- 자격증 목록이 동적으로 여기 들어갑니다 -->
+            </div>
+        </section>
+
+        <section class="resume_section">
+            <h3 class="section_title">자기소개서</h3>
+            <div class="text_box" style="text-align: left !important; display: block !important;">
+                <span id="r_intro" style="display: block; text-align: left !important;"></span>
+            </div>
+        </section>
+
+        <!-- 복무증명서 첨부파일 -->
+        <section class="resume_section" id="service_proof_section">
+            <h3 class="section_title">'주한미군 전역장병 증빙자료' 또는 '복무증명서'</h3>
+            <ul id="r_service_proof_files" style="list-style: none; padding: 0; margin: 0;">
+                <li style="text-align:center; color:#999; padding:20px;">첨부된 파일이 없습니다.</li>
+            </ul>
+        </section>
+
+        <!-- 이력서 첨부파일 -->
+        <section class="resume_section" id="resume_files_section">
+            <h3 class="section_title">이력서</h3>
+            <ul id="r_resume_files" style="list-style: none; padding: 0; margin: 0;">
+                <li style="text-align:center; color:#999; padding:20px;">첨부된 파일이 없습니다.</li>
+            </ul>
+        </section>
+
+        <div class="btn-flex-center">
+            <button class="btn-common btn-blue" onclick="window.print()">인쇄하기</button>
+            <button class="btn-common btn-blue" onclick="downloadExcel()">액셀 다운로드</button>
+            <button class="btn-common btn-gray" onclick="document.getElementById('resumeModal').style.display='none'">
+                목록가기
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function logout() {
+        try {
+            await fetch('/api/company/logout', {method: 'POST'});
+            window.location.href = '/';
+        } catch (error) {
+            window.location.href = '/';
+        }
+    }
+</script>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/common.js?v=1"></script>
+</body>
+</html>

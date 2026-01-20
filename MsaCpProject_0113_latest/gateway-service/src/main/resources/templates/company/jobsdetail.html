@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/sub.css">
+    <script src="/js/jobspublic.js" defer></script>
+</head>
+
+<body class="sub">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="wrapper">
+    <div class="sub_container">
+        <div class="container">
+
+            <div class="job_view">
+                <div class="company_nm" id="displayCompName">회사명</div>
+                <div class="job_tit mb20" id="jobTitle">채용 공고 제목</div>
+                <div class="job_date">
+                    <div class="th">접수기간</div>
+                    <div class="td"><span id="startDate">-</span> ~ <span id="endDate"></span></div>
+                </div>
+
+                <div class="job_info_box mb60">
+                    <div class="job_info mar">
+                        <div class="item">
+                            <div class="th" style="width:130px">직업유형</div>
+                            <div class="td" id="jobForm"></div>
+                        </div>
+                        <div class="item">
+                            <div class="th" style="width:130px">고용형태</div>
+                            <div class="td" id="jobType"></div>
+                        </div>
+                    </div>
+                    <div class="job_info mar">
+                        <div class="item">
+                            <div class="th" style="width:130px">직종</div>
+                            <div class="td" id="jobCategory"></div>
+                        </div>
+                        <div class="item">
+                            <div class="th" style="width:130px">업계</div>
+                            <div class="td" id="industry"></div>
+                        </div>
+                    </div>
+                    <div class="job_info mar">
+                        <div class="item">
+                            <div class="th" style="width:130px">직급</div>
+                            <div class="td" id="roleLevel"></div>
+                        </div>
+                        <div class="item">
+                            <div class="th" style="width:130px">경력</div>
+                            <div class="td" id="experience"></div>
+                        </div>
+                    </div>
+                    <div class="job_info mar">
+                        <div class="item">
+                            <div class="th" style="width:130px">기본급</div>
+                            <div class="td" id="baseSalary"></div>
+                        </div>
+                        <div class="item">
+                            <div class="th" style="width:130px">근무시간</div>
+                            <div class="td" id="workTime"></div>
+                        </div>
+                    </div>
+                    <div class="job_info half">
+                        <div class="item">
+                            <div class="th" style="width:130px">근무처</div>
+                            <div class="td" id="workLocation"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job_section mb60">
+                    <div class="js_tit">회사소개</div>
+                    <p id="companyIntro"></p>
+                </div>
+
+                <div class="job_section mb60">
+                    <div class="js_tit">담당업무</div>
+                    <p id="positionSummary"></p>
+                </div>
+
+                <div class="job_section mb60">
+                    <div class="js_tit">기술 및 자격요건</div>
+                    <p id="skillQualification"></p>
+                </div>
+
+                <div class="job_section mb60">
+                    <div class="js_tit">복지 및 보상</div>
+                    <p id="benefits"></p>
+                </div>
+
+                <div class="job_section mb60">
+                    <div class="js_tit">유의사항</div>
+                    <p id="notes"></p>
+                </div>
+
+                <div class="job_section mb60">
+                    <div class="js_tit">회사정보</div>
+                    <div class="job_info_box mb60">
+                        <div class="job_info diff half mar">
+                            <div class="item">
+                                <div class="th" style="width:130px">기업구분</div>
+                                <div class="td" id="companyType"></div>
+                            </div>
+                            <div class="item">
+                                <div class="th" style="width:130px">설립일</div>
+                                <div class="td" id="establishedDate"></div>
+                            </div>
+                        </div>
+                        <div class="job_info diff half mar">
+                            <div class="item">
+                                <div class="th" style="width:130px">사원수</div>
+                                <div class="td" id="employeeNum"></div>
+                            </div>
+                            <div class="item">
+                                <div class="th" style="width:130px">자본금</div>
+                                <div class="td" id="capital"></div>
+                            </div>
+                        </div>
+                        <div class="job_info diff half">
+                            <div class="item">
+                                <div class="th" style="width:130px">매출액</div>
+                                <div class="td" id="revenue"></div>
+                            </div>
+                            <div class="item">
+                                <div class="th" style="width:130px">홈페이지</div>
+                                <div class="td break"><a id="homepage" href="#" target="_blank"></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn_area center btnin">
+                    <button type="button" class="btn-submit mar" onclick="applyJob()">지원하기</button>
+                    <button type="button" class="btn-submit mar" onclick="window.print()">인쇄하기</button>
+                    <button type="button" class="btn-cancel" onclick="location.href='/jobs'">목록가기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+<script src="/js/common.js"></script>
+</body>
+</html>

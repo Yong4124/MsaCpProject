@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/main.css?v=2" />
+</head>
+
+<body>
+<div class="wrapper">
+
+    <!-- ===========================
+         공통 헤더 (Navbar Fragment)
+         =========================== -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main_container">
+        <div class="container">
+
+            <!-- KV (메인 배너) -->
+            <section class="main_kv" aria-label="메인 배너">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="/img/main/main_kv1.png" class="kv_pc" alt="">
+                            <img src="/img/main/main_kv1_m.png" class="kv_mobile" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/main/main_kv4.png" class="kv_pc" alt="">
+                            <img src="/img/main/main_kv4_m.png" class="kv_mobile" alt="">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/main/main_kv5.png" class="kv_pc" alt="">
+                            <img src="/img/main/main_kv5_m.png" class="kv_mobile" alt="">
+                        </div>
+                    </div>
+
+                    <div class="custom-progress" aria-hidden="true">
+                        <div class="current_wrap">
+                            <span class="current">01</span><span class="numbar"></span><span class="total">03</span>
+                        </div>
+                        <div class="bar"><div class="fill"></div></div>
+                    </div>
+                </div>
+
+                <div class="kv_btn_wrap">
+                    <div class="kv_btn">
+                        <button type="button" onclick="window.location.href='/jobs'">채용공고</button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="kv_btn_mobile">
+                <a href="/jobs">채용공고</a>
+            </div>
+
+            <!-- Search (검색) -->
+            <section class="search_area" aria-label="채용공고 검색">
+                <div class="item">
+                    <div class="search-box">
+                        <input
+                                type="text"
+                                class="input"
+                                id="searchword"
+                                placeholder="채용공고 검색"
+                                autocomplete="off"
+                        />
+                        <button class="search-btn" type="button" onclick="goSearch()">
+                            <span>검색</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- USA Map / Companies (미국진출 한국기업) -->
+            <section class="partner-company" aria-label="미국진출 한국기업">
+                <h2 class="m_tit">미국진출 한국기업</h2>
+
+                <div class="jido_wrap">
+                    <p class="txt">로고를 클릭하시면 기업정보를 확인할 수 있습니다.</p>
+
+                    <div class="jido_box" id="jidoBox">
+                        <!-- California (CA) -->
+                        <div class="jido_link jido_link1">
+                            <a href="#" onclick="jidoView(event,'1_1')" class="jido_slink jido_link1_1"><img src="/img/main/jido_logo/logo_hyundai.png" alt="Hyundai"></a>
+                            <a href="#" onclick="jidoView(event,'1_2')" class="jido_slink jido_link1_2"><img src="/img/main/jido_logo/logo_samsung.png" alt="Samsung"></a>
+                            <a href="#" onclick="jidoView(event,'1_3')" class="jido_slink jido_link1_3"><img src="/img/main/jido_logo/logo_skhynix.png" alt="SK hynix"></a>
+                            <a href="#" onclick="jidoView(event,'1_4')" class="jido_slink jido_link1_4"><img src="/img/main/jido_logo/logo_solidigm.png" alt="Solidigm"></a>
+                        </div>
+
+                        <!-- Arizona (AZ) -->
+                        <div class="jido_link jido_link2">
+                            <a href="#" onclick="jidoView(event,'2_1')" class="jido_slink jido_link2_1"><img src="/img/main/jido_logo/logo_lgenergys.png" alt="LG Energy Solution"></a>
+                        </div>
+
+                        <!-- Texas (TX) -->
+                        <div class="jido_link jido_link3">
+                            <a href="#" onclick="jidoView(event,'3_1')" class="jido_slink jido_link3_1"><img src="/img/main/jido_logo/logo_samsung.png" alt="Samsung"></a>
+                            <a href="#" onclick="jidoView(event,'3_2')" class="jido_slink jido_link3_2"><img src="/img/main/jido_logo/logo_dl.png" alt="DL Chemical"></a>
+                            <a href="#" onclick="jidoView(event,'3_3')" class="jido_slink jido_link3_3"><img src="/img/main/jido_logo/logo_soulbrain.png" alt="Soulbrain"></a>
+                        </div>
+
+                        <!-- Louisiana (LA) -->
+                        <div class="jido_link jido_link5">
+                            <a href="#" onclick="jidoView(event,'5_1')" class="jido_slink jido_link5_1"><img src="/img/main/jido_logo/logo_lottechemical.png" alt="Lotte Chemical"></a>
+                        </div>
+
+                        <!-- North Dakota (ND) -->
+                        <div class="jido_link jido_link6">
+                            <a href="#" onclick="jidoView(event,'6_1')" class="jido_slink jido_link6_1"><img src="/img/main/jido_logo/logo_doosan.png" alt="Doosan"></a>
+                        </div>
+
+                        <!-- Minnesota (MN) -->
+                        <div class="jido_link jido_link7">
+                            <a href="#" onclick="jidoView(event,'7_1')" class="jido_slink jido_link7_1"><img src="/img/main/jido_logo/logo_doosan.png" alt="Doosan"></a>
+                        </div>
+
+                        <!-- Michigan (MI) -->
+                        <div class="jido_link jido_link8">
+                            <a href="#" onclick="jidoView(event,'8_1')" class="jido_slink jido_link8_1"><img src="/img/main/jido_logo/logo_sksiltron.png" alt="SK Siltron"></a>
+                            <a href="#" onclick="jidoView(event,'8_2')" class="jido_slink jido_link8_2"><img src="/img/main/jido_logo/logo_lgenergys.png" alt="LG Energy Solution"></a>
+                        </div>
+
+                        <!-- New York (NY) -->
+                        <div class="jido_link jido_link9">
+                            <a href="#" onclick="jidoView(event,'9_1')" class="jido_slink jido_link9_1"><img src="/img/main/jido_logo/logo_sdi.png" alt="Samsung SDI"></a>
+                            <a href="#" onclick="jidoView(event,'9_2')" class="jido_slink jido_link9_2"><img src="/img/main/jido_logo/logo_skhynix.png" alt="SK hynix"></a>
+                        </div>
+
+                        <!-- Maine (ME) -->
+                        <div class="jido_link jido_link10">
+                            <a href="#" onclick="jidoView(event,'10_2')" class="jido_slink jido_link10_2"><img src="/img/main/jido_logo/logo_lgchem.png" alt="LG Chem"></a>
+                            <a href="#" onclick="jidoView(event,'10_3')" class="jido_slink jido_link10_3"><img src="/img/main/jido_logo/logo_lgenergys.png" alt="LG Energy Solution"></a>
+                        </div>
+
+                        <!-- Massachusetts (MA) -->
+                        <div class="jido_link jido_link11">
+                            <a href="#" onclick="jidoView(event,'11_2')" class="jido_slink jido_link11_2"><img src="/img/main/jido_logo/logo_lotte2.png" alt="Lotte"></a>
+                        </div>
+
+                        <!-- New Jersey (NJ) -->
+                        <div class="jido_link jido_link12">
+                            <a href="#" onclick="jidoView(event,'12_1')" class="jido_slink jido_link12_1"><img src="/img/main/jido_logo/logo_lgchem.png" alt="LG Chem"></a>
+                            <a href="#" onclick="jidoView(event,'12_2')" class="jido_slink jido_link12_2"><img src="/img/main/jido_logo/logo_hyundai.png" alt="Hyundai"></a>
+                        </div>
+
+                        <!-- Pennsylvania (PA) -->
+                        <div class="jido_link jido_link13">
+                            <a href="#" onclick="jidoView(event,'13_1')" class="jido_slink jido_link13_1"><img src="/img/main/jido_logo/logo_pmc.png" alt="SK Pharmteco"></a>
+                            <a href="#" onclick="jidoView(event,'13_2')" class="jido_slink jido_link13_2"><img src="/img/main/jido_logo/logo_biopmc.png" alt="SK Biopharmaceuticals"></a>
+                            <a href="#" onclick="jidoView(event,'13_3')" class="jido_slink jido_link13_3"><img src="/img/main/jido_logo/logo_hanwhaocean.png" alt="Hanwha Ocean"></a>
+                        </div>
+
+                        <!-- Virginia (VA) -->
+                        <div class="jido_link jido_link14">
+                            <a href="#" onclick="jidoView(event,'14_1')" class="jido_slink jido_link14_1"><img src="/img/main/jido_logo/logo_lgnova.png" alt="LG Nova"></a>
+                        </div>
+
+                        <!-- North Carolina (NC) -->
+                        <div class="jido_link jido_link15">
+                            <a href="#" onclick="jidoView(event,'15_1')" class="jido_slink jido_link15_1"><img src="/img/main/jido_logo/logo_lgenergys.png" alt="LG Energy Solution"></a>
+                            <a href="#" onclick="jidoView(event,'15_2')" class="jido_slink jido_link15_2"><img src="/img/main/jido_logo/logo_samsung.png" alt="Samsung"></a>
+                        </div>
+
+                        <!-- South Carolina (SC) -->
+                        <div class="jido_link jido_link16">
+                            <a href="#" onclick="jidoView(event,'16_1')" class="jido_slink jido_link16_1"><img src="/img/main/jido_logo/logo_lsgreenlink.png" alt="LS GreenLink"></a>
+                        </div>
+
+                        <!-- Kentucky (KY) -->
+                        <div class="jido_link jido_link17">
+                            <a href="#" onclick="jidoView(event,'17_1')" class="jido_slink jido_link17_1"><img src="/img/main/jido_logo/logo_doosan.png" alt="Doosan Bobcat"></a>
+                        </div>
+
+                        <!-- Indiana (IN) -->
+                        <div class="jido_link jido_link18">
+                            <a href="#" onclick="jidoView(event,'18_1')" class="jido_slink jido_link18_1"><img src="/img/main/jido_logo/logo_skon.png" alt="SK On"></a>
+                        </div>
+
+                        <!-- Ohio (OH) -->
+                        <div class="jido_link jido_link19">
+                            <a href="#" onclick="jidoView(event,'19_1')" class="jido_slink jido_link19_1"><img src="/img/main/jido_logo/logo_samsung.png" alt="Samsung"></a>
+                        </div>
+
+                        <!-- Tennessee (TN) -->
+                        <div class="jido_link jido_link20">
+                            <a href="#" onclick="jidoView(event,'20_1')" class="jido_slink jido_link20_1"><img src="/img/main/jido_logo/logo_nakook.png" alt="Hankook"></a>
+                            <a href="#" onclick="jidoView(event,'20_2')" class="jido_slink jido_link20_2"><img src="/img/main/jido_logo/logo_lgenergys.png" alt="LG Energy Solution"></a>
+                            <a href="#" onclick="jidoView(event,'20_3')" class="jido_slink jido_link20_3"><img src="/img/main/jido_logo/logo_lgchem.png" alt="LG Chem"></a>
+                            <a href="#" onclick="jidoView(event,'20_4')" class="jido_slink jido_link20_4"><img src="/img/main/jido_logo/logo_lgelect.png" alt="LG Electronics"></a>
+                            <a href="#" onclick="jidoView(event,'20_5')" class="jido_slink jido_link20_5"><img src="/img/main/jido_logo/logo_hyosung.png" alt="Hyosung HICO"></a>
+                            <a href="#" onclick="jidoView(event,'20_6')" class="jido_slink jido_link20_6"><img src="/img/main/jido_logo/logo_skon.png" alt="SK On"></a>
+                        </div>
+
+                        <!-- Georgia (GA) -->
+                        <div class="jido_link jido_link21">
+                            <a href="#" onclick="jidoView(event,'21_1')" class="jido_slink jido_link21_1"><img src="/img/main/jido_logo/logo_kumho.png" alt="Kumho Tire"></a>
+                            <a href="#" onclick="jidoView(event,'21_2')" class="jido_slink jido_link21_2"><img src="/img/main/jido_logo/logo_hyundai.png" alt="Hyundai"></a>
+                            <a href="#" onclick="jidoView(event,'21_3')" class="jido_slink jido_link21_3"><img src="/img/main/jido_logo/logo_nia.png" alt="KIA"></a>
+                            <a href="#" onclick="jidoView(event,'21_4')" class="jido_slink jido_link21_4"><img src="/img/main/jido_logo/logo_skbattery.png" alt="SK Battery America"></a>
+                            <a href="#" onclick="jidoView(event,'21_5')" class="jido_slink jido_link21_5"><img src="/img/main/jido_logo/logi_skc.png" alt="SKC"></a>
+                            <a href="#" onclick="jidoView(event,'21_6')" class="jido_slink jido_link21_6"><img src="/img/main/jido_logo/logo_lgenergys.png" alt="LG Energy Solution"></a>
+                            <a href="#" onclick="jidoView(event,'21_7')" class="jido_slink jido_link21_7"><img src="/img/main/jido_logo/logo_qcells.png" alt="Hanwha Q Cells"></a>
+                        </div>
+
+                        <!-- Alabama (AL) -->
+                        <div class="jido_link jido_link22">
+                            <a href="#" onclick="jidoView(event,'22_1')" class="jido_slink jido_link22_1"><img src="/img/main/jido_logo/logo_hyundai.png" alt="Hyundai"></a>
+                        </div>
+                    </div>
+
+                    <!-- Popup -->
+                    <div class="cpb_box_group" id="jidoPopup" style="display:none;">
+                        <div class="company_pop_wrap_box">
+                            <a href="#" onclick="jidoClose(event)" class="cpb_close_btn"><img src="/img/main/jido_close.svg" alt="닫기"></a>
+                            <div class="company_new_pop">
+                                <div class="company_agent" id="companyAgent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Jobs (채용공고) -->
+            <section class="job-list main_line" aria-label="채용공고">
+                <h2 class="m_tit">
+                    채용공고
+                    <a class="more" href="/jobs">더보기</a>
+                </h2>
+
+                <div class="row" id="jobCards">
+                    <!-- JS가 카드 렌더 -->
+                </div>
+            </section>
+
+            <!-- Contact (문의처) -->
+            <section class="tel_wrap" aria-label="문의처">
+                <div class="tel_box">
+                    <div class="item bar">
+                        <div class="tel_th">기업회원 문의처</div>
+                        <div class="tel_num">02-6050-3566</div>
+                        <div class="tel_email">contact@korcham.net</div>
+                        <div class="tel_nm">대한상공회의소</div>
+                    </div>
+
+                    <div class="item">
+                        <div class="tel_th">개인회원 문의처</div>
+                        <div class="tel_num">070-7755-0075</div>
+                        <div class="tel_email">kusaf2020@gmail.com</div>
+                        <div class="tel_nm">한미동맹재단</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/js/common.js?v=1"></script>
+<script src="/js/main.js?v=2"></script>
+</body>
+</html>
