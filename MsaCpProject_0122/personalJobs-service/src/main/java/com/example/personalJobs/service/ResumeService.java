@@ -1,20 +1,27 @@
 package com.example.personalJobs.service;
 
 import com.example.personalJobs.dto.ApplyRequest;
-import com.example.personalJobs.entity.Certificate;
-import com.example.personalJobs.entity.Resume;
-import com.example.personalJobs.entity.CareerHistory;
+import com.example.personalJobs.entity.*;
 import com.example.personalJobs.repository.CareerHistoryRepository;
+import com.example.personalJobs.repository.ResumeFileAttachmentRepository;
 import com.example.personalJobs.repository.ResumeRepository;
+import com.example.personalJobs.repository.ServiceProofAttachmentRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +29,11 @@ public class ResumeService {
 
     private final ResumeRepository resumeRepository;
     private final CareerHistoryRepository careerHistoryRepository;
+    private final ServiceProofAttachmentRepository serviceProofAttachmentRepository;
+    private final ResumeFileAttachmentRepository resumeFileAttachmentRepository;
 
+    @Value("${file.upload.path:./uploads}")
+    private String uploadPath;
 
     // ✅ JSON 저장/복원용
     private final ObjectMapper om = new ObjectMapper();
@@ -121,7 +132,10 @@ public class ResumeService {
         // ✅ 1) Resume 저장(여기서 seqNoM110 생성)
         Resume saved = resumeRepository.save(r);
 
-        // ✅ 2) CareerHistory(M111) 다건 저장 추가 (진짜 핵심)
+        // ✅ 2) 첨부파일 저장
+        saveAttachments(saved, req);
+
+        // ✅ 3) CareerHistory(M111) 다건 저장 추가 (진짜 핵심)
         if (careers != null && !careers.isEmpty()) {
 
             List<CareerHistory> list = new ArrayList<>();
@@ -262,6 +276,98 @@ public class ResumeService {
         }
         dto.setLicenses(outLic);
 
+        // ===== 사진 경로 =====
+        dto.setPhotoPath(r.getPhotoPath());
+
+        // ===== 복무증명서 첨부파일 =====
+        List<ApplyRequest.AttachmentInfo> serviceProofFiles = new ArrayList<>();
+        if (r.getServiceProofAttachments() != null) {
+            for (ServiceProofAttachment spa : r.getServiceProofAttachments()) {
+                if (!"N".equalsIgnoreCase(spa.getDelYn())) continue;
+
+                ApplyRequest.AttachmentInfo info = new ApplyRequest.AttachmentInfo();
+                info.setId(spa.getSeqNoM114());
+                info.setFileName(spa.getAttachFileNm());
+                info.setFilePath(spa.getFilePath());
+                serviceProofFiles.add(info);
+            }
+        }
+        dto.setServiceProofFiles(serviceProofFiles);
+
+        // ===== 이력서 첨부파일 =====
+        List<ApplyRequest.AttachmentInfo> resumeFiles = new ArrayList<>();
+        if (r.getResumeFileAttachments() != null) {
+            for (ResumeFileAttachment rfa : r.getResumeFileAttachments()) {
+                if (!"N".equalsIgnoreCase(rfa.getDelYn())) continue;
+
+                ApplyRequest.AttachmentInfo info = new ApplyRequest.AttachmentInfo();
+                info.setId(rfa.getSeqNoM115());
+                info.setFileName(rfa.getAttachFileNm());
+                info.setFilePath(rfa.getFilePath());
+                resumeFiles.add(info);
+            }
+        }
+        dto.setResumeFiles(resumeFiles);
+
         return dto;
+    }
+
+    /**
+     * 첨부파일 저장 (복무증명서, 이력서 파일)
+     */
+    private void saveAttachments(Resume resume, ApplyRequest req) {
+        // 복무증명서 파일 저장 (M114)
+        MultipartFile serviceProofFile = req.getATTACH_FILE_NM_M114();
+        if (serviceProofFile != null && !serviceProofFile.isEmpty()) {
+            try {
+                String filePath = saveFile(serviceProofFile, "service-proof");
+                ServiceProofAttachment attachment = new ServiceProofAttachment();
+                attachment.setResume(resume);
+                attachment.setAttachFileNm(serviceProofFile.getOriginalFilename());
+                attachment.setFilePath(filePath);
+                attachment.setDelYn("N");
+                serviceProofAttachmentRepository.save(attachment);
+            } catch (IOException e) {
+                System.err.println("복무증명서 파일 저장 실패: " + e.getMessage());
+            }
+        }
+
+        // 이력서 파일 저장 (M115)
+        MultipartFile resumeFile = req.getATTACH_FILE_NM_M115();
+        if (resumeFile != null && !resumeFile.isEmpty()) {
+            try {
+                String filePath = saveFile(resumeFile, "resume-files");
+                ResumeFileAttachment attachment = new ResumeFileAttachment();
+                attachment.setResume(resume);
+                attachment.setAttachFileNm(resumeFile.getOriginalFilename());
+                attachment.setFilePath(filePath);
+                attachment.setDelYn("N");
+                resumeFileAttachmentRepository.save(attachment);
+            } catch (IOException e) {
+                System.err.println("이력서 파일 저장 실패: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * 파일 저장 (물리적 파일 저장)
+     */
+    private String saveFile(MultipartFile file, String subDir) throws IOException {
+        Path dirPath = Paths.get(uploadPath, subDir);
+        if (!Files.exists(dirPath)) {
+            Files.createDirectories(dirPath);
+        }
+
+        String originalFileName = file.getOriginalFilename();
+        String extension = "";
+        if (originalFileName != null && originalFileName.contains(".")) {
+            extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        }
+        String newFileName = UUID.randomUUID().toString() + "_" + System.currentTimeMillis() + extension;
+
+        Path filePath = dirPath.resolve(newFileName);
+        Files.copy(file.getInputStream(), filePath);
+
+        return "/uploads/" + subDir + "/" + newFileName;
     }
 }

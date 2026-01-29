@@ -22,6 +22,9 @@ public class ResumeFileAttachment {
     @Column(name = "ATTACH_FILE_NM")
     private String attachFileNm;
 
+    @Column(name = "FILE_PATH")
+    private String filePath;
+
     @Column(name = "DEL_YN")
     private String delYn = "N";
 }

@@ -953,10 +953,12 @@ function renderServiceProofFiles(files) {
     files.forEach(file => {
         const fileDiv = document.createElement('div');
         fileDiv.className = 'file_item';
-        fileDiv.innerHTML = `
-            <a href="javascript:void(0);" class="fnm" onclick="downloadServiceProof(${file.id}, '${file.fileName}')">${file.fileName || '파일명 없음'}</a>
-            <a href="javascript:void(0);" class="file_down" onclick="downloadServiceProof(${file.id}, '${file.fileName}')">다운로드</a>
-        `;
+        const hasFile = file.filePath && file.filePath.trim() !== '';
+        fileDiv.innerHTML = hasFile
+            ? `<a href="javascript:void(0);" class="fnm" onclick="downloadServiceProof(${file.id}, '${file.fileName}')">${file.fileName || '파일명 없음'}</a>
+               <a href="javascript:void(0);" class="file_down" onclick="downloadServiceProof(${file.id}, '${file.fileName}')">다운로드</a>`
+            : `<span class="fnm">${file.fileName || '파일명 없음'}</span>
+               <span class="file_down" style="color:#999;">파일 없음</span>`;
         container.appendChild(fileDiv);
     });
 }
@@ -975,55 +977,48 @@ function renderResumeFiles(files) {
     files.forEach(file => {
         const fileDiv = document.createElement('div');
         fileDiv.className = 'file_item';
-        fileDiv.innerHTML = `
-            <a href="javascript:void(0);" class="fnm" onclick="downloadResumeFile(${file.id}, '${file.fileName}')">${file.fileName || '파일명 없음'}</a>
-            <a href="javascript:void(0);" class="file_down" onclick="downloadResumeFile(${file.id}, '${file.fileName}')">다운로드</a>
-        `;
+        const hasFile = file.filePath && file.filePath.trim() !== '';
+        fileDiv.innerHTML = hasFile
+            ? `<a href="javascript:void(0);" class="fnm" onclick="downloadResumeAttachment(${file.id}, '${file.fileName}')">${file.fileName || '파일명 없음'}</a>
+               <a href="javascript:void(0);" class="file_down" onclick="downloadResumeAttachment(${file.id}, '${file.fileName}')">다운로드</a>`
+            : `<span class="fnm">${file.fileName || '파일명 없음'}</span>
+               <span class="file_down" style="color:#999;">파일 없음</span>`;
         container.appendChild(fileDiv);
     });
 }
 
 // 파일 다운로드 함수들
 function downloadServiceProof(fileId, fileName) {
-    const getTxt = (id) => document.getElementById(id)?.textContent?.trim() || '-';
-    const name = getTxt('r_name');
-    const birth = getTxt('r_birth');
-    const phone = getTxt('r_phone');
+    // 실제 파일 다운로드 API 호출
+    const downloadUrl = `/api/files/service-proof/${fileId}/download`;
 
-    const content = `
-        <div style="font-family: 'Malgun Gothic', sans-serif; line-height: 1.6;">
-            <h1 style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px;">서비스 증빙 자료 상세</h1>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-                <tr>
-                    <td style="background: #f4f4f4; padding: 10px; border: 1px solid #ddd; width: 25%;"><b>대상자 성명</b></td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">${name}</td>
-                </tr>
-                <tr>
-                    <td style="background: #f4f4f4; padding: 10px; border: 1px solid #ddd;"><b>생년월일</b></td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">${birth}</td>
-                </tr>
-                <tr>
-                    <td style="background: #f4f4f4; padding: 10px; border: 1px solid #ddd;"><b>연락처</b></td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">${phone}</td>
-                </tr>
-                <tr>
-                    <td style="background: #f4f4f4; padding: 10px; border: 1px solid #ddd;"><b>증빙 파일명</b></td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">${fileName || '첨부파일 참조'}</td>
-                </tr>
-            </table>
-            <p style="margin-top: 50px; text-align: center; color: #888;">본 문서는 ${name}님의 서비스 증빙을 확인하기 위해 자동 생성된 문서입니다.</p>
-        </div>
-    `;
-
-    const cleanFileName = fileName ? fileName.replace(/\.docx$/i, '') : '';
-    const converted = htmlDocx.asBlob(content);
-    const finalFileName = cleanFileName
-        ? `증빙자료_${name}_${cleanFileName}.docx`
-        : `증빙자료_${name}.docx`;
-
-    saveAs(converted, finalFileName);
+    fetch(downloadUrl, {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('파일을 찾을 수 없습니다.');
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName || '복무증명서';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    })
+    .catch(error => {
+        console.error('다운로드 실패:', error);
+        alert('파일 다운로드에 실패했습니다.');
+    });
 }
 
+// 이력서 전체를 DOCX로 다운로드 (기존 기능 유지)
 function downloadResumeFile(app) {
     const getTxt = (id) => document.getElementById(id)?.textContent || '-';
     const name = getTxt('r_name');
@@ -1085,6 +1080,36 @@ function downloadResumeFile(app) {
 
     const converted = htmlDocx.asBlob(content);
     saveAs(converted, `이력서_${name}.docx`);
+}
+
+// 이력서 첨부파일 다운로드 (실제 파일)
+function downloadResumeAttachment(fileId, fileName) {
+    const downloadUrl = `/api/files/resume-file/${fileId}/download`;
+
+    fetch(downloadUrl, {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('파일을 찾을 수 없습니다.');
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName || '이력서첨부파일';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    })
+    .catch(error => {
+        console.error('다운로드 실패:', error);
+        alert('파일 다운로드에 실패했습니다.');
+    });
 }
 
 function downloadExcel() {

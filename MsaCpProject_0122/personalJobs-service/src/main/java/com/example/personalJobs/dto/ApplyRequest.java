@@ -51,10 +51,15 @@ public class ApplyRequest {
     private List<Career> careers;
     private List<License> licenses;
 
-    // 파일 (폼 name 그대로)
+    // 파일 (폼 name 그대로) - 업로드용
     private MultipartFile ATTACH_FILE_NM_M113; // 사진
     private MultipartFile ATTACH_FILE_NM_M114; // 복무증명서
     private MultipartFile ATTACH_FILE_NM_M115; // 이력서 파일
+
+    // 첨부파일 정보 (불러오기용)
+    private String photoPath;                              // 사진 경로
+    private List<AttachmentInfo> serviceProofFiles;        // 복무증명서 파일 목록
+    private List<AttachmentInfo> resumeFiles;              // 이력서 첨부파일 목록
 
     // =========================
     // Service에서 쓰기 편하게 변환
@@ -181,5 +186,14 @@ public class ApplyRequest {
         private String obtainDate;
         private String agency;
         private String certificateNum;
+    }
+
+    // 첨부파일 정보 DTO (불러오기용)
+    @Getter
+    @Setter
+    public static class AttachmentInfo {
+        private Long id;
+        private String fileName;
+        private String filePath;
     }
 }

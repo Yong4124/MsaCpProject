@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>이력서 불러오기</title>
+    <style>
+        body { margin:0; font-family: Arial, sans-serif; }
+        .topbar {
+            height:64px; display:flex; align-items:center; justify-content:space-between;
+            padding:0 24px; border-bottom:1px solid #eee;
+        }
+        .title { font-size:24px; font-weight:800; }
+        .btn {
+            border:0; padding:10px 18px; border-radius:999px; cursor:pointer;
+            background:#333; color:#fff; font-weight:700;
+        }
+        .wrap { padding:24px; }
+        .empty {
+            margin-top:80px; text-align:center; color:#222; font-size:18px;
+        }
+
+        /* ✅ 카드 리스트 */
+        .list { max-width:820px; margin:24px auto 0; display:flex; flex-direction:column; gap:12px; }
+        .card {
+            border:1px solid #eee; border-radius:14px; padding:14px 16px;
+            display:flex; gap:12px; align-items:flex-start; cursor:pointer;
+            transition: border-color .12s ease, box-shadow .12s ease, transform .12s ease;
+        }
+        .card:hover { transform: translateY(-1px); }
+        .card.selected {
+            border-color:#111;
+            box-shadow: 0 0 0 1px #111 inset;
+        }
+
+        .radio {
+            margin-top:4px;
+        }
+
+        .logo {
+            width:46px; height:46px; border-radius:12px; overflow:hidden;
+            background:#f3f3f3; flex:0 0 auto;
+            display:flex; align-items:center; justify-content:center;
+            font-weight:800; color:#777;
+        }
+        .logo img { width:100%; height:100%; object-fit:cover; display:block; }
+
+        .meta { display:flex; flex-direction:column; gap:6px; flex:1; min-width:0; }
+        .company { font-size:13px; color:#666; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .jobtitle { font-size:16px; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+        .bottom {
+            display:flex; align-items:center; justify-content:space-between;
+            gap:10px; margin-top:2px;
+        }
+        .badge {
+            font-size:12px; font-weight:800;
+            padding:6px 10px; border-radius:999px;
+            border:1px solid #ddd; background:#fff; color:#333;
+            flex:0 0 auto;
+        }
+        /* 배지 색상 스타일 */
+        .badge.temp { border-color:#e2e2e2; color:#555; background-color: #f9f9f9; } /* 작성중: 회색 */
+        .badge.submitted { border-color:#cfd8ff; color:#1d3cff; background-color: #f0f4ff; } /* 제출완료: 파란색 */
+        .badge.cancel { border-color:#ffd0d0; color:#d40000; background-color: #fff0f0; } /* 지원취소: 빨간색 */
+
+        .sub {
+            font-size:12px; color:#777;
+            white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+        }
+
+        .actions {
+            max-width:820px; margin:16px auto 0; display:flex; gap:10px; justify-content:flex-end;
+        }
+        .btn2 {
+            border:1px solid #ddd; padding:10px 14px; border-radius:10px; cursor:pointer;
+            background:#fff; font-weight:700;
+        }
+        .btn2.primary { background:#111; color:#fff; border-color:#111; }
+    </style>
+</head>
+<body>
+<div class="topbar">
+    <div class="title">이력서 불러오기</div>
+    <button class="btn" id="closeBtn">닫기</button>
+</div>
+
+<div class="wrap">
+    <div id="empty" class="empty" style="display:none;">
+        저장된 이력서가 없습니다.
+    </div>
+
+    <div id="list" class="list" style="display:none;"></div>
+
+    <div class="actions" id="actions" style="display:none;">
+        <button class="btn2 primary" id="loadSelectedBtn">선택 불러오기</button>
+    </div>
+</div>
+
+<script>
+    const ENDPOINT_APPLY_MY = (page=0,size=10) => `/api/apply/my?page=${page}&size=${size}`;
+    const ENDPOINT_RESUME_LATEST = `/api/resume/me`;
+
+    const $ = (s) => document.querySelector(s);
+    const listEl = $("#list");
+    const emptyEl = $("#empty");
+    const actionsEl = $("#actions");
+
+    $("#closeBtn").addEventListener("click", () => window.close());
+
+    async function fetchJson(url) {
+        const res = await fetch(url, { method:"GET", credentials:"include", cache:"no-store" });
+        if (res.status === 401) {
+            alert("로그인 후 이용하세요.");
+            window.close();
+            throw new Error("401");
+        }
+        const ct = (res.headers.get("content-type") || "").toLowerCase();
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        if (!ct.includes("application/json")) throw new Error("Not JSON");
+        return await res.json();
+    }
+
+    function sendPicked(m110) {
+        if (!window.opener) return;
+        window.opener.postMessage({ type:"RESUME_PICKED", m110 }, window.location.origin);
+        window.close();
+    }
+
+    function getPicked() {
+        return document.querySelector('input[name="resumePick"]:checked')?.value || "";
+    }
+
+    // 🚨 [핵심 수정] 상태 텍스트 및 스타일 결정 함수
+    function statusClassAndText(it) {
+        const statusText = it?.statusText ?? "";
+        const reviewStatus = (it?.reviewStatus ?? "").toUpperCase();
+        const cancelStatus = (it?.cancelStatus ?? "");
+
+        // 1. 텍스트에 힌트가 있으면 우선 사용
+        if (statusText.includes("취소")) return { cls:"cancel", text:"지원취소" };
+        if (statusText.includes("제출")) return { cls:"submitted", text:"제출완료" };
+        if (statusText.includes("작성")) return { cls:"temp", text:"임시저장" };
+
+        // 2. 취소 여부 확인 (확실히 'Y'일 때만)
+        if (cancelStatus === "Y") return { cls:"cancel", text:"지원취소" };
+
+        // 3. 제출 여부 확인
+        if (reviewStatus === "SUBMITTED") return { cls:"submitted", text:"제출완료" };
+
+        // 4. 나머지는 모두 작성중(임시저장)
+        return { cls:"temp", text:"임시저장 " };
+    }
+
+    function renderCards(items) {
+        listEl.innerHTML = "";
+
+        items.forEach((it, idx) => {
+            const resumeId = it?.resumeId ?? it?.seqNoM110 ?? it?.SEQ_NO_M110;
+            const jobTitle = it?.title ?? it?.jobTitle ?? "";
+            const companyName = it?.companyName ?? "";
+            const logoPath = it?.logoPath ?? "";
+
+            const { cls, text } = statusClassAndText(it);
+
+            const card = document.createElement("label");
+            card.className = "card";
+            card.innerHTML = `
+              <input class="radio" type="radio" name="resumePick" value="${resumeId ?? ""}" ${idx===0 ? "checked":""} />
+              <div class="logo">
+                ${logoPath ? `<img alt="logo" src="${logoPath}">` : `<span>LOGO</span>`}
+              </div>
+              <div class="meta">
+                <div class="company">${companyName || "-"}</div>
+                <div class="jobtitle">${jobTitle || "-"}</div>
+                <div class="bottom">
+                  <span class="badge ${cls}">${text}</span>
+                  <span class="sub">이력서 #${resumeId ?? "-"}</span>
+                </div>
+              </div>
+            `;
+
+            // 선택 표시 로직
+            const radio = card.querySelector('input[type="radio"]');
+            const syncSelected = () => {
+                document.querySelectorAll(".card").forEach(el => el.classList.remove("selected"));
+                card.classList.add("selected");
+            };
+            card.addEventListener("click", () => {
+                radio.checked = true;
+                syncSelected();
+            });
+
+            listEl.appendChild(card);
+
+            if (idx === 0) {
+                card.classList.add("selected");
+            }
+        });
+
+        // 라디오 변경 감지
+        document.querySelectorAll('input[name="resumePick"]').forEach(r => {
+            r.addEventListener("change", () => {
+                document.querySelectorAll(".card").forEach(el => el.classList.remove("selected"));
+                r.closest(".card")?.classList.add("selected");
+            });
+        });
+    }
+
+    async function renderList() {
+        let raw;
+        try {
+            raw = await fetchJson(ENDPOINT_APPLY_MY(0, 10));
+        } catch (e) {
+            emptyEl.style.display = "block";
+            return;
+        }
+
+        const data = raw?.data ?? raw;
+        const items = data?.items ?? [];
+
+        if (!items.length) {
+            emptyEl.style.display = "block";
+            listEl.style.display = "none";
+            actionsEl.style.display = "none";
+            return;
+        }
+
+        emptyEl.style.display = "none";
+        listEl.style.display = "flex";
+        actionsEl.style.display = "flex";
+
+        renderCards(items);
+    }
+
+    $("#loadSelectedBtn")?.addEventListener("click", async () => {
+        const picked = getPicked();
+        if (!picked) return alert("항목을 선택하세요.");
+        sendPicked(picked);
+    });
+
+    renderList();
+</script>
+</body>
+</html>

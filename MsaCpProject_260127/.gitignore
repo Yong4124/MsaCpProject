@@ -1,0 +1,33 @@
+# 빌드 결과물
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+
+# IDE 설정 파일
+.idea/
+.vscode/
+*.iml
+.settings/
+.project
+.classpath
+
+# Gradle
+.gradle/
+gradle/
+
+# Maven
+.mvn/
+
+# 로그 파일
+*.log
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
+
+# 환경 설정 (민감 정보)
+application-local.properties
+application-prod.properties

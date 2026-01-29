@@ -1,0 +1,12 @@
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security' // BCrypt용(간단)
+
+    // ✅ MySQL JDBC Driver
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // ❌ H2 (이제 MySQL 쓰면 제거/주석)
+    // runtimeOnly 'com.h2database:h2'
+}

@@ -1,0 +1,9 @@
+rootProject.name = 'MsaCpProject'
+
+include 'gateway-service'
+include 'eureka-server'
+include 'personal-service'
+include 'company-service'
+include 'personalJobs-service'
+include 'job-service'
+include 'admin-service'

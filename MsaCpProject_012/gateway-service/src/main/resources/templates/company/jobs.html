@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/sub.css"/>
+    <script src="/js/jobspublic.js" defer></script>
+</head>
+
+<body class="sub">
+<div class="wrapper">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="sub_container">
+        <div class="container">
+
+            <!-- 타이틀 / 필터 -->
+            <div class="sub_tit_wrap between">
+                <div class="sub_tit">채용공고</div>
+
+                <div class="sub_search_area">
+                    <div class="sort_box">
+                        <select id="groupSelect" class="select" onchange="goSearch()">
+                            <option value="">그룹사 선택</option>
+                            <option value="1">삼성</option>
+                            <option value="2">SK</option>
+                            <option value="3">현대</option>
+                            <option value="4">LG</option>
+                            <option value="5">롯데</option>
+                            <option value="6">한화</option>
+                            <option value="7">LS</option>
+                            <option value="8">DL</option>
+                            <option value="9">두산</option>
+                            <option value="10">한국타이어</option>
+                            <option value="11">효성</option>
+                            <option value="12">금호타이어</option>
+                            <option value="13">솔브레인</option>
+                            <option value="14">SD</option>
+                            <option value="0">기타</option>
+                        </select>
+                    </div>
+
+                    <div class="sort_box">
+                        <select id="jobCategorySelect" class="select" onchange="goSearch()">
+                            <option value="ALL">전체</option>
+                            <option value="TITLE">공고명</option>
+                            <option value="COMPANY">회사명</option>
+                            <option value="JOB_LOCATION">근무처</option>
+                        </select>
+                    </div>
+
+                    <div class="input_box">
+                        <input type="text" class="input" id="publicSearchWord" placeholder="검색어"
+                               onkeypress="if(event.keyCode==13){goSearch();}">
+                        <a href="javascript:goSearch();" class="submit"></a>
+                    </div>
+
+                    <div class="sort_box">
+                        <select id="sortOrder" class="select" onchange="goSearch()">
+                            <option value="START_DATE" selected>시작일순</option>
+                            <option value="END_DATE">마감일순</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 채용공고 리스트 -->
+<!--            <input type="hidden" id="r_resumeId" value="3">-->
+            <ul class="job_list"></ul>
+
+            <!-- 페이징 처리 -->
+            <div class="page_wrap" style="display: block;">
+                <div class="page_nation" id="pagination">
+                    <!-- JavaScript에서 동적으로 생성됨 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+<script src="/js/common.js"></script>
+</body>
+</html>

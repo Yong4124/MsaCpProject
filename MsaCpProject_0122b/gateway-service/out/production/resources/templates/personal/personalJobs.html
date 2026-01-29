@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>주한미군 전역장병 채용 플랫폼</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <meta property="og:title" content="주한미군 전역장병 채용 플랫폼" />
+    <meta property="og:description" content="미국진출 한국 기업과 주한미군 전역 장병을 연결하는 채용 플랫폼" />
+    <meta property="og:image" content="/img/main/main_prev_kr.png" />
+    <meta property="og:url" content="/" />
+
+    <link rel="stylesheet" type="text/css"
+          href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- ✅ 네 구조: static/css -->
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/sub.css" />
+    <link rel="stylesheet" href="/css/datepicker.min.css" />
+
+    <!-- ✅ jQuery/datepicker: 네 static/js에 파일이 없으면 CDN으로 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function adjustListMargin() {
+            var searchArea = document.querySelector('.sub_search_area');
+            var jobList = document.querySelector('.job_list');
+            if (!searchArea || !jobList) return;
+
+            if (window.innerWidth <= 1200) {
+                var h = searchArea.offsetHeight + 100;
+                jobList.style.marginTop = h + "px";
+            } else {
+                jobList.style.marginTop = "0px";
+            }
+        }
+        window.addEventListener('load', adjustListMargin);
+        window.addEventListener('resize', adjustListMargin);
+    </script>
+</head>
+
+<body class="sub">
+<div class="wrapper">
+
+    <!-- ✅ 공통 헤더 (Navbar Fragment) -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <!-- ✅ 실제 페이지 -->
+    <form name="JobForm" method="post" onsubmit="return false;">
+        <input type="hidden" id="pageno" value="1" />
+
+        <div class="sub_container">
+            <div class="container">
+
+                <div class="sub_tit_wrap between">
+                    <div class="sub_tit">채용공고</div>
+
+                    <div class="sub_search_area">
+
+                        <div class="sort_box">
+                            <select class="select" id="markoption">
+                                <option value="">관심기업 선택</option>
+                                <option value="1">등록</option>
+                                <option value="2">미등록</option>
+                            </select>
+                        </div>
+
+                        <div class="sort_box">
+                            <select class="select" id="searchgwfield">
+                                <option value="">그룹사 선택</option>
+                                <option value="1">삼성</option>
+                                <option value="2">SK</option>
+                                <option value="3">현대</option>
+                                <option value="4">LG</option>
+                                <option value="5">롯데</option>
+                                <option value="6">한화</option>
+                                <option value="7">LS</option>
+                                <option value="8">DL</option>
+                                <option value="9">두산</option>
+                                <option value="10">한국타이어</option>
+                                <option value="11">효성</option>
+                                <option value="12">금호타이어</option>
+                                <option value="13">솔브레인</option>
+                                <option value="14">SD</option>
+                                <option value="0">기타</option>
+                            </select>
+                        </div>
+
+                        <div class="sort_box">
+                            <select class="select" id="searchfield">
+                                <option value="ALL">전체</option>
+                                <option value="TITLE">공고명</option>
+                                <option value="COMPANY">회사명</option>
+                                <option value="JOB_LOCATION">근무처</option>
+                            </select>
+                        </div>
+
+                        <div class="input_box">
+                            <input type="text" class="input" id="searchword" placeholder="검색어" />
+                            <a href="javascript:void(0)" class="submit" id="btnSearch"></a>
+                        </div>
+
+                        <div class="sort_box">
+                            <select class="select" id="sortoption">
+                                <option value="START_DATE" selected>시작일순</option>
+                                <option value="END_DATE">마감일순</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ✅ JS가 렌더링 -->
+                <ul class="job_list" id="job_list"></ul>
+
+                <div class="page_wrap">
+                    <div class="page_nation" id="page_nation"></div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <!-- ✅ 공통 푸터 (Footer Fragment) -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</div>
+
+<!-- ✅ 네 구조: static/js -->
+<script src="/js/common.js?v=1"></script>
+<script src="/js/personal/personalJobs.js"></script>
+
+<script>
+    document.getElementById("btnSearch")?.addEventListener("click", () => window.goSearch?.());
+    document.getElementById("searchword")?.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); window.goSearch?.(); }
+    });
+
+    ["markoption", "searchgwfield", "sortoption"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("change", () => window.goSearch?.());
+    });
+
+    window.addEventListener("load", () => window.goSearch?.());
+</script>
+
+<script th:inline="javascript">
+    window.IS_LOGGED_IN = /*[[${isLoggedIn}]]*/ false;
+</script>
+</body>
+</html>

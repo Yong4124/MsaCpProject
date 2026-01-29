@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>관리자 - 관리자관리</title>
+
+    <!-- 공통(기존 dashboard.css 쓰는 구조면 이거만 써도 됨) -->
+    <link rel="stylesheet" href="/css/dashboard.css" />
+
+    <!-- 관리자관리 화면 전용 스타일 -->
+    <link rel="stylesheet" href="/css/admin_admin_list.css" />
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-left">주한미군 전역장병 채용 플랫폼 관리자</div>
+    <div class="topbar-right">
+        <span id="welcomeText">관리자님 환영합니다.</span>
+        <button id="logoutBtn" class="btn-dark">로그아웃</button>
+    </div>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <a class="menu" href="/admin/user_list">개인회원 관리</a>
+        <a class="menu " href="/admin/company_list">기업회원 관리</a>
+        <a class="menu" href="/admin/stats">통계</a>
+        <a class="menu active" href="/admin/admin_list">관리자관리</a>
+    </aside>
+
+
+    <main class="content">
+        <div class="content-inner admin-inner">
+        <h1 class="page-title">관리자관리</h1>
+        <div class="divider"></div>
+
+        <!-- ✅ 검색 영역 + 테이블을 같은 폭으로 -->
+
+            <section class="search admin-search">
+                <div class="search-row right">
+                    <select id="searchType" class="select">
+                        <option value="all">전체</option>
+                        <option value="id">아이디</option>
+                        <option value="name">성명</option>
+                    </select>
+
+                    <input id="searchKeyword" class="input" type="text" placeholder="검색어를 입력하세요" />
+                    <button id="searchBtn" class="btn-dark">검색</button>
+                </div>
+            </section>
+
+            <table class="table admin-table">
+                <thead>
+                <tr>
+                    <th style="width:80px;">번호</th>
+                    <th>아이디</th>
+                    <th>성명</th>
+                    <th style="width:220px;">권한</th>
+                </tr>
+                </thead>
+                <tbody id="adminTbody"></tbody>
+            </table>
+
+            <div class="pager">
+                <button class="pager-btn active">1</button>
+            </div>
+
+            <div class="actions right">
+                <div class="hint" id="roleHint" style="display:none;"></div>
+                <a id="createBtn"
+                   href="/admin/admin_write"
+                   class="btn-dark btn-small"
+                   style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">
+                    등록
+                </a>
+
+            </div>
+        </div>
+    </main>
+</div>
+<script defer src="/js/admin/admin_fetch.js"></script>
+<script defer src="/js/admin/admin_admin_list.js"></script>
+</body>
+</html>

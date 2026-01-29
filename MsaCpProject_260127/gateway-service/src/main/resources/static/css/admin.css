@@ -1,0 +1,186 @@
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+    margin: 0;
+    font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif;
+    background: #fff;
+    color: #222;
+}
+
+.top-blank { height: 240px; background: #fff; }
+.bottom-blank { height: 120px; background: #fff; }
+.bottom-black { height: 0; background: transparent; }
+
+.hero {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(circle at 12% 25%, rgba(255,255,255,.22) 0 22px, transparent 23px),
+            radial-gradient(circle at 22% 70%, rgba(255,255,255,.14) 0 34px, transparent 35px),
+            radial-gradient(circle at 38% 30%, rgba(255,255,255,.10) 0 26px, transparent 27px),
+            radial-gradient(circle at 55% 65%, rgba(255,255,255,.12) 0 46px, transparent 47px),
+            radial-gradient(circle at 72% 35%, rgba(255,255,255,.10) 0 30px, transparent 31px),
+            radial-gradient(circle at 85% 65%, rgba(255,255,255,.16) 0 38px, transparent 39px),
+            radial-gradient(circle at 92% 30%, rgba(255,255,255,.10) 0 18px, transparent 19px),
+            linear-gradient(135deg, #0a8bd3 0%, #1162b8 35%, #1b3f97 70%, #2b2f8c 100%);
+}
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,.15) 100%);
+    pointer-events: none;
+}
+
+.hero-inner {
+    width: min(980px, 92vw);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.site-title {
+    margin: 0 0 14px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(0,0,0,.55);
+    letter-spacing: -0.4px;
+}
+
+.login-card {
+    width: min(560px, 92vw);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    border: 1px solid rgba(0,0,0,.18);
+    background: #f6f6f6;
+    box-shadow: 0 10px 18px rgba(0,0,0,.18);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+.login-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(120% 70% at 30% 55%, rgba(0,0,0,.06) 0 45%, transparent 46%),
+            radial-gradient(120% 70% at 90% 90%, rgba(0,0,0,.05) 0 48%, transparent 49%);
+    pointer-events: none;
+}
+
+.card-left {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 34px 10px;
+    background: #fbfbfb;
+    border-right: 1px solid rgba(0,0,0,.12);
+    position: relative;
+    z-index: 1;
+}
+.login-word {
+    font-size: 44px;
+    font-weight: 800;
+    color: #2a76c6;
+    letter-spacing: -1px;
+    text-shadow: 0 1px 0 rgba(255,255,255,.7);
+}
+
+.card-right {
+    padding: 24px 26px 22px;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+.welcome {
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+    margin: 6px 0 18px;
+}
+
+.field {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+.field label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #666;
+    text-align: right;
+}
+.field input {
+    height: 28px;
+    padding: 0 10px;
+    border: 1px solid #b9b9b9;
+    background: #fff;
+    outline: none;
+    font-size: 13px;
+}
+.field input:focus {
+    border-color: #2a76c6;
+    box-shadow: 0 0 0 2px rgba(42,118,198,.12);
+}
+
+.btn-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+}
+.btn-login {
+    width: 120px;
+    height: 34px;
+    border: 1px solid #1a5aa8;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(#2f8de6, #0d5fbe);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 2px 0 rgba(0,0,0,.08);
+}
+.btn-login:disabled { opacity: 0.7; cursor: not-allowed; }
+.btn-login:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 1px 0 rgba(0,0,0,.08);
+}
+
+.message {
+    min-height: 18px;
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: #b00020;
+}
+.message.ok { color: #0b7a2a; }
+
+.copyright {
+    margin-top: 26px;
+    font-size: 11px;
+    color: rgba(255,255,255,.75);
+    letter-spacing: .2px;
+}
+
+@media (max-width: 520px) {
+    .login-card { grid-template-columns: 1fr; }
+    .card-left {
+        border-right: 0;
+        border-bottom: 1px solid rgba(0,0,0,.12);
+        justify-content: flex-start;
+    }
+    .login-word { font-size: 38px; }
+    .field { grid-template-columns: 1fr; }
+    .field label { text-align: left; }
+    .btn-row { justify-content: flex-start; }
+}

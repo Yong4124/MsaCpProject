@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/sub.css">
+    <link rel="stylesheet" href="/css/datepicker.min.css">
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/datepicker.min.js"></script>
+    <script src="/js/datepicker.ko.js"></script>
+</head>
+
+<body class="sub">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="wrapper">
+    <form name="applForm" method="post">
+        <input type="hidden" name="SEQ_NO_M210" id="jobId" value="">
+        <input type="hidden" name="postingYn" value="">
+
+        <div class="sub_container">
+            <div class="container">
+
+                <div class="sub_line_tab">
+                    <a href="/company/mypage">회원정보관리</a>
+                    <a href="/company/jobs" class="on">채용공고관리</a>
+                </div>
+
+                <div class="sub_tit mb30" id="compName"></div>
+
+                <!-- 기본 정보 -->
+                <div class="join_box company only mb60">
+                    <div class="join_form">
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th"><font color="red">*</font>공고명</div>
+                                <div class="td"><input type="text" name="TITLE" id="jobTitle" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th"><font color="red">*</font>접수기간</div>
+                                <div class="td">
+                                    <div class="calendar_box">
+                                        <div class="calendar_wrap mw250">
+                                            <input type="text" name="START_DATE" id="startDate" class="input">
+                                        </div>
+                                        <span class="bar">-</span>
+                                        <div class="calendar_wrap mw250">
+                                            <input type="text" name="END_DATE" id="endDate" class="input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_line sm"></div>
+
+                    <div class="join_form">
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">직업유형</div>
+                                <div class="td"><input type="text" name="JOB_FORM" id="jobForm" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">고용형태</div>
+                                <div class="td"><input type="text" name="JOB_TYPE" id="jobType" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">직종</div>
+                                <div class="td"><input type="text" name="JOB_CATEGORY" id="jobCategory" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">업계</div>
+                                <div class="td"><input type="text" name="INDUSTRY" id="industry" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">직급</div>
+                                <div class="td"><input type="text" name="ROLE_LEVEL" id="roleLevel" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">경력</div>
+                                <div class="td"><input type="text" name="EXPERIENCE" id="experience" maxlength="2000" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">기본급</div>
+                                <div class="td"><input type="text" name="BASE_SALARY" id="baseSalary" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">근무시간</div>
+                                <div class="td"><input type="text" name="WORK_TIME" id="workTime" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">근무처</div>
+                                <div class="td"><input type="text" name="JOB_LOCATION" id="workLocation" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 상세 정보 -->
+                <div class="sub_stit mb30">회사소개</div>
+                <div class="mb60"><textarea name="COMPANY_INTRO" id="companyIntro" class="textarea_only h200"></textarea></div>
+
+                <div class="sub_stit mb30">담당업무</div>
+                <div class="mb60"><textarea name="POSITION_SUMMARY" id="positionSummary" class="textarea_only h200"></textarea></div>
+
+                <div class="sub_stit mb30">기술 및 자격요건</div>
+                <div class="mb60"><textarea name="SKILL_QUALIFICATION" id="skillQualification" class="textarea_only h200"></textarea></div>
+
+                <div class="sub_stit mb30">복지 및 보상</div>
+                <div class="mb60"><textarea name="BENEFITS" id="benefits" class="textarea_only h200"></textarea></div>
+
+                <div class="sub_stit mb30">유의사항</div>
+                <div class="mb60"><textarea name="NOTES" id="notes" class="textarea_only h200"></textarea></div>
+
+                <!-- 회사정보 -->
+                <div class="sub_stit mb30">회사정보</div>
+                <div class="join_box company only mb60">
+                    <div class="join_form">
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">기업구분</div>
+                                <div class="td"><input type="text" name="COMPANY_TYPE" id="companyType" maxlength="500" class="input" placeholder="Large / Medium / Small / Foreign firms, etc."></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">설립일</div>
+                                <div class="td"><input type="text" name="ESTABLISHED_DATE" id="establishedDate" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">대표자</div>
+                                <div class="td"><input type="text" name="PRESIDENT_NM" id="ceoName" class="input" readonly></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">사원수</div>
+                                <div class="td"><input type="text" name="EMPLOYEE_NUM" id="employeeNum" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">자본금</div>
+                                <div class="td"><input type="text" name="CAPITAL" id="capital" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">매출액</div>
+                                <div class="td"><input type="text" name="REVENUE" id="revenue" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">회사주소(본사)</div>
+                                <div class="td"><input type="text" name="COMPANY_ADDRESS" id="companyAddress" class="input" readonly></div>
+                            </div>
+                        </div>
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">홈페이지</div>
+                                <div class="td"><input type="text" name="HOMEPAGE" id="homepage" maxlength="500" class="input"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 버튼 영역 -->
+                <div class="btn_area center">
+                    <a href="#" class="btn-cancel" onclick="closeJob(); return false;">공고마감</a>&nbsp;&nbsp;
+                    <a href="javascript:goList();" class="btn-cancel">목록가기</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="/js/jobs.js" defer></script>
+<script src="/js/common.js"></script>
+</body>
+</html>

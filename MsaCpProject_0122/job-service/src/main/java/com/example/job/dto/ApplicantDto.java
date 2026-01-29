@@ -185,11 +185,13 @@ public class ApplicantDto {
     public static class ServiceProofDto {
         private Long id;
         private String fileName;
+        private String filePath;
 
         public static ServiceProofDto from(ServiceProofAttachment attachment) {
             ServiceProofDto dto = new ServiceProofDto();
             dto.setId(attachment.getSeqNoM114());
             dto.setFileName(attachment.getAttachFileNm());
+            dto.setFilePath(attachment.getFilePath());
             return dto;
         }
     }
@@ -199,11 +201,13 @@ public class ApplicantDto {
     public static class ResumeFileDto {
         private Long id;
         private String fileName;
+        private String filePath;
 
         public static ResumeFileDto from(ResumeFileAttachment attachment) {
             ResumeFileDto dto = new ResumeFileDto();
             dto.setId(attachment.getSeqNoM115());
             dto.setFileName(attachment.getAttachFileNm());
+            dto.setFilePath(attachment.getFilePath());
             return dto;
         }
     }

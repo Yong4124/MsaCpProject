@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>주한미군 전역장병 채용 플랫폼</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <meta property="og:title" content="주한미군 전역장병 채용 플랫폼" />
+    <meta property="og:description" content="미국진출 한국 기업과 주한미군 전역 장병을 연결하는 채용 플랫폼" />
+    <meta property="og:image" content="/img/main/main_prev_kr.png" />
+    <meta property="og:url" content="/" />
+
+    <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- 공통 -->
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/sub.css" />
+    <link rel="stylesheet" href="/css/datepicker.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .apply_title_big{
+            font-size: 44px;
+            font-weight: 900;
+            color: #1f5fbf;
+            letter-spacing: -0.4px;
+            margin: 40px 0 18px;
+        }
+
+        .apply_btn_load{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            border-radius: 30px;
+            padding: 12px 22px;
+            background:#1f5fbf;
+            color:#fff;
+            font-weight:900;
+            border:0;
+            cursor:pointer;
+            margin: 0 0 16px;
+        }
+
+        .apply_section_title{
+            font-size: 20px;
+            font-weight: 900;
+            margin: 18px 0 12px;
+        }
+
+        .apply_box{
+            border:1px solid #d9d9d9;
+            border-radius: 22px;
+            padding: 26px 28px;
+            background:#fff;
+        }
+
+        .apply_grid{
+            display:grid;
+            grid-template-columns: 110px 1fr 110px 1fr;
+            gap: 14px 18px;
+            align-items:center;
+        }
+
+        .apply_label{
+            text-align:center;
+            font-weight:900;
+            white-space:nowrap;
+        }
+
+        .apply_field input,
+        .apply_field select,
+        .apply_field textarea{
+            width:100%;
+            border:1px solid #cfcfcf;
+            border-radius:10px;
+            background:#fff;
+            outline:none;
+            font-size: 15px;
+        }
+        .apply_field input, .apply_field select{
+            height: 46px;
+            padding: 0 14px;
+        }
+        .apply_field textarea{
+            padding: 14px;
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .apply_row_wide{
+            grid-column: 1 / -1;
+            display:grid;
+            grid-template-columns: 110px 1fr;
+            gap: 18px;
+            align-items:start;
+        }
+        .apply_row_wide .apply_label{
+            padding-top: 10px;
+        }
+
+        .apply_head_between{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap: 14px;
+        }
+
+        .apply_btn_add{
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
+            border-radius:30px;
+            padding:10px 18px;
+            background:#1f5fbf;
+            color:#fff;
+            font-weight:900;
+            border:0;
+            cursor:pointer;
+        }
+
+        .apply_card{
+            position:relative;
+            border:1px solid #d9d9d9;
+            border-radius:22px;
+            padding: 26px 28px;
+            background:#fff;
+            margin-bottom: 18px;
+        }
+        .apply_btn_remove{
+            position:absolute;
+            right:-22px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border:1px solid #d9d9d9;
+            background:#fff;
+            font-size: 26px;
+            font-weight:900;
+            cursor:pointer;
+        }
+
+        .apply_file_line{
+            border:1px solid #d9d9d9;
+            border-radius: 22px;
+            padding: 18px 20px;
+            background:#fff;
+            display:flex;
+            align-items:center;
+            gap: 14px;
+        }
+        .apply_file_label{
+            width: 60px;
+            text-align:center;
+            font-weight: 900;
+        }
+
+        /* ✅ 추가: 기존 파일 표시용 */
+        .apply_file_hint{
+            font-size: 13px;
+            color:#444;
+            margin-left: 74px;
+            line-height: 1.4;
+            margin-top: 8px;
+        }
+        .apply_file_hint a{ text-decoration: underline; }
+        .apply_file_thumb{
+            margin-left: 74px;
+            margin-top: 8px;
+            max-width: 180px;
+            border-radius: 10px;
+            border:1px solid #ddd;
+        }
+
+        .apply_bottom_btns{
+            display:flex;
+            justify-content:center;
+            gap: 18px;
+            margin-top: 26px;
+        }
+
+        .apply_btn_pill{
+            min-width: 180px;
+            border-radius: 30px;
+            padding: 16px 26px;
+            font-weight: 900;
+            border:0;
+            cursor:pointer;
+        }
+        .apply_btn_save{ background:#1f5fbf; color:#fff; }
+        .apply_btn_submit{ background:#ff6a00; color:#fff; }
+        .apply_btn_list{ background:#bdbdbd; color:#fff; }
+
+        @media (max-width: 980px){
+            .apply_grid{ grid-template-columns: 110px 1fr; }
+            .apply_row_wide{ grid-template-columns: 110px 1fr; }
+            .apply_label{ text-align:left; }
+            .apply_btn_remove{ right: 12px; top:auto; bottom:-22px; transform:none; }
+            .apply_file_line{ flex-direction:column; align-items:flex-start; }
+            .apply_file_label{ width:auto; }
+            .apply_bottom_btns{ flex-direction:column; align-items:center; }
+            .apply_btn_pill{ width:min(420px, 100%); }
+
+            /* ✅ 추가: 모바일에서 margin 줄이기 */
+            .apply_file_hint, .apply_file_thumb{ margin-left: 0; }
+        }
+    </style>
+</head>
+
+<body class="sub">
+<div class="wrapper">
+
+    <!-- ✅ 공통 헤더 (Navbar Fragment) 유지 -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="sub_container">
+        <div class="container">
+
+            <div class="sub_tit_wrap between">
+                <div class="sub_tit">지원서 작성</div>
+            </div>
+
+            <!-- ✅ method="post" 추가 (FormData 안정성) -->
+            <form id="applyForm" enctype="multipart/form-data" method="post">
+                <!-- ✅ 수정(안전장치): data-required만 추가 -->
+                <input type="hidden" name="SEQ_NO_M210" id="SEQ_NO_M210" data-required="true">
+
+                <!-- ✅ 추가: 기존 파일 경로 유지용 hidden (ApplyRequest 필드명 그대로) -->
+                <input type="hidden" name="photoPath" id="PHOTO_PATH">
+                <input type="hidden" name="serviceProofPath" id="PROOF_PATH">
+                <input type="hidden" name="resumeFilePath" id="RESUME_FILE_PATH">
+
+                <!-- 공고 타이틀 -->
+                <div class="apply_title_big" id="jobTitle">지원서 작성</div>
+
+                <!-- 이력서 불러오기 -->
+                <button type="button" class="apply_btn_load" id="loadResumeBtn">이력서 불러오기</button>
+
+                <!-- 인적사항 -->
+                <div class="apply_section_title">인적사항</div>
+                <div class="apply_box">
+                    <div class="apply_grid">
+                        <div class="apply_label">이름</div>
+                        <div class="apply_field"><input type="text" name="name" id="NAME_VIEW" readonly></div>
+
+                        <div class="apply_label">성별</div>
+                        <div class="apply_field"><input type="text" name="gender" id="GENDER_VIEW" readonly></div>
+
+                        <div class="apply_label">생년월일</div>
+                        <div class="apply_field"><input type="text" name="birthDate" id="BIRTH_VIEW" readonly></div>
+
+                        <div class="apply_label">이메일</div>
+                        <div class="apply_field"><input type="text" name="EMAIL" id="EMAIL"></div>
+
+                        <div class="apply_label">전화번호</div>
+                        <div class="apply_field"><input type="text" name="PHONE" id="PHONE"></div>
+
+                        <div class="apply_row_wide">
+                            <div class="apply_label">주소</div>
+                            <div class="apply_field"><input type="text" name="ADDRESS" id="ADDRESS"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 최종학력 -->
+                <div class="apply_section_title" style="margin-top:26px;">최종학력</div>
+                <div class="apply_box">
+                    <div class="apply_grid">
+                        <div class="apply_label">학교</div>
+                        <div class="apply_field"><input type="text" name="SCHOOL" id="SCHOOL"></div>
+
+                        <div class="apply_label">전공명</div>
+                        <div class="apply_field"><input type="text" name="MAJOR" id="MAJOR"></div>
+
+                        <div class="apply_label">입학년월</div>
+                        <div class="apply_field"><input type="text" name="ENROLL_DATE" id="ENROLL_DATE" placeholder="YYYY-MM"></div>
+
+                        <div class="apply_label">졸업년월</div>
+                        <div class="apply_field"><input type="text" name="GRADUATE_DATE" id="GRADUATE_DATE" placeholder="YYYY-MM"></div>
+
+                        <div class="apply_label">학점</div>
+                        <div class="apply_field"><input type="text" name="GPA" id="GPA"></div>
+
+                        <div class="apply_label">졸업상태</div>
+                        <div class="apply_field">
+                            <select name="GRADUATE_STATUS" id="GRADUATE_STATUS">
+                                <option value="">선택</option>
+                                <option value="1">졸업</option>
+                                <option value="2">졸업예정</option>
+                                <option value="3">재학</option>
+                                <option value="4">휴학</option>
+                                <option value="5">중퇴</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 기술 -->
+                <div class="apply_section_title" style="margin-top:26px;">기술</div>
+                <div class="apply_box">
+                    <div class="apply_field">
+                        <textarea name="SKILL" id="SKILL" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- 경력 -->
+                <div class="apply_head_between" style="margin-top:26px;">
+                    <div class="apply_section_title" style="margin:0;">경력</div>
+                    <button type="button" class="apply_btn_add" id="careerAddBtn">+ 추가</button>
+                </div>
+                <div id="careerList"></div>
+
+                <!-- 자격증 기술 -->
+                <div class="apply_head_between" style="margin-top:26px;">
+                    <div class="apply_section_title" style="margin:0;">자격증 기술</div>
+                    <button type="button" class="apply_btn_add" id="licenseAddBtn">+ 추가</button>
+                </div>
+                <div id="licenseList"></div>
+
+                <!-- 자기소개서 -->
+                <div class="apply_section_title" style="margin-top:26px;">자기소개서</div>
+                <div class="apply_box">
+                    <div class="apply_field">
+                        <textarea name="SELF_INTRO" id="SELF_INTRO" rows="7"></textarea>
+                    </div>
+                </div>
+
+                <!-- 첨부 -->
+                <div class="apply_section_title" style="margin-top:26px;">사진 첨부</div>
+                <div class="apply_file_line">
+                    <div class="apply_file_label">첨부</div>
+                    <input type="file" name="ATTACH_FILE_NM_M113" id="ATTACH_FILE_NM_M113" accept="image/*">
+                </div>
+                <!-- ✅ 추가: 기존 사진 표시 -->
+                <div class="apply_file_hint" id="PHOTO_HINT" style="display:none;"></div>
+                <img id="PHOTO_THUMB" class="apply_file_thumb" style="display:none;" alt="photo">
+
+                <div class="apply_section_title" style="margin-top:26px;">'주한미군 전역장병 증빙자료' 또는 '복무증명서' 첨부</div>
+                <div class="apply_file_line">
+                    <div class="apply_file_label">첨부</div>
+                    <input type="file" name="ATTACH_FILE_NM_M114" id="ATTACH_FILE_NM_M114">
+                </div>
+                <!-- ✅ 추가: 기존 증빙 표시 -->
+                <div class="apply_file_hint" id="PROOF_HINT" style="display:none;"></div>
+
+                <div class="apply_section_title" style="margin-top:26px;">이력서 첨부</div>
+                <div class="apply_file_line">
+                    <div class="apply_file_label">첨부</div>
+                    <input type="file" name="ATTACH_FILE_NM_M115" id="ATTACH_FILE_NM_M115">
+                </div>
+                <!-- ✅ 추가: 기존 이력서 표시 -->
+                <div class="apply_file_hint" id="RESUME_HINT" style="display:none;"></div>
+
+                <!-- 하단 버튼 -->
+                <div class="apply_bottom_btns">
+                    <button type="button" class="apply_btn_pill apply_btn_save" id="tempSaveBtn">임시저장</button>
+                    <button type="submit" class="apply_btn_pill apply_btn_submit" id="submitBtn">제출하기</button>
+                    <button type="button" class="apply_btn_pill apply_btn_list" id="listBtn">목록가기</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ✅ 공통 푸터 (Footer Fragment) 유지 -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+
+<script src="/js/common.js?v=1"></script>
+<script src="/js/personal/apply.js"></script>
+</body>
+</html>

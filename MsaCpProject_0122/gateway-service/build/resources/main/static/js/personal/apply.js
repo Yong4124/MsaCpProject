@@ -297,6 +297,11 @@
                 agency: l?.agency ?? "",
                 certificateNum: l?.certificateNum ?? l?.certificate_num ?? "",
             })),
+
+            // 첨부파일 정보
+            photoPath: data?.photoPath ?? "",
+            serviceProofFiles: data?.serviceProofFiles ?? [],
+            resumeFiles: data?.resumeFiles ?? [],
         };
     }
 

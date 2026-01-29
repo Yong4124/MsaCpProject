@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보관리 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"/>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+
+    <style>
+        /* 날짜 입력 필드 스타일 */
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* ✅ 체크박스/라디오 버튼 완전히 재정의 - 절대적 우선순위! */
+        input[type="checkbox"],
+        input[type="radio"] {
+            /* 기본 스타일 강제 적용 */
+            -webkit-appearance: auto !important;
+            -moz-appearance: auto !important;
+            appearance: auto !important;
+
+            /* 표시 관련 */
+            display: inline-block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+
+            /* 위치 관련 */
+            position: relative !important;
+
+            /* 크기 관련 */
+            width: 16px !important;
+            height: 16px !important;
+            min-width: 16px !important;
+            min-height: 16px !important;
+
+            /* 여백 관련 */
+            margin: 0 8px 0 0 !important;
+            padding: 0 !important;
+
+            /* 기타 */
+            cursor: pointer !important;
+            border: 1px solid #999 !important;
+            background: white !important;
+            vertical-align: middle !important;
+        }
+
+        /* ✅ 라벨 스타일도 완전히 재정의 */
+        .icheck label,
+        .iradio label {
+            display: inline !important;
+            position: relative !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            cursor: pointer !important;
+            background: none !important;
+            background-image: none !important;
+            font-size: 14px !important;
+            vertical-align: middle !important;
+        }
+
+        /* ✅ 가상 요소 제거 */
+        .icheck label::before,
+        .icheck label::after,
+        .iradio label::before,
+        .iradio label::after {
+            display: none !important;
+            content: none !important;
+        }
+
+        /* ✅ 체크박스/라디오 그룹 스타일 */
+        .icheck_wrap,
+        .iradio_wrap {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 10px !important;
+        }
+
+        .icheck,
+        .iradio {
+            display: inline-flex !important;
+            align-items: center !important;
+            margin-right: 15px !important;
+            margin-bottom: 10px !important;
+        }
+
+        /* 복무 연도/주둔지 래퍼 */
+        .year_wrap {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        /* 이름 필드 */
+        .name_wrap {
+            display: flex;
+            gap: 10px;
+        }
+
+        .name_wrap .last_nm,
+        .name_wrap .first_nm {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body class="sub">
+<div class="wrapper">
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <form name="rpForm" method="post">
+        <!-- Hidden Fields -->
+        <input type="hidden" name="userIdIdx" value="N">
+        <input type="hidden" name="SendCertiNumber" value="">
+        <input type="hidden" name="PW" id="PW" value="">
+        <input type="hidden" name="GENDER" id="GENDER" value="">
+        <input type="hidden" name="RESIDENCE" id="RESIDENCE" value="">
+        <input type="hidden" name="SERVICE_CATEGORY" id="SERVICE_CATEGORY" value="">
+        <input type="hidden" name="SERVICE_BRANCH" id="SERVICE_BRANCH" value="">
+        <input type="hidden" name="SERVICE_YEAR" id="SERVICE_YEAR" value="">
+        <input type="hidden" name="SERVICE_STATION" id="SERVICE_STATION" value="">
+
+        <div class="sub_container">
+            <div class="container">
+
+                <div class="sub_line_tab">
+                    <a href="/mypage" class="on">회원정보관리</a>
+                    <a href="/personalJobs">지원현황</a>
+                </div>
+
+
+                <!-- 페이지 제목 -->
+                <div class="sub_tit mb20">회원정보관리</div>
+                <div class="sub_txt mb60">회원님의 정보를 수정·확인하실 수 있습니다. (이름, 생년월일 변경 불가)</div>
+
+                <!-- 회원정보 섹션 -->
+                <div class="sub_stit mb30">회원정보</div>
+                <div class="join_box only">
+                    <div class="join_form">
+
+                        <!-- 아이디 (수정 불가) -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">아이디</div>
+                                <div class="td">
+                                    <div class="filebtn">
+                                        <div class="filebtn_in">
+                                            <input type="text"
+                                                   class="input"
+                                                   name="ID"
+                                                   id="ID"
+                                                   maxlength="100"
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 이름 (수정 불가) -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">이름</div>
+                                <div class="td">
+                                    <input type="text"
+                                           name="NAME"
+                                           id="NAME"
+                                           class="input"
+                                           placeholder="이름"
+                                           maxlength="500"
+                                           readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 비밀번호 변경 여부 -->
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">
+                                    <div class="icheck">
+                                        <div class="th">비밀번호를 수정하시겠습니까?
+                                            <div class="iradio_wrap">
+                                                <div class="iradio">
+                                                    <input type="radio"
+                                                           name="PW_AGREE"
+                                                           id="PW_AGREE1"
+                                                           value="1">
+                                                    <label for="PW_AGREE1">예</label>
+                                                </div>
+                                                <div class="iradio">
+                                                    <input type="radio"
+                                                           name="PW_AGREE"
+                                                           id="PW_AGREE2"
+                                                           value="2"
+                                                           checked>
+                                                    <label for="PW_AGREE2">아니오</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 비밀번호 -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">비밀번호</div>
+                                <div class="td">
+                                    <input type="password"
+                                           name="PW1"
+                                           id="PW1"
+                                           class="input"
+                                           placeholder="8~16자의 영문, 숫자, 특수기호"
+                                           onkeyup="noSpaceForm(this);"
+                                           onchange="noSpaceForm(this);"
+                                           maxlength="16">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 비밀번호 확인 -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">비밀번호 확인</div>
+                                <div class="td">
+                                    <input type="password"
+                                           name="PW2"
+                                           id="PW2"
+                                           class="input"
+                                           onkeyup="noSpaceForm(this);"
+                                           onchange="noSpaceForm(this);"
+                                           maxlength="16">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 생년월일 (수정 불가) -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">생년월일</div>
+                                <div class="td">
+                                    <input type="date"
+                                           name="BIRTH_DATE"
+                                           id="BIRTH_DATE"
+                                           class="input"
+                                           max="9999-12-31"
+                                           readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 성별 -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">성별</div>
+                                <div class="td">
+                                    <div class="iradio_wrap">
+                                        <div class="iradio">
+                                            <input type="radio" name="P_GENDER" id="GENDER1" value="1">
+                                            <label for="GENDER1">남자</label>
+                                        </div>
+                                        <div class="iradio">
+                                            <input type="radio" name="P_GENDER" id="GENDER2" value="2">
+                                            <label for="GENDER2">여자</label>
+                                        </div>
+                                        <div class="iradio">
+                                            <input type="radio" name="P_GENDER" id="GENDER3" value="3">
+                                            <label for="GENDER3">기타</label>
+                                        </div>
+                                        <div class="iradio">
+                                            <input type="radio" name="P_GENDER" id="GENDER4" value="4">
+                                            <label for="GENDER4">무응답</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 현재 거주지 -->
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">현재 거주지</div>
+                                <div class="td">
+                                    <div class="iradio_wrap">
+                                        <div class="iradio">
+                                            <input type="radio" name="P_RESIDENCE" id="RESIDENCE1" value="1">
+                                            <label for="RESIDENCE1">기타</label>
+                                        </div>
+                                        <div class="iradio">
+                                            <input type="radio" name="P_RESIDENCE" id="RESIDENCE2" value="2">
+                                            <label for="RESIDENCE2">대한민국</label>
+                                        </div>
+                                        <div class="iradio">
+                                            <input type="radio" name="P_RESIDENCE" id="RESIDENCE3" value="3">
+                                            <label for="RESIDENCE3">미국</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 구분선 -->
+                    <div class="form_line"></div>
+
+                    <!-- 복무 정보 -->
+                    <div class="join_form">
+
+                        <!-- 계급/직급 -->
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">현재 또는 전역 당시 계급/직급/등급</div>
+                                <div class="td">
+                                    <input type="text"
+                                           name="LAST_RANK"
+                                           id="LAST_RANK"
+                                           class="input"
+                                           maxlength="500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 복무 형태 -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">한국 복무 당시 복무 형태</div>
+                                <div class="td">
+                                    <select name="P_SERVICE_CATEGORY" id="P_SERVICE_CATEGORY" class="select">
+                                        <option value="">옵션선택</option>
+                                        <option value="1">USFK</option>
+                                        <option value="2">KATUSA</option>
+                                        <option value="3">CFC (ROK)</option>
+                                        <option value="4">Retired MND, JCS, and/or services (ROK)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 소속 군 -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">한국 복무 당시 소속 군</div>
+                                <div class="td">
+                                    <select name="P_SERVICE_BRANCH" id="P_SERVICE_BRANCH" class="select">
+                                        <option value="">옵션선택</option>
+                                        <option value="1">KATUSA</option>
+                                        <option value="2">ROK Air Force</option>
+                                        <option value="3">ROK Army</option>
+                                        <option value="4">ROK Marine Corps</option>
+                                        <option value="5">ROK Navy</option>
+                                        <option value="6">ROKA Support Group</option>
+                                        <option value="7">U.S Air Force</option>
+                                        <option value="8">U.S Army</option>
+                                        <option value="9">U.S DoD Personnel</option>
+                                        <option value="10">U.S Marine Corps</option>
+                                        <option value="11">U.S Navy</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 복무 연도 (체크박스) -->
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">한국에서 복무한 연도</div>
+                                <div class="td">
+                                    <div class="year_wrap">
+                                        <div class="icheck_wrap" id="service-year-grid">
+                                            <!-- JavaScript로 동적 생성 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 복무 주둔지 (체크박스) -->
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">한국에서 복무한 주둔지</div>
+                                <div class="td">
+                                    <div class="year_wrap third">
+                                        <div class="icheck_wrap" id="service-station-grid">
+                                            <!-- JavaScript로 동적 생성 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 부대 및 직책 -->
+                        <div class="item full">
+                            <div class="field">
+                                <div class="th">부대 및 직책</div>
+                                <div class="td">
+                                    <input type="text"
+                                           name="UNIT_POSITON"
+                                           id="UNIT_POSITON"
+                                           class="input"
+                                           maxlength="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 이메일 (변경 시 인증 필요) -->
+                        <div class="item">
+                            <div class="field xsshortmar">
+                                <div class="th">이메일 인증</div>
+                                <div class="td">
+                                    <div class="filebtn">
+                                        <div class="filebtn_in">
+                                            <input type="text"
+                                                   class="input"
+                                                   name="EMAIL"
+                                                   id="EMAIL"
+                                                   placeholder="이메일"
+                                                   maxlength="100">
+                                            <a href="javascript:sendMail();" class="fbtn noplus">인증번호 발송</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 인증번호 확인 -->
+                        <div class="item">
+                            <div class="field">
+                                <div class="th">인증번호 확인</div>
+                                <div class="td">
+                                    <input type="text"
+                                           class="input"
+                                           name="CERTI_NUM"
+                                           id="CERTI_NUM"
+                                           placeholder="인증번호를 입력해주세요"
+                                           maxlength="6"
+                                           oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 버튼 영역 -->
+                    <div class="btn_area center">
+                        <a href="javascript:goWriteAct();" class="btn-submit">수정하기</a>&nbsp;&nbsp;
+                        <a href="javascript:goDeleteAct();" class="btn-cancel">탈퇴하기</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </form>
+
+</div>
+
+<script src="/js/common.js?v=1"></script>
+<script src="/js/personal/mypage.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지원현황 - 주한미군 전역장병 채용 플랫폼</title>
+
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"/>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+
+    <style>
+        /* ✅ mypage 톤 유지하면서 지원현황 카드만 추가 */
+
+        .apply_topbar {
+            display:flex;
+            gap:12px;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:20px;
+        }
+        .apply_filters {
+            display:flex;
+            gap:10px;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+        .apply_filters .select,
+        .apply_filters .input {
+            height:44px;
+        }
+        .apply_filters .input {
+            width: 360px;
+            max-width: 100%;
+        }
+        .apply_btn {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            height:44px;
+            padding:0 14px;
+            border-radius:6px;
+            border:1px solid #ddd;
+            background:#fff;
+            cursor:pointer;
+            font-size:14px;
+        }
+
+        .apply_list {
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+
+        .apply_card {
+            border:1px solid #e5e5e5;
+            border-radius:10px;
+            padding:18px;
+            background:#fff;
+        }
+
+        .apply_card_top {
+            display:flex;
+            align-items:flex-start;
+            justify-content:space-between;
+            gap:14px;
+        }
+
+        .apply_left {
+            display:flex;
+            gap:14px;
+            min-width:0;
+        }
+
+        .apply_logo {
+            width:52px;
+            height:52px;
+            border-radius:10px;
+            border:1px solid #eee;
+            background:#fafafa;
+            overflow:hidden;
+            flex:0 0 auto;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .apply_logo img {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .apply_title_wrap {
+            min-width:0;
+        }
+
+        .apply_company {
+            font-size:13px;
+            color:#666;
+            margin-bottom:4px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+        .apply_title {
+            font-size:18px;
+            font-weight:700;
+            color:#111;
+            line-height:1.25;
+            margin-bottom:10px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+
+        .badge_row {
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+        }
+        .badge {
+            display:inline-flex;
+            align-items:center;
+            height:26px;
+            padding:0 10px;
+            border-radius:999px;
+            font-size:12px;
+            border:1px solid #e5e5e5;
+            background:#f7f7f7;
+            color:#333;
+        }
+        .badge.blue { background:#eef4ff; border-color:#d7e5ff; color:#1f4b99; }
+        .badge.green { background:#eefaf3; border-color:#d5f2df; color:#1b6b3a; }
+        .badge.red { background:#fff0f0; border-color:#ffd9d9; color:#b42318; }
+        .badge.dark { background:#f2f2f2; border-color:#e1e1e1; color:#111; }
+
+        .apply_right {
+            display:flex;
+            flex-direction:column;
+            align-items:flex-end;
+            gap:10px;
+            flex:0 0 auto;
+        }
+
+        .apply_actions {
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+            justify-content:flex-end;
+        }
+        .apply_actions .fbtn,
+        .apply_actions .apply_btn {
+            height:36px;
+        }
+
+        .apply_meta_grid {
+            display:grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap:10px 18px;
+            margin-top:14px;
+            padding-top:14px;
+            border-top:1px solid #eee;
+        }
+        .meta_item {
+            display:flex;
+            gap:8px;
+            align-items:baseline;
+            min-width:0;
+        }
+        .meta_k {
+            flex:0 0 auto;
+            font-size:12px;
+            color:#888;
+        }
+        .meta_v {
+            font-size:14px;
+            color:#222;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+
+        .empty_box {
+            border:1px dashed #ddd;
+            border-radius:10px;
+            padding:40px 18px;
+            text-align:center;
+            color:#666;
+            background:#fafafa;
+        }
+
+        .pager {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:10px;
+            margin-top:18px;
+        }
+        .pager .apply_btn[disabled]{
+            opacity:.5;
+            cursor:not-allowed;
+        }
+        .pager_info {
+            font-size:13px;
+            color:#666;
+            min-width:120px;
+            text-align:center;
+        }
+
+        @media (max-width: 640px) {
+            .apply_card_top { flex-direction:column; align-items:stretch; }
+            .apply_right { align-items:flex-start; }
+            .apply_actions { justify-content:flex-start; }
+            .apply_meta_grid { grid-template-columns: 1fr; }
+            .apply_filters .input { width: 100%; }
+        }
+    </style>
+</head>
+
+<body class="sub">
+<div class="wrapper">
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <div class="sub_container">
+        <div class="container">
+
+            <div class="sub_line_tab">
+                <a href="/mypage">회원정보관리</a>
+                <a href="/applystatus" class="on">지원현황</a>
+            </div>
+
+            <!-- 페이지 제목 -->
+            <div class="sub_tit mb20">지원현황</div>
+            <div class="sub_txt mb60">지원한 공고와 진행 상태를 확인할 수 있습니다.</div>
+
+            <div class="join_box only">
+                <div class="join_form">
+
+                    <!-- 상단 필터/검색 -->
+                    <div class="apply_topbar">
+                        <div class="apply_filters">
+                            <select id="statusFilter" class="select">
+                                <option value="ALL">전체</option>
+                                <option value="TEMP">임시저장</option>
+                                <option value="SUBMITTED">제출완료</option>
+                                <option value="CANCELED">지원취소</option>
+                            </select>
+
+                            <input id="q" class="input" type="text" placeholder="공고명/회사명 검색"/>
+
+                            <button type="button" class="apply_btn" id="btnSearch">검색</button>
+                            <button type="button" class="apply_btn" id="btnReset">초기화</button>
+                        </div>
+
+                        <div>
+                            <span id="totalText" style="font-size:13px; color:#666;"></span>
+                        </div>
+                    </div>
+
+                    <!-- 리스트 -->
+                    <div id="applyList" class="apply_list"></div>
+
+                    <!-- 페이징 -->
+                    <div class="pager" id="pager" style="display:none;">
+                        <button type="button" class="apply_btn" id="btnPrev">이전</button>
+                        <div class="pager_info" id="pagerInfo">1 / 1</div>
+                        <button type="button" class="apply_btn" id="btnNext">다음</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</div>
+
+<script src="/js/common.js?v=1"></script>
+<script src="/js/personal/applystatus.js?v=1"></script>
+</body>
+
+</html>

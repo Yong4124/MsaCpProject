@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>관리자 - 기업회원 상세</title>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-left">주한미군 전역장병 채용 플랫폼 관리자</div>
+    <div class="topbar-right">
+        <span id="welcomeText">관리자님 환영합니다.</span>
+        <button id="logoutBtn" class="btn-dark">로그아웃</button>
+    </div>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <a class="menu" href="/admin/user_list">개인회원 관리</a>
+        <a class="menu active" href="/admin/company_list">기업회원 관리</a>
+        <a class="menu" href="/admin/stats">통계</a>
+        <a class="menu" href="/admin/admin_list">관리자관리</a>
+    </aside>
+
+    <main class="content">
+        <div class="content-inner">
+            <h1 class="page-title">기업회원 관리</h1>
+            <div class="divider"></div>
+
+            <!-- 승인 여부 -->
+            <div style="margin: 14px 0;">
+                <label style="font-weight:600; margin-right:10px;">회원승인여부</label>
+                <label style="display:inline-flex; align-items:center; gap:8px;">
+                    <input type="checkbox" id="approvalCheckbox">
+                    승인
+                </label>
+                <span style="color:#777; font-size:12px; margin-left:10px;">
+          (승인 체크 시 기업회원 담당자 이메일로 승인 알림 메일이 발송됩니다.)
+        </span>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th style="width:160px;">회사명</th>
+                    <td><input class="input" id="company" readonly></td>
+                    <th style="width:160px;">그룹사명</th>
+                    <td><input class="input" id="parentCompanyCd" readonly></td>
+                </tr>
+
+                <tr>
+                    <th>사업자등록번호</th>
+                    <td><input class="input" id="businessRegistNum" readonly></td>
+                    <th>대표자명</th>
+                    <td><input class="input" id="presidentNm" readonly></td>
+                </tr>
+
+                <tr>
+                    <th>회사주소(본사)</th>
+                    <td colspan="3"><input class="input" id="companyAddress" readonly></td>
+                </tr>
+
+                <tr>
+                    <th>아이디</th>
+                    <td><input class="input" id="loginId" readonly></td>
+                    <th>담당자명</th>
+                    <td><input class="input" id="managerNm" readonly></td>
+                </tr>
+
+                <tr>
+                    <th>전화번호</th>
+                    <td><input class="input" id="phone" readonly></td>
+                    <th>이메일</th>
+                    <td><input class="input" id="email" readonly></td>
+                </tr>
+
+                <tr>
+                    <th>부서</th>
+                    <td colspan="3"><input class="input" id="department" readonly></td>
+                </tr>
+
+                <tr>
+                    <th>기업로고</th>
+                    <td colspan="3"><a id="logoLink" href="#" target="_blank"></a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="actions" style="justify-content:center; gap:12px; margin-top:18px;">
+                <button class="btn-dark wide" id="saveBtn" type="button">저장</button>
+                <button class="btn-dark wide" type="button" onclick="location.href='/admin/company_list'" style="background:#777;">목록</button>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="/js/admin/admin_nav.js"></script>
+<script defer src="/js/admin/admin_fetch.js"></script>
+<script defer src="/js/admin/admin_company_detail.js"></script>
+</body>
+</html>
